@@ -135,4 +135,8 @@ export default class EmbedViewManager extends EventEmitter {
 	getComponent() {
 		return EmbedView;
 	}
+
+	edit( editor, content ) {
+		editor.execCommand( 'embedEditLink', content );
+	}
 }

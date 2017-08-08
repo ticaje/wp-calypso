@@ -22,6 +22,8 @@ var tinymce = require( 'tinymce/tinymce' ),
 import views from './views';
 import { renderWithReduxStore } from 'lib/react-helpers';
 import { getSelectedSiteId } from 'state/ui/selectors';
+import EmbedDialog from 'components/tinymce/plugins/wpcom-view/views/embed/embed-dialog';
+import LinkDialog from 'components/tinymce/plugins/wplink/dialog';  //tmp
 
 /**
  * WordPress View plugin.
@@ -824,6 +826,49 @@ function wpview( editor ) {
 			event.stopPropagation();
 		}
 	});
+
+
+	function footemp(a) {
+		//console.log('a',a);
+		// what is this supposed to be?
+		// it's not getting called, but it's required to be here
+	}
+
+	// shoujld maybe go elsewhere?
+	editor.addCommand( 'embedEditLink', content => {
+		function renderModal( visibility = 'show' ) {
+			let node = editor.selection.getNode();    // not sure if retrieved this correctly
+		    const store = editor.getParam( 'redux_store' );    // not sure if retrieved this correctly
+
+		    //console.log('node',node);
+		    //console.log( 'store',store);
+
+			renderWithReduxStore(
+				React.createElement( EmbedDialog, {
+					// this works, but it's hiding it by default
+					// also creating infinite number instead of creating 1 and reusing
+					isVisible: true,
+					embedUrl: content,
+					footemp, //remove this, but need to replace w/ something else? orjust random piece of data copy/pasted?
+					onInsert( productData ) {   // rename
+						console.log( 'productdata',productData ); // this isn't firing
+
+						editor.execCommand( 'mceInsertContent', false, serialize( productData ) );
+						renderModal( 'hide' );
+					},
+					onClose() {
+						editor.focus();
+						renderModal( 'hide' );
+					},
+				} ),
+				node,
+				store,
+			);
+		}
+
+		renderModal();
+		return 'test';
+	} );
 
 	editor.addButton( 'wp_view_edit', {
 		tooltip: i18n.translate( 'Edit', { context: 'verb' } ),
