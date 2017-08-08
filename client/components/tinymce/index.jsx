@@ -43,6 +43,7 @@ import afterTheDeadlinePlugin from './plugins/after-the-deadline/plugin';
 import wptextpatternPlugin from './plugins/wptextpattern/plugin';
 import toolbarPinPlugin from './plugins/toolbar-pin/plugin';
 import insertMenuPlugin from './plugins/insert-menu/plugin';
+import embedPlugin from './plugins/embed/plugin';
 import embedReversalPlugin from './plugins/embed-reversal/plugin';
 import EditorHtmlToolbar from 'post-editor/editor-html-toolbar';
 import mentionsPlugin from './plugins/mentions/plugin';
@@ -70,6 +71,7 @@ import wpEmojiPlugin from './plugins/wpemoji/plugin';
 	afterTheDeadlinePlugin,
 	wptextpatternPlugin,
 	toolbarPinPlugin,
+	embedPlugin,
 	embedReversalPlugin,
 	markdownPlugin,
 	wpEmojiPlugin,
@@ -114,6 +116,7 @@ const EVENTS = {
 
 const PLUGINS = [
 	'colorpicker',
+	'embed',
 	'hr',
 	'lists',
 	'media',
