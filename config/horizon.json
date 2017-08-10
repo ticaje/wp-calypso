@@ -32,6 +32,7 @@
 		"jetpack/activity-log": true,
 		"jetpack/api-cache": true,
 		"jetpack_core_inline_update": true,
+		"jitms": false,
 		"keyboard-shortcuts": true,
 		"login/native-login-links": true,
 		"login/wp-login": true,
