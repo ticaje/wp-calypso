@@ -7,6 +7,7 @@ import automatedTransfer from './automated-transfer';
 import blogStickers from './blog-stickers';
 import comments from './comments';
 import commentsTree from './comments-tree';
+import jitm from './jitm';
 import media from './media';
 import plugins from './plugins';
 import posts from './posts';
@@ -18,6 +19,7 @@ export default mergeHandlers(
 	blogStickers,
 	comments,
 	commentsTree,
+	jitm,
 	media,
 	plugins,
 	posts,
