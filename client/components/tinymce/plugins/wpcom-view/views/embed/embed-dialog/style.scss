@@ -1,0 +1,26 @@
+.embed-dialog {
+	padding-bottom: 0;
+}
+
+.embed-dialog__title {
+	color: #4b6476; /* don't see an existing sass color for this */
+}
+
+.embed-dialog__preview {
+	margin: 1.75em -24px 0 -24px; /* counter-act the left/right padding from `.dialog__content`, so that the preview can have a background color that extends to the edge of `.dialog__content` */
+	padding: 24px;
+	margin-top: 1.75em;	/* rem instead? */
+	background: $gray-light; /* get close to #f4f6f8 */
+
+	/* want embed 100% width, mbut that'll distort ratio? need to make modal 640 instead? but will that work for all embeds, or just youtube videos? */
+	/* make margin/padding match the ones around the title, so they're consistent */
+	/* here is that semi-transparent gradient on the bottom coming from? want to remove it */
+	/* poster image is getting edges cropped off. why? started happening when you made your css changes, maybe just from applying classes */
+}
+
+/*
+cancel
+	bg color f3f6f8? is tehre already a button class for that? if not, prob just use whatever already exists, and let shaun ask for revision if he really intended different
+*/
+
+/* look at responsnive. do mobile-first */

@@ -50,6 +50,7 @@ class EmbedDialog extends Component {
 	render() {
 		return (
 			<Dialog
+				className="embed-dialog"
 				isVisible={ this.props.isVisible }
 				onClose={ this.props.onClose }
 				buttons={ [
@@ -61,35 +62,45 @@ class EmbedDialog extends Component {
 					</Button>
 				] }
 			>
-				<h3>Embed URL</h3>
+				<h3 className="embed-dialog__title">Embed URL</h3>
 
 				<FormTextInput
 					defaultValue={ this.state.embedUrl }
 					onChange={ this.onChangeEmbedUrl }
 				/>
 
-				<div className="embed-dialog-preview" dangerouslySetInnerHTML={ { __html: this.state.embedMarkup.body } } />
+				<div className="embed-dialog__preview" dangerouslySetInnerHTML={ { __html: this.state.embedMarkup.body } } />
+				{/*
+				test videos
+					https://www.youtube.com/watch?v=R54QEvTyqO4
+					https://www.youtube.com/watch?v=ghrL82cc-ss
+					get some others video platforms, and maybe some non-video ones too
+
+				explain why it's safe to use dangersouslysetinnerhtml here. but first verify that it actually is safe
+				need to check if embedmarkup.body exists before using it. is there a js equivalent to php's ?? coalecense operator?
+				 */}
+
+				{/*
+				solved problems below w/ PostEditEmbedStore?
+				better way to set the preview content other than dangerouslysetinnerhtml?
+
+				-------
+
+				which component to use to embed the url?
+					will it work with all supported embeds, in addition to youtube?
+					how does core do it? calypso probably has similar thing
+					<ResizableIframe src={ this.state.embedUrl } frameBorder="0" seamless width="100%" />
+
+				security issue above with src="user input", need to use wpcom oembed provider whitelist.
+					lib/embeds/list-store ?
+				also want iframe sandbox params etc?
+				also need to transform to canonical embeddable URL. youtube will block main url via x-frame-options, have to use `/embed/{id}` url
+				shouldn't all those issues be handled by whatever component embeds the url?
+
+				localize strings and test
+				*/}
 			</Dialog>
 		);
-
-		{/*
-		solved problems below w/ PostEditEmbedStore?
-		better way to set the preview content other than dangerouslysetinnerhtml?
-
-
-		which component to use to embed the url?
-			will it work with all supported embeds, in addition to youtube?
-			how does core do it? calypso probably has similar thing
-			<ResizableIframe src={ this.state.embedUrl } frameBorder="0" seamless width="100%" />
-
-		security issue above with src="user input", need to use wpcom oembed provider whitelist.
-			lib/embeds/list-store ?
-		also want iframe sandbox params etc?
-		also need to transform to canonical embeddable URL. youtube will block main url via x-frame-options, have to use `/embed/{id}` url
-		shouldn't all those issues be handled by whatever component embeds the url?
-
-		localize strings
-		*/}
 	}
 }
 
