@@ -829,11 +829,13 @@ function wpview( editor ) {
 	editor.addCommand( 'embedEditLink', content => {
 		const node = editor.selection.getNode();
 		const store = editor.getParam( 'redux_store' );
+		const siteId = getSelectedSiteId( store.getState() );
 
 		renderWithReduxStore(
 			React.createElement( EmbedDialog, {
 				embedUrl: content,
 				isVisible: true,
+				siteId: siteId,
 				onInsert: function( embedUrl ) {
 					editor.execCommand( 'mceInsertContent', false, embedUrl );
 				},
