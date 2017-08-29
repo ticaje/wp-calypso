@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { renderWithReduxStore } from 'lib/react-helpers';
+
 /**
  * Internal dependencies
  */
@@ -11,6 +13,8 @@ import Dialog from 'components/dialog';
 import Button from 'components/button';
 import FormTextInput from 'components/forms/form-text-input';
 import EmbedView from '../view';
+
+import EmbedViewManager from 'components/tinymce/plugins/wpcom-view/views/embed'
 
 // lint branch before commit
 // add jsdoc to all functions
@@ -37,10 +41,41 @@ class EmbedDialog extends Component {
 		isVisible: this.props.isVisible,
 	};
 
+	constructor( props ) {
+		super( ...arguments );
+
+		this.embedViewManager = new EmbedViewManager();
+		this.embedView = this.embedViewManager.getComponent();
+
+		//this.embedViewManager.addListener( 'change', this.foo, this.props.store );  // maybe this is wrong, don't wanna listen for changes on the viewmanager, but on something else? need to remove this when closing dialog?
+	}
+
+	foo = ( event ) => {
+		//console.log( 'foo eve', event );  // causes max stack error
+	};
+
 	onChangeEmbedUrl = ( event ) => {
 		this.setState( {
 			embedUrl: event.target.value,
 		} );
+
+		//this.embedViewManager.onChange();
+		this.embedViewManager.fetchEmbed( event.target.value );
+
+		let node = event.target.parentElement.querySelector( '.embed-dialog__preview' ); // maybe pass in as param or something
+		//console.log('node embedd', node );
+
+		renderWithReduxStore(
+			React.createElement( this.embedView, {
+				content: event.target.value,
+				siteId: this.props.siteId,
+			} ),
+			node,
+			this.props.store
+		);
+		// this is inserting an frame into the div, but it has no src and only a <script> in the body
+			// probably b/c setHtml() isn't getting called, how to make that happen?
+			// maybe still need to add a listener somewhere and have that dispatch an action when the url changes, and tehn that'd have a callback that would update the html when it receives the embed? take another look at how the existing embedviewmanager works
 
 		// need to debounce or something so doesn't update every single keypress
 	};
@@ -75,10 +110,12 @@ class EmbedDialog extends Component {
 					onChange={ this.onChangeEmbedUrl }
 				/>
 
+				<div className="embed-dialog__preview"></div>
+				{/*
 				<EmbedView
 					siteId={ this.props.siteId }
 					content={ this.state.embedUrl }
-				/>
+				/>*/}
 
 				{/*
 				test videos

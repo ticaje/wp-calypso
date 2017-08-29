@@ -23,6 +23,7 @@ class EmbedView extends Component {
 
 		// problem is that calculateState isn't getting called when props changes
 			// it's a built-in flux thing, so it should get called automatically? but maybe need to do something to trigger it?
+			// how does it get called when the component initially renders, or when the tab switches from html to visual?
 
 		// whatever changes you make, make sure they don't have unintended conseuqnces for other usages of this component
 	}
@@ -40,6 +41,8 @@ class EmbedView extends Component {
 	}
 
 	componentWillReceiveProps( nextProps ) {
+		return; // prob don't need to do anything in here if using embedviewmanager
+
 		if ( nextProps.content === this.props.content ) {
 			return;
 		}
@@ -54,9 +57,16 @@ class EmbedView extends Component {
 		this.setState( { body: body } );
 
 		// so now everything is setup, but current problem is that calcstate is returning empty object
+			// maybe b/c not designed to be called directly, or need to pass it somethind different? figure out how it's called for the initial tinymce render and compare to this
+
+		// maybe need to dispatch an action to fetch the embed, and maybe hook into the RECEIVE_EMBED too?
+			// maybe embedviewmanager should dispatch it?
+				// if so, maybe EmbedDialog needs to include EmbedViewMangager instead of EmbedView directly?
+				// it doesn't have a render() function though, so how is it used?
 
 
 		// maybe use lib/embed/actions.fetch() instead of posteditembedstore.get?
+			// maybe, but would need to dispatch action rather than calling directly
 	}
 
 	componentDidUpdate( prevProps, prevState ) {

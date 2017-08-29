@@ -836,6 +836,7 @@ function wpview( editor ) {
 				embedUrl: content,
 				isVisible: true,
 				siteId: siteId,
+				store: store,   // maybe tmp
 				onInsert: function( embedUrl ) {
 					editor.execCommand( 'mceInsertContent', false, embedUrl );
 				},
