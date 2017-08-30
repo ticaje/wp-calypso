@@ -12,13 +12,10 @@ import { renderWithReduxStore } from 'lib/react-helpers';
 import Dialog from 'components/dialog';
 import Button from 'components/button';
 import FormTextInput from 'components/forms/form-text-input';
-import EmbedView from '../view';
-
 import EmbedViewManager from 'components/tinymce/plugins/wpcom-view/views/embed'
 
 // lint branch before commit
 // add jsdoc to all functions
-// add readme to give high-level overview of what it is and how to use it
 // add unit tests
 
 class EmbedDialog extends Component {
@@ -47,39 +44,14 @@ class EmbedDialog extends Component {
 		this.embedViewManager = new EmbedViewManager();
 		this.embedViewManager.updateSite( this.props.siteId );
 		this.embedView = this.embedViewManager.getComponent();
-
-		//this.embedViewManager.addListener( 'change', this.foo, this.props.store );  // maybe this is wrong, don't wanna listen for changes on the viewmanager, but on something else? need to remove this when closing dialog?
 	}
-
-	foo = ( event ) => {
-		//console.log( 'foo eve', event );  // causes max stack error
-	};
 
 	onChangeEmbedUrl = ( event ) => {
 		this.setState( {
 			embedUrl: event.target.value,
 		} );
 
-		//this.embedViewManager.onChange();
 		this.embedViewManager.fetchEmbed( event.target.value );
-
-		let node = event.target.parentElement.querySelector( '.embed-dialog__preview' ); // maybe pass in as param or something
-		//console.log('node embedd', node );
-
-
-		/*
-		renderWithReduxStore(
-			React.createElement( this.embedView, {
-				content: event.target.value,
-				siteId: this.props.siteId,
-			} ),
-			node,
-			this.props.store
-		);
-		*/
-		// this is inserting an frame into the div, but it has no src and only a <script> in the body
-			// probably b/c setHtml() isn't getting called, how to make that happen?
-			// maybe still need to add a listener somewhere and have that dispatch an action when the url changes, and tehn that'd have a callback that would update the html when it receives the embed? take another look at how the existing embedviewmanager works
 
 		// need to debounce or something so doesn't update every single keypress
 	};
@@ -114,10 +86,7 @@ class EmbedDialog extends Component {
 					onChange={ this.onChangeEmbedUrl }
 				/>
 
-				<this.embedView
-					siteId={ this.props.siteId }
-					content={ this.state.embedUrl }
-				/>
+				<this.embedView content={ this.state.embedUrl } />
 
 				{/*
 				test videos
@@ -130,8 +99,6 @@ class EmbedDialog extends Component {
 
 				also verify that only whitelisted embeds will work, and that all other user input is discarded to avoid security issues
 					make sure there aren't any execution sinks, etc
-
-				need to check if embedmarkup.body exists before using it. is there a js equivalent to php's ?? coalecense operator?
 
 				localize strings and test in other locale
 				*/}

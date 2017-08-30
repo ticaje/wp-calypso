@@ -20,12 +20,6 @@ class EmbedView extends Component {
 
 	static calculateState( state, props ) {
 		return EmbedsStore.get( props.content );
-
-		// problem is that calculateState isn't getting called when props changes
-			// it's a built-in flux thing, so it should get called automatically? but maybe need to do something to trigger it?
-			// how does it get called when the component initially renders, or when the tab switches from html to visual?
-
-		// whatever changes you make, make sure they don't have unintended conseuqnces for other usages of this component
 	}
 
 	componentDidMount() {
@@ -40,49 +34,7 @@ class EmbedView extends Component {
 		}, this.setHtml );
 	}
 
-	componentWillReceiveProps( nextProps ) {
-		return; // prob don't need to do anything in here if using embedviewmanager
-
-		if ( nextProps.content === this.props.content ) {
-			return;
-		}
-
-//		console.log( 'com will rec. calc state:' );
-
-		//this.setState( { body: EmbedsStore.get( nextProps.content ) } );
-		//this.setState( { body: EmbedView.calculateState( this.state, nextProps ) } );    // might need to do this AFTER props received
-
-		//const body = "<span class=\"embed-youtube\" style=\"text-align:center; display: block;\"><iframe class='youtube-player' type='text/html' width='640' height='390' src='https://www.youtube.com/embed/iCvmsMzlF7o' allowfullscreen='true' style='border:0;'></iframe></span>";
-		const body = EmbedView.calculateState( this.state, nextProps );
-		this.setState( { body: body } );
-
-		// so now everything is setup, but current problem is that calcstate is returning empty object
-			// maybe b/c not designed to be called directly, or need to pass it somethind different? figure out how it's called for the initial tinymce render and compare to this
-
-		// maybe need to dispatch an action to fetch the embed, and maybe hook into the RECEIVE_EMBED too?
-			// maybe embedviewmanager should dispatch it?
-				// if so, maybe EmbedDialog needs to include EmbedViewMangager instead of EmbedView directly?
-				// it doesn't have a render() function though, so how is it used?
-
-
-		// maybe use lib/embed/actions.fetch() instead of posteditembedstore.get?
-			// maybe, but would need to dispatch action rather than calling directly
-	}
-
 	componentDidUpdate( prevProps, prevState ) {
-		/*console.log( 'embedview compdid update - bodies: ' );
-		console.log( this.state.body );
-		console.log( prevState.body );*/
-
-		//console.log( this.calculateState );
-		//this.calculateState();  // neds to be async?
-
-		// need to understand how this works more. this fires right after the state is updated? or after new props received? prob state
-		// if disable this, need to undersatnd why it was there in the first place. prob don't disable, but add new condition, like if props.content different thatn previous
-		// maybe need to track props.content as state now? but shouldn't have to, right? this whole component should re-render when the props change from the parent being re-rendered
-
-		// how does state.body get updated? by calculateState? how does that get called?
-//prevState.body = 'old temp';
 		if ( this.state.body !== prevState.body ) {
 			this.setHtml();
 		}
