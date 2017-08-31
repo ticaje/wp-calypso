@@ -89,6 +89,23 @@ class EmbedDialog extends Component {
 				<this.embedView content={ this.state.embedUrl } />
 
 				{/*
+				exception thrown when change it twice in a row. - only in FF
+					maybe related to needing to debounce?
+
+				Warning: unmountComponentAtNode(): The node you're attempting to unmount was rendered by another copy of React.
+					wrapConsole/<
+					app:///./client/components/webpack-build-monitor/index.jsx:174:3
+					printWarning
+					app:///./node_modules/fbjs/lib/warning.js:35:7
+					warning
+					app:///./node_modules/fbjs/lib/warning.js:59:7
+					unmountComponentAtNode
+					app:///./node_modules/react-dom/lib/ReactMount.js:443:15
+					wpview/</<
+			   >>>	app:///./client/components/tinymce/plugins/wpcom-view/plugin.js:287:5
+					...
+
+
 				test videos
 					https://www.youtube.com/watch?v=R54QEvTyqO4
 					https://www.youtube.com/watch?v=ghrL82cc-ss

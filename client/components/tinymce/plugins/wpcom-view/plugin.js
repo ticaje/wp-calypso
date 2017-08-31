@@ -828,6 +828,10 @@ function wpview( editor ) {
 
 	editor.addCommand( 'embedEditLink', content => {
 		const node = editor.selection.getNode();
+		console.log('node',node);
+		console.log( window.foo === node ); // it is changing. maybe need to select it some other way. see what other places in calypso use. or maybe it inevitable b/c tinymce replaces things? in that case, maybe just need to destroy the old one
+		window.foo = node;
+
 		const store = editor.getParam( 'redux_store' );
 		const siteId = getSelectedSiteId( store.getState() );
 
@@ -848,6 +852,7 @@ function wpview( editor ) {
 		// this is creating an infinite number instead of creating 1 and reusing
 			// that's what contact-form and simple-payments do, though?
 			// maybe assign the React.createLement statement to a variable, then pass it to renderwithreduxstore?
+		// jeff said: Maybe the `node` value is changing or something
 	} );
 
 	editor.addButton( 'wp_view_edit', {
