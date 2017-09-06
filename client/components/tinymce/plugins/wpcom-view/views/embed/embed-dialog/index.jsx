@@ -69,6 +69,7 @@ class EmbedDialog extends Component {
 		return (
 			<Dialog
 				className="embed-dialog"
+				additionalClassNames="embed-dialog__modal"
 				isVisible={ this.state.isVisible }
 				onClose={ this.onCancel }
 				buttons={ [
@@ -82,6 +83,7 @@ class EmbedDialog extends Component {
 				<h3 className="embed-dialog__title">Embed URL</h3>
 
 				<FormTextInput
+					className="embed-dialog__url"
 					defaultValue={ this.state.embedUrl }
 					onChange={ this.onChangeEmbedUrl }
 				/>

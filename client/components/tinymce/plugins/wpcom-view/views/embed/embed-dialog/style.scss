@@ -1,12 +1,26 @@
+.dialog.card.embed-dialog__modal {
+	width: 80%;
+	max-width: 690px; /* todo bad b/c assumes 640px iframe. design calls for container to match embed width, though. another way to accomplish that? */
+}
+
+.embed-dialog__modal .dialog__action-buttons:before {
+	background: none;
+}
+
 .embed-dialog {
 	padding-bottom: 0;
 }
 
 .embed-dialog__title {
 	color: #4b6476; /* don't see an existing sass color for this */
+	font-weight: bold;	/* too much, need a semi-bold or different font or something, but that wouldn't be the proper way */
 }
 
-.embed-dialog__preview {
+.embed-dialog__url {
+	margin-top: 1em;
+}
+
+.embed-dialog .wpview-type-embed {
 	margin: 1.75em -24px 0 -24px; /* counter-act the left/right padding from `.dialog__content`, so that the preview can have a background color that extends to the edge of `.dialog__content` */
 	padding: 24px;
 	margin-top: 1.75em;	/* rem instead? */
