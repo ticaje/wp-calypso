@@ -13,9 +13,9 @@ import PaginatedQueryManager from '../';
 /**
  * Module constants
  */
-const TestCustomQueryManager = class TermQueryManager extends PaginatedQueryManager {
+class TestCustomQueryManager extends PaginatedQueryManager {
 	static DEFAULT_QUERY = { number: 25 };
-};
+}
 
 describe( 'PaginatedQueryManager', () => {
 	let sandbox, manager;
