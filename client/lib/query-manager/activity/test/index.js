@@ -16,6 +16,8 @@ import ActivityQueryManager from '..';
 const DEFAULT_ACTIVITY_DATE = '2014-09-14T00:30:00+02:00';
 const DEFAULT_ACTIVITY_TS = Date.parse( DEFAULT_ACTIVITY_DATE );
 
+const makeComparator = query => ( a, b ) => ActivityQueryManager.compare( query, a, b );
+
 // TODO: Update with wpcom/v2 style activity stream data
 const DEFAULT_ACTIVITY = deepFreeze( {
 	activityDate: DEFAULT_ACTIVITY_DATE,
@@ -33,11 +35,6 @@ const DEFAULT_ACTIVITY = deepFreeze( {
 } );
 
 describe( 'ActivityQueryManager', () => {
-	let manager;
-	beforeEach( () => {
-		manager = new ActivityQueryManager();
-	} );
-
 	describe( '#matches()', () => {
 		context( 'query.dateStart', () => {
 			it( 'should return true if activity is at the specified time', () => {
@@ -162,7 +159,7 @@ describe( 'ActivityQueryManager', () => {
 
 	describe( '#compare()', () => {
 		it( 'should sort by timestamp descending', () => {
-			const sortFunc = manager.compare.bind( manager, {} );
+			const sortFunc = makeComparator( {} );
 			const activityA = { activityId: 'a', activityTs: 100000 };
 			const activityB = { activityId: 'b', activityTs: 200000 };
 
@@ -170,7 +167,7 @@ describe( 'ActivityQueryManager', () => {
 		} );
 
 		it( 'should include simultaneous events (in any order, sort is unstable)', () => {
-			const sortFunc = manager.compare.bind( manager, {} );
+			const sortFunc = makeComparator( {} );
 			const activityA = { activityId: 'a', activityTs: 100000 };
 			const activityB = { activityId: 'b', activityTs: 100000 };
 
