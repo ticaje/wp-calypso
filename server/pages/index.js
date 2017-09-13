@@ -24,6 +24,7 @@ import { createReduxStore, reducer } from 'state';
 import { DESERIALIZE } from 'state/action-types';
 import { login } from 'lib/paths';
 import { logSectionResponseTime } from './analytics';
+import { receiveUser } from 'state/users/actions';
 
 const debug = debugFactory( 'calypso:pages' );
 
@@ -293,6 +294,7 @@ function setUpLoggedInRoute( req, res, next ) {
 
 			debug( 'Rendering with bootstrapped user object. Fetched in %d ms', end );
 			context.user = data;
+			context.store.dispatch( receiveUser( data ) );
 			context.isRTL = data.isRTL ? true : false;
 
 			if ( data.localeSlug ) {

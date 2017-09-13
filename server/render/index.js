@@ -104,6 +104,10 @@ export function serverRender( req, res ) {
 
 		let reduxSubtrees = [ 'documentHead' ];
 
+		if ( config.isEnabled( 'wpcom-user-bootstrap' ) ) {
+			reduxSubtrees = reduxSubtrees.concat( [ 'users', 'currentUser' ] );
+		}
+
 		// Send redux state only in logged-out scenario
 		if ( isSectionIsomorphic( context.store.getState() ) && ! context.user ) {
 			reduxSubtrees = reduxSubtrees.concat( [ 'ui', 'themes' ] );

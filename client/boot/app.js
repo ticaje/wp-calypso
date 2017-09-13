@@ -23,33 +23,44 @@ import {
 } from './common';
 import createReduxStoreFromPersistedInitialState from 'state/initial-state';
 import detectHistoryNavigation from 'lib/detect-history-navigation';
-import { getUserFromCache, subscribeToUserChanges } from './user';
+import { subscribeToUserChanges, syncUserWithLegacyStore } from './user';
+import { getCurrentUser } from 'state/current-user/selectors';
+import { requestUser } from 'state/users/actions';
 
 const debug = debugFactory( 'calypso' );
 
-const bootProject = ( currentUser, reduxStore ) => {
+const bootProject = reduxStore => {
 	debug( "Starting Calypso. Let's do this." );
-
-	configureReduxStore( currentUser, reduxStore );
 
 	const project = require( `./project/${ PROJECT_NAME }` );
 
-	locales( currentUser, reduxStore );
-	invoke( project, 'locales', currentUser, reduxStore );
+	configureReduxStore( reduxStore );
+	invoke( project, 'configureReduxStore', reduxStore );
+
+	locales( reduxStore );
+	invoke( project, 'locales', reduxStore );
+
 	utils();
 	invoke( project, 'utils' );
-	invoke( project, 'configureReduxStore', currentUser, reduxStore );
-	setupMiddlewares( currentUser, reduxStore );
-	invoke( project, 'setupMiddlewares', currentUser, reduxStore );
+
+	setupMiddlewares( reduxStore );
+	invoke( project, 'setupMiddlewares', reduxStore );
+
 	detectHistoryNavigation.start();
 	page.start( { decodeURLComponents: false } );
 };
 
 window.AppBoot = () => {
 	createReduxStoreFromPersistedInitialState( reduxStore => {
-		bootProject( getUserFromCache( reduxStore ), reduxStore );
-		subscribeToUserChanges( reduxStore, currentUser => {
-			bootProject( currentUser, reduxStore );
-		} );
+		syncUserWithLegacyStore( reduxStore );
+		const userData = getCurrentUser( reduxStore.getState() );
+		if ( userData ) {
+			bootProject( reduxStore );
+		} else {
+			reduxStore.dispatch( requestUser() );
+			subscribeToUserChanges( reduxStore, () => {
+				bootProject( reduxStore );
+			} );
+		}
 	} );
 };

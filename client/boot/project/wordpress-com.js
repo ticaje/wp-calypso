@@ -27,7 +27,8 @@ const config = require( 'config' ),
 	viewport = require( 'lib/viewport' ),
 	pushNotificationsInit = require( 'state/push-notifications/actions' ).init,
 	syncHandler = require( 'lib/wp/sync-handler' ),
-	supportUser = require( 'lib/user/support-user-interop' );
+	supportUser = require( 'lib/user/support-user-interop' ),
+	getCurrentUser = require( 'state/current-user/selectors' ).getCurrentUser;
 
 import { getSelectedSiteId, getSectionName } from 'state/ui/selectors';
 import { setNextLayoutFocus, activateNextLayoutFocus } from 'state/ui/layout-focus/actions';
@@ -56,13 +57,13 @@ export function utils() {
 	translatorJumpstart.init();
 }
 
-export const configureReduxStore = ( currentUser, reduxStore ) => {
+export const configureReduxStore = ( reduxStore ) => {
 	debug( 'Executing WordPress.com configure Redux store.' );
 
 	supportUser.setReduxStore( reduxStore );
 	reduxBridge.setReduxStore( reduxStore );
 
-	if ( currentUser.get() ) {
+	if ( getCurrentUser( reduxStore.getState() ) ) {
 		if ( config.isEnabled( 'push-notifications' ) ) {
 			// If the browser is capable, registers a service worker & exposes the API
 			reduxStore.dispatch( pushNotificationsInit() );
@@ -70,12 +71,14 @@ export const configureReduxStore = ( currentUser, reduxStore ) => {
 	}
 };
 
-export function setupMiddlewares( currentUser, reduxStore ) {
+export function setupMiddlewares( reduxStore ) {
 	debug( 'Executing WordPress.com setup middlewares.' );
 
 	analytics.setDispatch( reduxStore.dispatch );
 
-	if ( currentUser.get() ) {
+	const currentUser = getCurrentUser( reduxStore.getState() );
+
+	if ( currentUser ) {
 		// When logged in the analytics module requires user and superProps objects
 		// Inject these here
 		analytics.initialize( currentUser, superProps );
@@ -95,7 +98,7 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 			require( 'lib/catch-js-errors/log' ).registerLogger( errorLogger );
 			//Save data to JS error logger
 			errorLogger.saveDiagnosticData( {
-				user_id: currentUser.get().ID,
+				user_id: currentUser.ID,
 				calypso_env: config( 'env_id' )
 			} );
 			errorLogger.saveDiagnosticReducer( function() {
@@ -168,7 +171,7 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 	} );
 
 	page( '*', function( context, next ) {
-		if ( '/me/account' !== context.path && currentUser.get().phone_account ) {
+		if ( '/me/account' !== context.path && currentUser && currentUser.phone_account ) {
 			page( '/me/account' );
 		}
 
@@ -182,7 +185,7 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 		[ 'signupProgress', 'signupDependencies' ].forEach( store.remove );
 	}
 
-	if ( ! currentUser.get() ) {
+	if ( ! currentUser ) {
 		// Dead-end the sections the user can't access when logged out
 		page( '*', function( context, next ) {
 			//see server/pages/index for prod redirect
