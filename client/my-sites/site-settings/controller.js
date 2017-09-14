@@ -10,6 +10,7 @@ import React from 'react';
 import AsyncLoad from 'components/async-load';
 import config from 'config';
 import DeleteSite from './delete-site';
+import ConfirmDisconnection from './confirm-disconnection';
 import purchasesPaths from 'me/purchases/paths';
 import { renderWithReduxStore } from 'lib/react-helpers';
 import SiteSettingsMain from 'my-sites/site-settings/main';
@@ -146,6 +147,13 @@ const controller = {
 		renderPage(
 			context,
 			<ThemeSetup />
+		);
+	},
+
+	confirmDisconnection( context ) {
+		renderPage(
+			context,
+			<ConfirmDisconnection />
 		);
 	},
 
