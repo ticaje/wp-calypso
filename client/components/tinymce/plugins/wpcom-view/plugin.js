@@ -829,30 +829,58 @@ function wpview( editor ) {
 	editor.addCommand( 'embedEditLink', content => {
 		const node = editor.selection.getNode();
 		console.log('node',node);
-		console.log( window.foo === node ); // it is changing. maybe need to select it some other way. see what other places in calypso use. or maybe it inevitable b/c tinymce replaces things? in that case, maybe just need to destroy the old one
-		window.foo = node;
+		//console.log( window.foo === node );
 
-		const store = editor.getParam( 'redux_store' );
-		const siteId = getSelectedSiteId( store.getState() );
+		// maybe it changes b/c it's a node that tinemyce dynmaically creates a destroys? need to create our own permenant element outside of the editor instead?
 
-		renderWithReduxStore(
-			React.createElement( EmbedDialog, {
-				embedUrl: content,
-				isVisible: true,
-				siteId: siteId,
-				store: store,   // maybe tmp
-				onInsert: function( embedUrl ) {
-					editor.execCommand( 'mceInsertContent', false, embedUrl );
-				},
-			} ),
-			node,
-			store,
-		);
+		// it is changing. maybe need to select it some other way. see what other places in calypso use.
+		// or maybe it inevitable b/c tinymce replaces things? in that case, maybe just need to destroy the old one
 
 		// this is creating an infinite number instead of creating 1 and reusing
 			// that's what contact-form and simple-payments do, though?
 			// maybe assign the React.createLement statement to a variable, then pass it to renderwithreduxstore?
 		// jeff said: Maybe the `node` value is changing or something
+
+		// wp_help creates an empty dom element when editor loads and reuses it
+
+		/*
+		let node;
+		if ( window.foo ) {
+			node = window.foo;
+			console.log('reused foo');
+		} else {
+			window.foo = node = editor.selection.getNode();
+			console.log('new foo')
+		}
+
+		console.log( 'foo', window.foo );
+        */
+
+
+		const store = editor.getParam( 'redux_store' );
+		const siteId = getSelectedSiteId( store.getState() );
+
+		ReactDom.render(
+			React.createElement( EmbedDialog, {
+				embedUrl: content,
+				isVisible: true,
+				siteId: siteId,
+				onInsert: function( embedUrl ) {
+					console.log('oninsert', embedUrl );
+					// ugh, somewhere along the line this broke. now it's just inserting it into the anchor text at the begining of the editor content.
+					// maybe it always did that? need to reproduce reliably, might have to click in and out of embed focus, open/close, etc. or maybe it hapepns every time now.
+						// caused by calling this.embedViewManager.updateSite( this.props.siteId ); -- wtf, why?
+					// huh, if you do it several times in a row, it will work some times but not others. never seen it work on first load though
+					editor.execCommand( 'mceInsertContent', false, embedUrl );
+					editor.focus(); // otherwise the user has to click outside the element and then back on it again if they want the edit/remove dialog to re-appear -- todo explain better
+					// do on cancel too
+				},
+			} ),
+			node
+		);
+
+
+		// bugs with ctrl-z after editing?
 	} );
 
 	editor.addButton( 'wp_view_edit', {

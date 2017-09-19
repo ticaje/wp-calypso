@@ -3,8 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import { renderWithReduxStore } from 'lib/react-helpers';
+import { debounce } from 'lodash';
 
 /**
  * Internal dependencies
@@ -24,6 +23,7 @@ class EmbedDialog extends Component {
 		isVisible: PropTypes.bool,
 		onInsert: PropTypes.func.isRequired,
 			// change to not required and set default to noop? or go the other direction and make embedurl and siteid required too?
+			// probably rename to something more generic, b/c this could be used outside of tinymce context
 		siteId: PropTypes.number,
 	};
 
@@ -42,18 +42,40 @@ class EmbedDialog extends Component {
 		super( ...arguments );
 
 		this.embedViewManager = new EmbedViewManager();
+		console.log('---------------------------before');
+		// try fetching caret position before and after this. keep in mind it may be async
 		this.embedViewManager.updateSite( this.props.siteId );
+		console.log('---------------------------after');
 		this.embedView = this.embedViewManager.getComponent();
+
+
+
+	}
+
+	componentWillMount() {
+		this.debouncedUpdateEmbedPreview = debounce( function() {
+			console.log('debounced call');
+			this.embedViewManager.fetchEmbed( this.state.embedUrl );
+
+
+			document.getElementsByClassName('embed-dialog__url')[0].focus(); // todo hack to avoid focus stealiing
+		}, 500 );
 	}
 
 	onChangeEmbedUrl = ( event ) => {
+		console.log( 'onchange - focus:', document.activeElement );
+
 		this.setState( {
 			embedUrl: event.target.value,
 		} );
 
-		this.embedViewManager.fetchEmbed( event.target.value );
+		this.debouncedUpdateEmbedPreview();
 
-		// need to debounce or something so doesn't update every single keypress
+
+		// the debounce works, but the focus is jumping back to the start of the editor, probably related to the onInsert problem.
+		// maybe it's because the embedview inside the editor is also refreshing? how to stop that to test if that fixes problem?
+
+		event.target.focus(); //todo hack to avoid focus stealiing
 	};
 
 	onCancel = () => {
@@ -66,6 +88,7 @@ class EmbedDialog extends Component {
 	};
 
 	render() {
+
 		return (
 			<Dialog
 				className="embed-dialog"
@@ -106,7 +129,6 @@ class EmbedDialog extends Component {
 					wpview/</<
 			   >>>	app:///./client/components/tinymce/plugins/wpcom-view/plugin.js:287:5
 					...
-
 
 				test videos
 					https://www.youtube.com/watch?v=R54QEvTyqO4
