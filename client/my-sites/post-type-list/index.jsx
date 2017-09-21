@@ -12,6 +12,7 @@ import { isEqual, range, throttle } from 'lodash';
 import QueryPosts from 'components/data/query-posts';
 import { getSelectedSiteId } from 'state/ui/selectors';
 import {
+	isRequestingSitePostsForQueryIgnoringPage,
 	isRequestingSitePostsForQuery,
 	getSitePostsForQueryIgnoringPage,
 	getSitePostsLastPageForQuery
@@ -29,9 +30,10 @@ class PostTypeList extends Component {
 
 		// Connected props
 		siteId: PropTypes.number,
-		lastPage: PropTypes.number,
 		posts: PropTypes.array,
-		requestingLastPage: PropTypes.bool,
+		isRequestingPosts: PropTypes.bool,
+		lastPage: PropTypes.number,
+		isRequestingLastPage: PropTypes.bool,
 	};
 
 	constructor() {
@@ -67,7 +69,7 @@ class PostTypeList extends Component {
 	}
 
 	maybeLoadNextPage() {
-		const { scrollContainer, lastPage } = this.props;
+		const { scrollContainer, lastPage, isRequestingPosts } = this.props;
 		if ( ! scrollContainer ) {
 			return;
 		}
@@ -81,7 +83,11 @@ class PostTypeList extends Component {
 		}
 		const pixelsBelowViewport = scrollHeight - scrollTop - clientHeight;
 		const { maxRequestedPage } = this.state;
-		if ( pixelsBelowViewport <= 200 && maxRequestedPage < lastPage ) {
+		if (
+			pixelsBelowViewport <= 200 &&
+			maxRequestedPage < lastPage &&
+			! isRequestingPosts
+		) {
 			this.setState( {
 				maxRequestedPage: maxRequestedPage + 1,
 			} );
@@ -89,10 +95,10 @@ class PostTypeList extends Component {
 	}
 
 	isLastPage() {
-		const { lastPage, requestingLastPage } = this.props;
+		const { lastPage, isRequestingLastPage } = this.props;
 		const { maxRequestedPage } = this.state;
 
-		return maxRequestedPage === lastPage && ! requestingLastPage;
+		return maxRequestedPage === lastPage && ! isRequestingLastPage;
 	}
 
 	renderPlaceholder() {
@@ -158,8 +164,21 @@ export default connect( ( state, ownProps ) => {
 
 	return {
 		siteId,
+		posts: getSitePostsForQueryIgnoringPage(
+			state,
+			siteId,
+			ownProps.query
+		),
+		isRequestingPosts: isRequestingSitePostsForQueryIgnoringPage(
+			state,
+			siteId,
+			ownProps.query
+		),
 		lastPage,
-		posts: getSitePostsForQueryIgnoringPage( state, siteId, ownProps.query ),
-		requestingLastPage: isRequestingSitePostsForQuery( state, siteId, { ...ownProps.query, page: lastPage } )
+		isRequestingLastPage: isRequestingSitePostsForQuery(
+			state,
+			siteId,
+			{ ...ownProps.query, page: lastPage }
+		),
 	};
 } )( PostTypeList );
