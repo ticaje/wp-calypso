@@ -4,15 +4,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import {
-	difference,
-	get,
-	includes,
-	isEqual,
-	range,
-	size,
-	throttle,
-} from 'lodash';
+import { isEqual, range, throttle } from 'lodash';
 
 /**
  * Internal dependencies
@@ -26,12 +18,6 @@ import {
 } from 'state/posts/selectors';
 import PostItem from 'blocks/post-item';
 import PostTypeListEmptyContent from './empty-content';
-
-/**
- * Constants
- */
-const DEFAULT_POSTS_PER_PAGE = 20;
-const LOAD_OFFSET = 10;
 
 class PostTypeList extends Component {
 	static propTypes = {
