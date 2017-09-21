@@ -59,6 +59,15 @@ class PostTypeList extends Component {
 		}
 	}
 
+	componentDidUpdate( prevProps ) {
+		if ( prevProps.isRequestingPosts && ! this.props.isRequestingPosts ) {
+			// We just finished loading a page.  If the bottom of the list is
+			// still visible on screen (or almost visible), then we should go
+			// ahead and load the next page.
+			this.maybeLoadNextPage();
+		}
+	}
+
 	componentDidMount() {
 		this.maybeLoadNextPage();
 	}
@@ -126,12 +135,11 @@ class PostTypeList extends Component {
 	}
 
 	render() {
-		const { query, siteId, posts } = this.props;
+		const { query, siteId, posts, isRequestingPosts } = this.props;
 		const { maxRequestedPage } = this.state;
-		const isLoadingFirstPage = ! posts;
-		const isEmpty = query && posts && ! posts.length && this.isLastPage();
+		const isLoadedAndEmpty = query && posts && ! posts.length && ! isRequestingPosts;
 		const classes = classnames( 'post-type-list', {
-			'is-empty': isEmpty
+			'is-empty': isLoadedAndEmpty
 		} );
 
 		return (
@@ -142,15 +150,15 @@ class PostTypeList extends Component {
 						siteId={ siteId }
 						query={ { ...query, page } } />
 				) ) }
-				{ isEmpty && ! isLoadingFirstPage && (
+				{ posts && (
+					posts.map( this.renderPost )
+				) }
+				{ isLoadedAndEmpty && (
 					<PostTypeListEmptyContent
 						type={ query.type }
 						status={ query.status } />
 				) }
-				{ ! isEmpty && ! isLoadingFirstPage && (
-					posts.map( this.renderPost )
-				) }
-				{ ( isLoadingFirstPage || ! this.isLastPage() ) && (
+				{ isRequestingPosts && (
 					this.renderPlaceholder()
 				) }
 			</div>
