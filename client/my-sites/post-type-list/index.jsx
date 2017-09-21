@@ -39,6 +39,7 @@ class PostTypeList extends Component {
 		query: PropTypes.object,
 		largeTitles: PropTypes.bool,
 		wrapTitles: PropTypes.bool,
+		scrollContainer: PropTypes.object,
 
 		// Connected props
 		siteId: PropTypes.number,
@@ -52,65 +53,60 @@ class PostTypeList extends Component {
 
 		this.renderPost = this.renderPost.bind( this );
 		this.renderPlaceholder = this.renderPlaceholder.bind( this );
-		this.setRequestedPages = this.setRequestedPages.bind( this );
+
+		this.maybeLoadNextPage = this.maybeLoadNextPage.bind( this );
+		this.scrollListener = throttle( this.maybeLoadNextPage, 100 );
+		window.addEventListener( 'scroll', this.scrollListener );
 
 		this.state = {
-			requestedPages: this.getInitialRequestedPages( this.props )
+			maxRequestedPage: 1,
 		};
 	}
 
 	componentWillReceiveProps( nextProps ) {
 		if ( ! isEqual( this.props.query, nextProps.query ) ) {
 			this.setState( {
-				requestedPages: this.getInitialRequestedPages( nextProps )
+				maxRequestedPage: 1,
 			} );
 		}
 	}
 
-	getInitialRequestedPages( props ) {
-		// If we have no posts or we're otherwise not expecting any posts to be
-		// rendered, request the first page, since setRequestedPages won't be
-		// called if row count is 0.
-		if ( 0 === size( props.posts ) ) {
-			return [ 1 ];
-		}
-
-		return [];
+	componentDidMount() {
+		this.maybeLoadNextPage();
 	}
 
-	getPageForIndex( index ) {
-		const { query, lastPage } = this.props;
-		const perPage = query.number || DEFAULT_POSTS_PER_PAGE;
-		const page = Math.ceil( index / perPage );
-
-		return Math.max( Math.min( page, lastPage || Infinity ), 1 );
+	componentWillUnmount() {
+		window.removeEventListener( 'scroll', this.scrollListener );
+		this.scrollListener.cancel(); // Cancel any pending scroll events
 	}
 
-	setRequestedPages( { startIndex, stopIndex } ) {
-		if ( ! this.props.query ) {
+	maybeLoadNextPage() {
+		const { scrollContainer, lastPage } = this.props;
+		if ( ! scrollContainer ) {
 			return;
 		}
-
-		const { requestedPages } = this.state;
-		const pagesToRequest = difference( range(
-			this.getPageForIndex( startIndex - LOAD_OFFSET ),
-			this.getPageForIndex( stopIndex + LOAD_OFFSET ) + 1
-		), requestedPages );
-
-		if ( ! pagesToRequest.length ) {
+		const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+		if (
+			typeof scrollTop !== 'number' ||
+			typeof scrollHeight !== 'number' ||
+			typeof clientHeight !== 'number'
+		) {
 			return;
 		}
-
-		this.setState( {
-			requestedPages: requestedPages.concat( pagesToRequest )
-		} );
+		const pixelsBelowViewport = scrollHeight - scrollTop - clientHeight;
+		const { maxRequestedPage } = this.state;
+		if ( pixelsBelowViewport <= 200 && maxRequestedPage < lastPage ) {
+			this.setState( {
+				maxRequestedPage: maxRequestedPage + 1,
+			} );
+		}
 	}
 
 	isLastPage() {
 		const { lastPage, requestingLastPage } = this.props;
-		const { requestedPages } = this.state;
+		const { maxRequestedPage } = this.state;
 
-		return includes( requestedPages, lastPage ) && ! requestingLastPage;
+		return maxRequestedPage === lastPage && ! requestingLastPage;
 	}
 
 	renderPlaceholder() {
@@ -139,6 +135,8 @@ class PostTypeList extends Component {
 
 	render() {
 		const { query, siteId, posts } = this.props;
+		const { maxRequestedPage } = this.state;
+		const isLoadingFirstPage = ! posts;
 		const isEmpty = query && posts && ! posts.length && this.isLastPage();
 		const classes = classnames( 'post-type-list', {
 			'is-empty': isEmpty
@@ -146,21 +144,23 @@ class PostTypeList extends Component {
 
 		return (
 			<div className={ classes }>
-				{ query && this.state.requestedPages.map( ( page ) => (
+				{ query && range( 1, maxRequestedPage + 1 ).map( page => (
 					<QueryPosts
 						key={ `query-${ page }` }
 						siteId={ siteId }
 						query={ { ...query, page } } />
 				) ) }
-				{ isEmpty && (
+				{ isEmpty && ! isLoadingFirstPage && (
 					<PostTypeListEmptyContent
 						type={ query.type }
 						status={ query.status } />
 				) }
-				{ ! isEmpty && (
+				{ ! isEmpty && ! isLoadingFirstPage && (
 					posts.map( this.renderPost )
 				) }
-				{ ! this.isLastPage() && this.renderPlaceholder() }
+				{ ( isLoadingFirstPage || ! this.isLastPage() ) && (
+					this.renderPlaceholder()
+				) }
 			</div>
 		);
 	}

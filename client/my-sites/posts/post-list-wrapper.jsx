@@ -53,6 +53,7 @@ class PostListWrapper extends React.Component {
 						query={ query }
 						largeTitles={ true }
 						wrapTitles={ true }
+						scrollContainer={ document.body }
 					/>
 				</PostListFetcher>
 			</div>

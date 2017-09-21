@@ -39,6 +39,7 @@ function Types( { siteId, query, postType, postTypeSupported, userCanEdit } ) {
 					query={ userCanEdit ? query : null }
 					largeTitles={ true }
 					wrapTitles={ true }
+					scrollContainer={ document.body }
 				/>,
 			] }
 			{ false === postTypeSupported && (
