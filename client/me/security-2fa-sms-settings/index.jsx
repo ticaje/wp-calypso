@@ -252,4 +252,4 @@ export default connect(
 	{
 		requestUser,
 	},
-)( formBase( protectForm( Security2faSMSSettings ) ) );
+)( protectForm( formBase( Security2faSMSSettings ) ) );
