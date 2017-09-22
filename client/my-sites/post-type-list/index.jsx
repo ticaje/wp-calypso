@@ -53,7 +53,7 @@ class PostTypeList extends Component {
 		this.scrollListener = throttle( this.maybeLoadNextPage, 100 );
 		window.addEventListener( 'scroll', this.scrollListener );
 
-		const maxRequestedPage = this.estimatePageCountFromPosts();
+		const maxRequestedPage = this.estimatePageCountFromPosts( this.props.posts );
 		this.state = {
 			maxRequestedPage,
 		};
@@ -61,8 +61,11 @@ class PostTypeList extends Component {
 	}
 
 	componentWillReceiveProps( nextProps ) {
-		if ( ! isEqual( this.props.query, nextProps.query ) ) {
-			const maxRequestedPage = this.estimatePageCountFromPosts();
+		if (
+			! isEqual( this.props.query, nextProps.query ) ||
+			! isEqual( this.props.siteId, nextProps.siteId )
+		) {
+			const maxRequestedPage = this.estimatePageCountFromPosts( nextProps.posts );
 			this.setState( {
 				maxRequestedPage,
 			} );
@@ -106,18 +109,18 @@ class PostTypeList extends Component {
 		this.scrollListener.cancel(); // Cancel any pending scroll events
 	}
 
-	estimatePageCountFromPosts() {
+	estimatePageCountFromPosts( posts ) {
 		// When loading posts from persistent storage, we want to avoid making
 		// a bunch of sequential requests when the user scrolls down to the end
 		// of the list.  However, we want to still request the posts, in case
 		// some data has changed since the last page reload.  This will spawn a
 		// number of concurrent requests for different pages of the posts list.
 
-		const { posts, query } = this.props;
 		if ( ! posts || ! posts.length ) {
 			return 1;
 		}
 
+		const query = this.props.query || {};
 		const postsPerPage = query.number || DEFAULT_POST_QUERY.number;
 		const pageCount = Math.ceil( posts.length / postsPerPage );
 
