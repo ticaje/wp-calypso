@@ -18,7 +18,6 @@ import config from 'config';
 import { setRoute as setRouteAction } from 'state/ui/actions';
 import switchLocale from 'lib/i18n-utils/switch-locale';
 import touchDetect from 'lib/touch-detect';
-import { subscribeToUserChanges } from './user';
 import { getCurrentUser } from 'state/current-user/selectors';
 
 const debug = debugFactory( 'calypso' );
@@ -149,13 +148,9 @@ export const locales = ( reduxStore ) => {
 
 	const currentUser = getCurrentUser( reduxStore.getState() );
 
-	// When the user is not bootstrapped, we also bootstrap the
-	// locale strings
 	if ( currentUser ) {
 		switchUserLocale( currentUser );
 	}
-
-	subscribeToUserChanges( reduxStore, switchUserLocale );
 };
 
 export const utils = () => {
