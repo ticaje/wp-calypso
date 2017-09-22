@@ -3,14 +3,16 @@
  */
 import React from 'react';
 import Gridicon from 'gridicons';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
  */
 import invitationUtils from './invitation-utils';
 import { ga as googleAnalytics } from 'lib/analytics';
+import { requestUser } from 'state/users/actions';
 
-export default React.createClass( {
+const CommunityTranslatorInvitation = React.createClass( {
 	displayName: 'CommunityTranslatorInvitation',
 
 	propTypes: {
@@ -69,7 +71,9 @@ export default React.createClass( {
 
 	acceptButton: function() {
 		recordEvent( 'Clicked Accept Button' );
-		invitationUtils.activate();
+		invitationUtils.activate().then( () => {
+			this.props.requestUser();
+		} );
 	},
 
 	dismissButton: function() {
@@ -86,3 +90,10 @@ export default React.createClass( {
 function recordEvent( eventAction ) {
 	googleAnalytics.recordEvent( 'Translator Invitation', eventAction );
 }
+
+export default connect(
+	null,
+	{
+		requestUser,
+	}
+)( CommunityTranslatorInvitation );
