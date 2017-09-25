@@ -1,12 +1,15 @@
 /**
+ * External dependencies
+ */
+const fs = require( 'fs' );
+const path = require( 'path' );
+
+/**
  * Internal dependencies
  */
-import config from 'config';
-import extensions from 'extensions';
-import fs from 'fs';
-import path from 'path';
-
+const config = require( 'config' );
 const sections = require( config( 'project' ) );
+const extensions = require( 'extensions' );
 
 const extensionSections = extensions.map( extension => {
 	try {
@@ -34,4 +37,4 @@ sections.push( {
 	enableLoggedOut: true
 } );
 
-export default sections.concat( extensionSections.filter( Boolean ) );
+module.exports = sections.concat( extensionSections.filter( Boolean ) );

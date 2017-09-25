@@ -1,33 +1,29 @@
 /**
- * External dependencies
+ * External Dependencies
  */
-import i18n from 'i18n-calypso';
-import { get } from 'lodash';
 import page from 'page';
 import qs from 'qs';
+import i18n from 'i18n-calypso';
 import React from 'react';
+import { get } from 'lodash';
 
 /**
- * Internal dependencies
+ * Internal Dependencies
  */
-import DomainSearch from './domain-search';
-import SiteRedirect from './domain-search/site-redirect';
-import CartData from 'components/data/cart';
-import CartData from 'components/data/cart';
-import CartData from 'components/data/cart';
-import CartData from 'components/data/cart';
-import Main from 'components/main';
-import GoogleApps from 'components/upgrades/google-apps';
 import analytics from 'lib/analytics';
+import route from 'lib/route';
+import Main from 'components/main';
+import upgradesActions from 'lib/upgrades/actions';
+import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import productsFactory from 'lib/products-list';
 import { renderWithReduxStore } from 'lib/react-helpers';
-import route from 'lib/route';
-import upgradesActions from 'lib/upgrades/actions';
-import MapDomain from 'my-sites/domains/map-domain';
-import { getCurrentUser } from 'state/current-user/selectors';
-import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import { canCurrentUser } from 'state/selectors';
-import { getSelectedSiteId, getSelectedSite, getSelectedSiteSlug } from 'state/ui/selectors';
+import {
+	getSelectedSiteId,
+	getSelectedSite,
+	getSelectedSiteSlug
+} from 'state/ui/selectors';
+import { getCurrentUser } from 'state/current-user/selectors';
 
 /**
  * Module variables
@@ -51,6 +47,8 @@ const domainsAddRedirectHeader = ( context, next ) => {
 };
 
 const domainSearch = ( context ) => {
+	const CartData = require( 'components/data/cart' );
+	const DomainSearch = require( './domain-search' );
 	const basePath = route.sectionify( context.path );
 
 	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
@@ -78,6 +76,8 @@ const domainSearch = ( context ) => {
 };
 
 const siteRedirect = ( context ) => {
+	const CartData = require( 'components/data/cart' );
+	const SiteRedirect = require( './domain-search/site-redirect' );
 	const basePath = route.sectionify( context.path );
 
 	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
@@ -97,6 +97,8 @@ const siteRedirect = ( context ) => {
 };
 
 const mapDomain = ( context ) => {
+	const CartData = require( 'components/data/cart' );
+	const MapDomain = require( 'my-sites/domains/map-domain' ).default;
 	const basePath = route.sectionify( context.path );
 
 	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
@@ -119,7 +121,10 @@ const mapDomain = ( context ) => {
 };
 
 const googleAppsWithRegistration = ( context ) => {
-    // FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+	const CartData = require( 'components/data/cart' );
+	const GoogleApps = require( 'components/upgrades/google-apps' );
+
+	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
 	context.store.dispatch( setTitle(
 		i18n.translate( 'Register %(domain)s', {
 			args: { domain: context.params.registerDomain }

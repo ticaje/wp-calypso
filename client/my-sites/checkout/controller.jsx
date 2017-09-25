@@ -1,29 +1,20 @@
 /**
- * External dependencies
+ * External Dependencies
  */
 import i18n from 'i18n-calypso';
-import { isEmpty } from 'lodash';
-import React from 'react';
 import ReactDom from 'react-dom';
+import React from 'react';
+import { isEmpty } from 'lodash';
 
 /**
- * Internal dependencies
+ * Internal Dependencies
  */
-import SecondaryCart from './cart/secondary-cart';
-import SecondaryCart from './cart/secondary-cart';
-import Checkout from './checkout';
-import Checkout from './checkout';
-import CheckoutThankYouComponent from './checkout-thank-you';
-import CartData from 'components/data/cart';
-import CartData from 'components/data/cart';
-import CheckoutData from 'components/data/checkout';
-import CheckoutData from 'components/data/checkout';
 import analytics from 'lib/analytics';
-import productsFactory from 'lib/products-list';
-import { renderWithReduxStore } from 'lib/react-helpers';
 import route from 'lib/route';
 import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import { setSection } from 'state/ui/actions';
+import productsFactory from 'lib/products-list';
+import { renderWithReduxStore } from 'lib/react-helpers';
 import { getSelectedSite } from 'state/ui/selectors';
 
 /**
@@ -31,9 +22,15 @@ import { getSelectedSite } from 'state/ui/selectors';
  */
 const productsList = productsFactory();
 
-export default {
+module.exports = {
 	checkout: function( context ) {
-		let basePath = route.sectionify( context.path ), product = context.params.product, selectedFeature = context.params.feature;
+		var Checkout = require( './checkout' ),
+			CheckoutData = require( 'components/data/checkout' ),
+			CartData = require( 'components/data/cart' ),
+			SecondaryCart = require( './cart/secondary-cart' ),
+			basePath = route.sectionify( context.path ),
+			product = context.params.product,
+			selectedFeature = context.params.feature;
 
 		const state = context.store.getState();
 		const selectedSite = getSelectedSite( state );
@@ -75,7 +72,12 @@ export default {
 	},
 
 	sitelessCheckout: function( context ) {
-	    analytics.pageView.record( '/checkout/no-site', 'Checkout' );
+		const Checkout = require( './checkout' ),
+			CheckoutData = require( 'components/data/checkout' ),
+			CartData = require( 'components/data/cart' ),
+			SecondaryCart = require( './cart/secondary-cart' );
+
+		analytics.pageView.record( '/checkout/no-site', 'Checkout' );
 
 		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
 		context.store.dispatch( setTitle( i18n.translate( 'Checkout' ) ) );
@@ -105,7 +107,9 @@ export default {
 	},
 
 	checkoutThankYou: function( context ) {
-		const basePath = route.sectionify( context.path ), receiptId = Number( context.params.receiptId );
+		const CheckoutThankYouComponent = require( './checkout-thank-you' ),
+			basePath = route.sectionify( context.path ),
+			receiptId = Number( context.params.receiptId );
 
 		analytics.pageView.record( basePath, 'Checkout Thank You' );
 
