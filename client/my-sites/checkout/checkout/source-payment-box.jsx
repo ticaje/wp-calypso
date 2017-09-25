@@ -38,6 +38,7 @@ class SourcePaymentBox extends PureComponent {
 	constructor() {
 		super();
 		this.redirectToPayment = this.redirectToPayment.bind( this );
+		this.handleChange = this.handleChange.bind( this );
 	}
 
 	getLocationOrigin( l ) {
