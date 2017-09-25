@@ -1,57 +1,56 @@
 /**
- * External dependencies
+ * External Dependencies
  */
-import { localize } from 'i18n-calypso';
 import page from 'page';
-import PropTypes from 'prop-types';
+import { localize } from 'i18n-calypso';
 import React from 'react';
-import { connect } from 'react-redux';
 
 /**
- * Internal dependencies
+ * Internal Dependencies
  */
-import { getPurchase, goToCancelPurchase, isDataLoading, recordPageView } from '../utils';
+import analytics from 'lib/analytics';
 import cancellationReasons from './cancellation-reasons';
-import ConfirmCancelDomainLoadingPlaceholder from './loading-placeholder';
+import { cancelAndRefundPurchase } from 'lib/upgrades/actions';
 import Card from 'components/card';
-import QueryUserPurchases from 'components/data/query-user-purchases';
+import { clearPurchases } from 'state/purchases/actions';
+import ConfirmCancelDomainLoadingPlaceholder from './loading-placeholder';
+import { connect } from 'react-redux';
 import FormButton from 'components/forms/form-button';
 import FormCheckbox from 'components/forms/form-checkbox';
 import FormLabel from 'components/forms/form-label';
 import FormSectionHeading from 'components/forms/form-section-heading';
 import FormTextarea from 'components/forms/form-textarea';
 import HeaderCake from 'components/header-cake';
-import Main from 'components/main';
-import SelectDropdown from 'components/select-dropdown';
-import analytics from 'lib/analytics';
-import { isDomainRegistration } from 'lib/products-values';
-import { getName as getDomainName } from 'lib/purchases';
-import { receiveDeletedSite as receiveDeletedSiteDeprecated } from 'lib/sites-list/actions';
-import { cancelAndRefundPurchase } from 'lib/upgrades/actions';
-import userFactory from 'lib/user';
-import paths from 'me/purchases/paths';
-import titles from 'me/purchases/titles';
-import notices from 'notices';
-import { clearPurchases } from 'state/purchases/actions';
-import { getByPurchaseId, hasLoadedUserPurchasesFromServer } from 'state/purchases/selectors';
 import { isDomainOnlySite as isDomainOnly } from 'state/selectors';
+import { getByPurchaseId, hasLoadedUserPurchasesFromServer } from 'state/purchases/selectors';
+import { getName as getDomainName } from 'lib/purchases';
+import { getPurchase, goToCancelPurchase, isDataLoading, recordPageView } from '../utils';
+import { getSelectedSite as getSelectedSiteSelector } from 'state/ui/selectors';
+import { isDomainRegistration } from 'lib/products-values';
+import { isRequestingSites } from 'state/sites/selectors';
+import Main from 'components/main';
+import notices from 'notices';
+import paths from 'me/purchases/paths';
+import QueryUserPurchases from 'components/data/query-user-purchases';
+import { receiveDeletedSite as receiveDeletedSiteDeprecated } from 'lib/sites-list/actions';
 import { receiveDeletedSite } from 'state/sites/actions';
 import { refreshSitePlans } from 'state/sites/plans/actions';
-import { isRequestingSites } from 'state/sites/selectors';
+import SelectDropdown from 'components/select-dropdown';
 import { setAllSitesSelected } from 'state/ui/actions';
-import { getSelectedSite as getSelectedSiteSelector } from 'state/ui/selectors';
+import titles from 'me/purchases/titles';
+import userFactory from 'lib/user';
 
 const user = userFactory();
 
 const ConfirmCancelDomain = React.createClass( {
 	propTypes: {
-		hasLoadedUserPurchasesFromServer: PropTypes.bool.isRequired,
-		isDomainOnlySite: PropTypes.bool,
-		purchaseId: PropTypes.number.isRequired,
-		receiveDeletedSite: PropTypes.func.isRequired,
-		selectedPurchase: PropTypes.object,
-		selectedSite: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ),
-		setAllSitesSelected: PropTypes.func.isRequired,
+		hasLoadedUserPurchasesFromServer: React.PropTypes.bool.isRequired,
+		isDomainOnlySite: React.PropTypes.bool,
+		purchaseId: React.PropTypes.number.isRequired,
+		receiveDeletedSite: React.PropTypes.func.isRequired,
+		selectedPurchase: React.PropTypes.object,
+		selectedSite: React.PropTypes.oneOfType( [ React.PropTypes.bool, React.PropTypes.object ] ),
+		setAllSitesSelected: React.PropTypes.func.isRequired,
 	},
 
 	getInitialState() {

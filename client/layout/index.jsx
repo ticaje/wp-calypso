@@ -1,48 +1,45 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
-import createReactClass from 'create-react-class';
 import { property, sortBy } from 'lodash';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
+var React = require( 'react' ),
+	connect = require( 'react-redux' ).connect,
+	classnames = require( 'classnames' );
 
 /**
  * Internal dependencies
  */
-import TranslatorInvitation from './community-translator/invitation';
-import TranslatorLauncher from './community-translator/launcher';
-import AppBanner from 'blocks/app-banner';
-import SitePreview from 'blocks/site-preview';
-import AsyncLoad from 'components/async-load';
-import DocumentHead from 'components/data/document-head';
-import QueryPreferences from 'components/data/query-preferences';
+var AsyncLoad = require( 'components/async-load' ),
+	MasterbarLoggedIn = require( 'layout/masterbar/logged-in' ),
+	MasterbarLoggedOut = require( 'layout/masterbar/logged-out' ),
+	observe = require( 'lib/mixins/data-observe' ),
+	GlobalNotices = require( 'components/global-notices' ),
+	notices = require( 'notices' ),
+	translator = require( 'lib/translator-jumpstart' ),
+	TranslatorInvitation = require( './community-translator/invitation' ),
+	TranslatorLauncher = require( './community-translator/launcher' ),
+	Welcome = require( 'my-sites/welcome/welcome' ),
+	WelcomeMessage = require( 'layout/nux-welcome/welcome-message' ),
+	GuidedTours = require( 'layout/guided-tours' ),
+	analytics = require( 'lib/analytics' ),
+	config = require( 'config' ),
+	PulsingDot = require( 'components/pulsing-dot' ),
+	SitesListNotices = require( 'lib/sites-list/notices' ),
+	OfflineStatus = require( 'layout/offline-status' ),
+	QueryPreferences = require( 'components/data/query-preferences' ),
+	KeyboardShortcutsMenu,
+	Layout,
+	SupportUser;
+
 import QuerySites from 'components/data/query-sites';
-import GlobalNotices from 'components/global-notices';
-import PulsingDot from 'components/pulsing-dot';
-import config from 'config';
-import GuidedTours from 'layout/guided-tours';
-import MasterbarLoggedIn from 'layout/masterbar/logged-in';
-import MasterbarLoggedOut from 'layout/masterbar/logged-out';
-import NpsSurveyNotice from 'layout/nps-survey-notice';
-import WelcomeMessage from 'layout/nux-welcome/welcome-message';
-import OfflineStatus from 'layout/offline-status';
-import analytics from 'lib/analytics';
-import observe from 'lib/mixins/data-observe';
-import SitesListNotices from 'lib/sites-list/notices';
-import translator from 'lib/translator-jumpstart';
-import Welcome from 'my-sites/welcome/welcome';
-import notices from 'notices';
 import { isOffline } from 'state/application/selectors';
-import { isHappychatOpen } from 'state/ui/happychat/selectors';
-import { getCurrentLayoutFocus } from 'state/ui/layout-focus/selectors';
 import { hasSidebar } from 'state/ui/selectors';
-
-/**
- * Internal dependencies
- */
-let KeyboardShortcutsMenu, Layout, SupportUser;
+import { isHappychatOpen } from 'state/ui/happychat/selectors';
+import SitePreview from 'blocks/site-preview';
+import { getCurrentLayoutFocus } from 'state/ui/layout-focus/selectors';
+import DocumentHead from 'components/data/document-head';
+import NpsSurveyNotice from 'layout/nps-survey-notice';
+import AppBanner from 'blocks/app-banner';
 
 if ( config.isEnabled( 'keyboard-shortcuts' ) ) {
 	KeyboardShortcutsMenu = require( 'lib/keyboard-shortcuts/menu' );
@@ -52,26 +49,26 @@ if ( config.isEnabled( 'support-user' ) ) {
 	SupportUser = require( 'support/support-user' );
 }
 
-Layout = createReactClass( {
+Layout = React.createClass( {
 	displayName: 'Layout',
 
 	mixins: [ SitesListNotices, observe( 'user', 'nuxWelcome', 'translatorInvitation' ) ],
 
 	propTypes: {
-		primary: PropTypes.element,
-		secondary: PropTypes.element,
-		user: PropTypes.object,
-		nuxWelcome: PropTypes.object,
-		translatorInvitation: PropTypes.object,
-		focus: PropTypes.object,
+		primary: React.PropTypes.element,
+		secondary: React.PropTypes.element,
+		user: React.PropTypes.object,
+		nuxWelcome: React.PropTypes.object,
+		translatorInvitation: React.PropTypes.object,
+		focus: React.PropTypes.object,
 		// connected props
-		isLoading: PropTypes.bool,
-		isSupportUser: PropTypes.bool,
-		section: PropTypes.oneOfType( [
-			PropTypes.bool,
-			PropTypes.object,
+		isLoading: React.PropTypes.bool,
+		isSupportUser: React.PropTypes.bool,
+		section: React.PropTypes.oneOfType( [
+			React.PropTypes.bool,
+			React.PropTypes.object,
 		] ),
-		isOffline: PropTypes.bool,
+		isOffline: React.PropTypes.bool,
 	},
 
 	closeWelcome: function() {

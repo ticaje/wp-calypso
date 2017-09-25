@@ -1,11 +1,11 @@
 /**
  * Internal dependencies
  */
-import SitesListActions from 'lib/sites-list/actions';
-import SitesLog from 'lib/sites-list/log-store';
-import notices from 'notices';
+var notices = require( 'notices' ),
+	SitesLog = require( 'lib/sites-list/log-store' ),
+	SitesListActions = require( 'lib/sites-list/actions' );
 
-export default {
+module.exports = {
 	getInitialState: function() {
 		return { notices: this.refreshSiteNotices() };
 	},
@@ -26,7 +26,7 @@ export default {
 	},
 
 	showNotification: function() {
-		const logNotices = this.refreshSiteNotices();
+		var logNotices = this.refreshSiteNotices();
 
 		this.setState( { notices: logNotices } );
 
@@ -94,7 +94,7 @@ export default {
 	},
 
 	erroredAndCompletedMessage: function( logNotices ) {
-		let completedMessage = this.getMessage( logNotices.completed, this.successMessage ),
+		var completedMessage = this.getMessage( logNotices.completed, this.successMessage ),
 			errorMessage = this.getMessage( logNotices.errors, this.errorMessage );
 
 		return this.translate( '%(completedMessage)s %(errorMessage)s', {

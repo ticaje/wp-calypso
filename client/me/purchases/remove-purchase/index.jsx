@@ -1,49 +1,54 @@
 /**
  * External dependencies
  */
-import debugFactory from 'debug';
+import { connect } from 'react-redux';
+import page from 'page';
+import React, { Component, PropTypes } from 'react';
 import Gridicon from 'gridicons';
 import { localize, moment } from 'i18n-calypso';
 import { get } from 'lodash';
-import page from 'page';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
  */
-import purchasePaths from '../paths';
-import { getPurchase, isDataLoading } from '../utils';
+import wpcom from 'lib/wp';
+import config from 'config';
 import CompactCard from 'components/card/compact';
 import Dialog from 'components/dialog';
-import FormSectionHeading from 'components/forms/form-section-heading';
-import HappychatButton from 'components/happychat/button';
 import CancelPurchaseForm from 'components/marketing-survey/cancel-purchase-form';
-import enrichedSurveyData from 'components/marketing-survey/cancel-purchase-form/enrichedSurveyData';
-import initialSurveyState from 'components/marketing-survey/cancel-purchase-form/initialSurveyState';
+import enrichedSurveyData
+	from 'components/marketing-survey/cancel-purchase-form/enrichedSurveyData';
+import initialSurveyState
+	from 'components/marketing-survey/cancel-purchase-form/initialSurveyState';
 import isSurveyFilledIn from 'components/marketing-survey/cancel-purchase-form/isSurveyFilledIn';
+import stepsForProductAndSurvey
+	from 'components/marketing-survey/cancel-purchase-form/stepsForProductAndSurvey';
 import nextStep from 'components/marketing-survey/cancel-purchase-form/nextStep';
 import previousStep from 'components/marketing-survey/cancel-purchase-form/previousStep';
 import { INITIAL_STEP, FINAL_STEP } from 'components/marketing-survey/cancel-purchase-form/steps';
-import stepsForProductAndSurvey from 'components/marketing-survey/cancel-purchase-form/stepsForProductAndSurvey';
-import config from 'config';
-import { isDomainRegistration, isPlan, isGoogleApps, isJetpackPlan } from 'lib/products-values';
 import { getIncludedDomain, getName, hasIncludedDomain, isRemovable } from 'lib/purchases';
-import { receiveDeletedSite as receiveDeletedSiteDeprecated } from 'lib/sites-list/actions';
-import userFactory from 'lib/user';
-import wpcom from 'lib/wp';
+import { getPurchase, isDataLoading } from '../utils';
+import { isDomainRegistration, isPlan, isGoogleApps, isJetpackPlan } from 'lib/products-values';
 import notices from 'notices';
-import { recordTracksEvent } from 'state/analytics/actions';
-import { isHappychatAvailable, hasActiveHappychatSession } from 'state/happychat/selectors';
-import { removePurchase } from 'state/purchases/actions';
+import purchasePaths from '../paths';
 import { getPurchasesError } from 'state/purchases/selectors';
+import { removePurchase } from 'state/purchases/actions';
+import { isHappychatAvailable, hasActiveHappychatSession } from 'state/happychat/selectors';
+import FormSectionHeading from 'components/forms/form-section-heading';
+import userFactory from 'lib/user';
 import { isDomainOnlySite as isDomainOnly } from 'state/selectors';
+import { receiveDeletedSite as receiveDeletedSiteDeprecated } from 'lib/sites-list/actions';
 import { receiveDeletedSite } from 'state/sites/actions';
 import { setAllSitesSelected } from 'state/ui/actions';
+import { recordTracksEvent } from 'state/analytics/actions';
+import HappychatButton from 'components/happychat/button';
 
 const user = userFactory();
 
+/**
+ * Module dependencies
+ */
+import debugFactory from 'debug';
 const debug = debugFactory( 'calypso:purchases:survey' );
 
 class RemovePurchase extends Component {

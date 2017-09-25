@@ -1,23 +1,21 @@
 /**
  * External dependencies
  */
-import { localize } from 'i18n-calypso';
 import { property, sortBy } from 'lodash';
-import React from 'react';
+const React = require( 'react' );
 
 /**
  * Internal dependencies
  */
-import NextStepsBox from './next-steps-box';
-import steps from './steps';
-import analytics from 'lib/analytics';
-import observe from 'lib/mixins/data-observe';
-import productsValues from 'lib/products-values';
-import sitesFactory from 'lib/sites-list';
-import MeSidebarNavigation from 'me/sidebar-navigation';
-const sites = sitesFactory();
+var NextStepsBox = require( './next-steps-box' ),
+	MeSidebarNavigation = require( 'me/sidebar-navigation' ),
+	observe = require( 'lib/mixins/data-observe' ),
+	steps = require( './steps' ),
+	analytics = require( 'lib/analytics' ),
+	productsValues = require( 'lib/products-values' ),
+	sites = require( 'lib/sites-list' )();
 
-export default localize( React.createClass( {
+module.exports = React.createClass( {
 
 	mixins: [ observe( 'trophiesData', 'sites' ) ],
 
@@ -93,10 +91,10 @@ export default localize( React.createClass( {
 	introMessage: function() {
 		if ( this.props.isWelcome ) {
 			return (
-			    <div className="next-steps__intro">
-				<h3 className="next-steps__title">{ this.props.translate( 'Thanks for signing up for WordPress.com.' ) }</h3>
+				<div className="next-steps__intro">
+				<h3 className="next-steps__title">{ this.translate( 'Thanks for signing up for WordPress.com.' ) }</h3>
 				<p className="next-steps__intro">
-					{ this.props.translate(
+					{ this.translate(
 						'Next you can take any of the following steps, ' +
 						'join a {{bloggingUniversityLink}}guided blogging course{{/bloggingUniversityLink}}, ' +
 						'or check out our {{docsLink}}support documentation{{/docsLink}}.', {
@@ -127,7 +125,7 @@ export default localize( React.createClass( {
 	},
 
 	outroMessage: function() {
-		let site,
+		var site,
 			dismissLink;
 
 		if ( this.props.isWelcome ) {
@@ -135,9 +133,9 @@ export default localize( React.createClass( {
 			dismissLink = '/stats/insights/' + ( site ? site.slug : '' );
 
 			return (
-			    <div className="next-steps__outro">
+				<div className="next-steps__outro">
 				<p>{
-					this.props.translate( 'If you want you can {{a}}skip these steps{{/a}}. You can come back to this page any time.', {
+					this.translate( 'If you want you can {{a}}skip these steps{{/a}}. You can come back to this page any time.', {
 						components: {
 							a: <a href={ dismissLink } onClick={ this.dismissLinkRecordEvent } />
 						}
@@ -155,7 +153,7 @@ export default localize( React.createClass( {
 	},
 
 	renderSteps: function() {
-		let site = this.newestSite(),
+		var site = this.newestSite(),
 			sequence = steps.defaultSequence;
 
 		if ( this.userHasPurchasedAPlan() ) {
@@ -165,7 +163,7 @@ export default localize( React.createClass( {
 		return (
 			<div className="next-steps__steps">
 				{ sequence.map( function( stepName, index ) {
-					const step = steps.definitions( site )[ stepName ];
+					var step = steps.definitions( site )[ stepName ];
 					return <NextStepsBox key={ stepName } stepName={ stepName } step={ step } primary={ index === 0 } isWelcome={ this.props.isWelcome } />;
 				}.bind( this ) ) }
 			</div>
@@ -173,7 +171,7 @@ export default localize( React.createClass( {
 	},
 
 	render: function() {
-		let classes = 'main main-column next-steps';
+		var classes = 'main main-column next-steps';
 
 		this.setUserStateFromTrophiesData();
 
@@ -193,4 +191,4 @@ export default localize( React.createClass( {
 			</div>
 		);
 	}
-} ) );
+} );

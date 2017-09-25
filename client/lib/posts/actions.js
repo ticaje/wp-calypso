@@ -1,29 +1,26 @@
 /**
  * External dependencies
  */
-import debugFactory from 'debug';
+var debug = require( 'debug' )( 'calypso:posts' ),
+	store = require( 'store' );
 import { assign, clone, defer, fromPairs } from 'lodash';
-import store from 'store';
 
 /**
  * Internal dependencies
  */
-import PostEditStore from './post-edit-store';
-import postListStoreFactory from './post-list-store-factory';
-import PostsStore from './posts-store';
-import stats from './stats';
-import utils from './utils';
-import Dispatcher from 'dispatcher';
-import PreferencesStore from 'lib/preferences/store';
-import sitesFactory from 'lib/sites-list';
-import versionCompare from 'lib/version-compare';
-import wpcom from 'lib/wp';
+var wpcom = require( 'lib/wp' ),
+	PostsStore = require( './posts-store' ),
+	PostEditStore = require( './post-edit-store' ),
+	postListStoreFactory = require( './post-list-store-factory' ),
+	PreferencesStore = require( 'lib/preferences/store' ),
+	sites = require( 'lib/sites-list' )(),
+	utils = require( './utils' ),
+	versionCompare = require( 'lib/version-compare' ),
+	Dispatcher = require( 'dispatcher' ),
+	stats = require( './stats' );
 import { normalizeTermsForApi } from 'state/posts/utils';
 
-const debug = debugFactory( 'calypso:posts' );
-const sites = sitesFactory();
-
-let PostActions;
+var PostActions;
 
 /**
  * Helper for performing a metadata operation on the currently edited post.
@@ -39,7 +36,7 @@ let PostActions;
  *                                              or `delete`)
  */
 function handleMetadataOperation( key, value, operation ) {
-	let post = PostEditStore.get(),
+	var post = PostEditStore.get(),
 		metadata;
 
 	if ( 'string' === typeof key || Array.isArray( key ) ) {
@@ -57,7 +54,7 @@ function handleMetadataOperation( key, value, operation ) {
 		// the metadata if it does not already exist. Similarly, we're not
 		// concerned with deleting a key which was added during previous edits,
 		// since this will effectively noop.
-		const meta = {
+		var meta = {
 			key: objectKey,
 			operation: operation
 		};
@@ -101,7 +98,7 @@ PostActions = {
 	 * @param {Object} options Edit options
 	 */
 	startEditingNew: function( siteId, options ) {
-		let args;
+		var args;
 		options = options || {};
 
 		args = {
@@ -122,7 +119,7 @@ PostActions = {
 	 * @param {Number} postId Post ID to load
 	 */
 	startEditingExisting: function( siteId, postId ) {
-		let currentPost = PostEditStore.get(),
+		var currentPost = PostEditStore.get(),
 			postHandle;
 
 		if ( ! siteId ) {
@@ -160,7 +157,7 @@ PostActions = {
 	},
 
 	autosave: function( callback ) {
-		let post = PostEditStore.get(),
+		var post = PostEditStore.get(),
 			savedPost = PostEditStore.getSavedPost(),
 			siteHandle = wpcom.undocumented().site( post.site_ID ),
 			site;
@@ -289,7 +286,7 @@ PostActions = {
 	 * @param {object} options object with optional recordSaveEvent property. True if you want to record the save event.
 	 */
 	saveEdited: function( attributes, context, callback, options ) {
-		let post, postHandle, query, changedAttributes, rawContent, mode, isNew;
+		var post, postHandle, query, changedAttributes, rawContent, mode, isNew;
 
 		Dispatcher.handleViewAction( {
 			type: 'EDIT_POST',
@@ -357,7 +354,7 @@ PostActions = {
 		}
 
 		postHandle[ isNew ? 'add' : 'update' ]( query, changedAttributes, function( error, data ) {
-			let original, currentMode;
+			var original, currentMode;
 
 			currentMode = PreferencesStore.get( 'editor-mode' );
 
@@ -389,7 +386,7 @@ PostActions = {
 	 * @param {function} callback callback receives ( err, post ) arguments
 	 */
 	update: function( post, attributes, callback ) {
-		const postHandle = wpcom.site( post.site_ID ).post( post.ID );
+		var postHandle = wpcom.site( post.site_ID ).post( post.ID );
 
 		postHandle.update( attributes, PostActions.receiveUpdate.bind( null, callback ) );
 	},
@@ -402,7 +399,7 @@ PostActions = {
 	 * @param {function} callback that receives ( err, post ) arguments
 	 */
 	trash: function( post, callback ) {
-		const postHandle = wpcom.site( post.site_ID ).post( post.ID );
+		var postHandle = wpcom.site( post.site_ID ).post( post.ID );
 
 		postHandle.delete( PostActions.receiveUpdate.bind( null, callback ) );
 	},
@@ -414,7 +411,7 @@ PostActions = {
 	 * @param {function} callback that receives ( err, post ) arguments
 	 */
 	restore: function( post, callback ) {
-		const postHandle = wpcom.site( post.site_ID ).post( post.ID );
+		var postHandle = wpcom.site( post.site_ID ).post( post.ID );
 
 		postHandle.restore( PostActions.receiveUpdate.bind( null, callback ) );
 	},
@@ -509,7 +506,7 @@ PostActions = {
 	},
 
 	receiveUpdate: function( callback, error, data ) {
-		let original;
+		var original;
 
 		if ( ! error ) {
 			original = PostsStore.get( data.global_ID );
@@ -541,4 +538,4 @@ PostActions = {
 	}
 };
 
-export default PostActions;
+module.exports = PostActions;

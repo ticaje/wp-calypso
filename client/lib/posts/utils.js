@@ -1,21 +1,20 @@
 /**
- * External dependencies
+ * External dependecies
  */
-import i18n from 'i18n-calypso';
+var url = require( 'url' ),
+	i18n = require( 'i18n-calypso' ),
+	moment = require( 'moment-timezone' );
 import { includes } from 'lodash';
 
 /**
  * Internal dependencies
  */
+var postNormalizer = require( 'lib/post-normalizer' ),
+	sites = require( 'lib/sites-list' )();
+
 import { getFeaturedImageId } from './utils-ssr-ready';
-import postNormalizer from 'lib/post-normalizer';
-import sitesFactory from 'lib/sites-list';
-import moment from 'moment-timezone';
-import url from 'url';
 
-const sites = sitesFactory();
-
-const utils = {
+var utils = {
 
 	getFeaturedImageId,
 
@@ -26,11 +25,11 @@ const utils = {
 			basePath = '/edit';
 		}
 
-		return `${ basePath }/${ post.type }/${ site.slug }/${ post.ID }`;
+		return `${basePath}/${post.type}/${site.slug}/${post.ID}`;
 	},
 
 	getPreviewURL: function( post ) {
-		let parsed, site, previewUrl;
+		var parsed, site, previewUrl;
 
 		if ( ! post || ! post.URL || post.status === 'trash' ) {
 			return '';
@@ -68,7 +67,7 @@ const utils = {
 	},
 
 	userCan: function( capability, post ) {
-		const hasCap = post.capabilities && post.capabilities[ capability ];
+		var hasCap = post.capabilities && post.capabilities[ capability ];
 
 		if ( capability === 'edit_post' ) {
 			return hasCap && post.status !== 'trash';
@@ -136,7 +135,7 @@ const utils = {
 	},
 
 	normalizeSync: function( post, callback ) {
-		const imageWidth = 653;
+		var imageWidth = 653;
 		postNormalizer(
 			post,
 			[
@@ -211,7 +210,7 @@ const utils = {
 			return;
 		}
 
-		const pathParts = path.slice( 0, -1 ).split( '/' );
+		let pathParts = path.slice( 0, -1 ).split( '/' );
 		pathParts[ pathParts.length - 1 ] = '';
 
 		return pathParts.join( '/' );
@@ -235,4 +234,4 @@ const utils = {
 
 };
 
-export default utils;
+module.exports = utils;

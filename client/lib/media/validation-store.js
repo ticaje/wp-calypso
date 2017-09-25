@@ -6,11 +6,11 @@ import { isEmpty, mapValues, pickBy, without } from 'lodash';
 /**
  * Internal dependencies
  */
-import { ValidationErrors as MediaValidationErrors } from './constants';
-import MediaUtils from './utils';
 import Dispatcher from 'dispatcher';
 import emitter from 'lib/mixins/emitter';
 import Sites from 'lib/sites-list';
+import MediaUtils from './utils';
+import { ValidationErrors as MediaValidationErrors } from './constants';
 
 /**
  * Module variables
@@ -53,7 +53,7 @@ const isExternalError = message => message.error && message.error === 'servicefa
 const isMediaError = action => action.error && ( action.id || isExternalError( action.error ) );
 
 MediaValidationStore.validateItem = function( siteId, item ) {
-	let site = sites.getSite( siteId ),
+	var site = sites.getSite( siteId ),
 		itemErrors = [];
 
 	if ( ! site ) {
@@ -152,7 +152,7 @@ MediaValidationStore.hasErrors = function( siteId, itemId ) {
 };
 
 MediaValidationStore.dispatchToken = Dispatcher.register( function( payload ) {
-	let action = payload.action,
+	var action = payload.action,
 		items, errors;
 
 	switch ( action.type ) {
@@ -163,7 +163,7 @@ MediaValidationStore.dispatchToken = Dispatcher.register( function( payload ) {
 
 			items = Array.isArray( action.data.media ) ? action.data.media : [ action.data ];
 			errors = items.reduce( function( memo, item ) {
-				let itemErrors;
+				var itemErrors;
 
 				MediaValidationStore.validateItem( action.siteId, item );
 
@@ -215,4 +215,4 @@ MediaValidationStore.dispatchToken = Dispatcher.register( function( payload ) {
 	}
 } );
 
-export default MediaValidationStore;
+module.exports = MediaValidationStore;

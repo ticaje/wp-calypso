@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-modules */
+
 /**
  * External dependencies
  */
@@ -7,11 +9,11 @@ import { match } from 'sinon';
 /**
  * Internal dependencies
  */
-import sitesSync from '../enhancer';
-import { SITES_UPDATE, SITE_RECEIVE } from 'state/action-types';
-import { userState } from 'state/selectors/test/fixtures/user-state';
 import useFakeDom from 'test/helpers/use-fake-dom';
 import { useSandbox } from 'test/helpers/use-sinon';
+import { SITES_UPDATE, SITE_RECEIVE } from 'state/action-types';
+import sitesSync from '../enhancer';
+import { userState } from 'state/selectors/test/fixtures/user-state';
 
 /**
  * Example site used for testing mocked behavior.

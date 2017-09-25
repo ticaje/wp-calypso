@@ -1,36 +1,33 @@
 /**
  * External dependencies
  */
-import debugFactory from 'debug';
+var debug = require( 'debug' )( 'calypso:sites-plugins:sites-plugins-store' );
 import { assign, isArray, sortBy, uniq, compact, values, find } from 'lodash';
-import localStore from 'store';
 
 /**
  * Internal dependencies
  */
-import config from 'config';
-import Dispatcher from 'dispatcher';
-import emitter from 'lib/mixins/emitter';
-import PluginsActions from 'lib/plugins/actions';
-import PluginUtils from 'lib/plugins/utils';
-import Site from 'lib/site';
-import JetpackSite from 'lib/site/jetpack';
-import sitesListFactory from 'lib/sites-list';
-import versionCompare from 'lib/version-compare';
-
-const debug = debugFactory( 'calypso:sites-plugins:sites-plugins-store' );
-const sitesList = sitesListFactory();
+var Dispatcher = require( 'dispatcher' ),
+	localStore = require( 'store' ),
+	emitter = require( 'lib/mixins/emitter' ),
+	sitesList = require( 'lib/sites-list' )(),
+	PluginsActions = require( 'lib/plugins/actions' ),
+	versionCompare = require( 'lib/version-compare' ),
+	PluginUtils = require( 'lib/plugins/utils' ),
+	JetpackSite = require( 'lib/site/jetpack' ),
+	Site = require( 'lib/site' ),
+	config = require( 'config' );
 
 /*
  * Constants
  */
-let _CACHE_TIME_TO_LIVE = 10 * 1000, // 10 sec
+var _CACHE_TIME_TO_LIVE = 10 * 1000, // 10 sec
 	// time to wait until a plugin recentlyUpdate flag is cleared once it's updated
 	_UPDATED_PLUGIN_INFO_TIME_TO_LIVE = 10 * 1000,
 	_STORAGE_LIST_NAME = 'CachedPluginsBySite';
 
 // Stores the plugins of each site.
-let _fetching = {},
+var _fetching = {},
 	_pluginsBySite = {},
 	PluginsStore,
 	_filters = {
@@ -61,7 +58,7 @@ let _fetching = {},
 	};
 
 function refreshNetworkSites( site ) {
-	const networkSites = sitesList.getNetworkSites( site );
+	var networkSites = sitesList.getNetworkSites( site );
 	if ( networkSites ) {
 		networkSites.forEach( PluginsActions.fetchSitePlugins );
 	}
@@ -115,7 +112,7 @@ function updatePlugins( site, plugins ) {
 }
 
 function getPluginsBySiteFromStorage( siteId ) {
-	let storedLists;
+	var storedLists;
 	if ( config.isEnabled( 'manage/plugins/cache' ) ) {
 		storedLists = localStore.get( _STORAGE_LIST_NAME );
 		return storedLists && storedLists[ siteId ];
@@ -123,7 +120,7 @@ function getPluginsBySiteFromStorage( siteId ) {
 }
 
 function storePluginsBySite( siteId, pluginsList ) {
-	let storedLists;
+	var storedLists;
 
 	if ( config.isEnabled( 'manage/plugins/cache' ) ) {
 		storedLists = localStore.get( _STORAGE_LIST_NAME ) || {};
@@ -142,14 +139,14 @@ function isCachedListStillValid( storedList ) {
 PluginsStore = {
 
 	getPlugin: function( sites, pluginSlug ) {
-		let pluginData = {},
+		var pluginData = {},
 			fetched = false;
 		pluginData.sites = [];
 
 		sites = ( ! isArray( sites ) ? [ sites ] : sites );
 
 		sites.forEach( function( site ) {
-			const sitePlugins = PluginsStore.getSitePlugins( site );
+			var sitePlugins = PluginsStore.getSitePlugins( site );
 			if ( typeof sitePlugins !== 'undefined' ) {
 				fetched = true;
 			}
@@ -171,7 +168,7 @@ PluginsStore = {
 	},
 
 	getPlugins: function( sites, pluginFilter ) {
-		let fetched = false,
+		var fetched = false,
 			plugins = {};
 
 		sites = ! isArray( sites ) ? [ sites ] : sites;
@@ -180,7 +177,7 @@ PluginsStore = {
 			return [];
 		}
 		sites.forEach( function( site ) {
-			const sitePlugins = PluginsStore.getSitePlugins( site );
+			var sitePlugins = PluginsStore.getSitePlugins( site );
 			if ( sitePlugins !== undefined ) {
 				fetched = true;
 			}
@@ -212,7 +209,7 @@ PluginsStore = {
 
 	// Get Plugins for a single site
 	getSitePlugins: function( site ) {
-		let storedList;
+		var storedList;
 		if ( ! site ) {
 			return [];
 		}
@@ -233,7 +230,7 @@ PluginsStore = {
 	},
 
 	getSitePlugin: function( site, pluginSlug ) {
-		const plugins = this.getSitePlugins( site );
+		var plugins = this.getSitePlugins( site );
 		if ( ! plugins ) {
 			return plugins;
 		}
@@ -243,7 +240,7 @@ PluginsStore = {
 
 	// Array of sites with a particular plugin.
 	getSites: function( sites, pluginSlug ) {
-		let plugin,
+		var plugin,
 			plugins = this.getPlugins( sites ),
 			pluginSites;
 		if ( ! plugins ) {
@@ -259,7 +256,7 @@ PluginsStore = {
 			compact(
 				plugin.sites.map( function( site ) {
 					// we create a copy of the site to avoid any possible modification down the line affecting the main list
-					const pluginSite = site.jetpack
+					let pluginSite = site.jetpack
 						? new JetpackSite( sitesList.getSite( site.ID ) )
 						: new Site( sitesList.getSite( site.ID ) );
 					pluginSite.plugin = site.plugin;
@@ -280,7 +277,7 @@ PluginsStore = {
 
 	// Array of sites without a particular plugin.
 	getNotInstalledSites: function( sites, pluginSlug ) {
-		const installedOnSites = this.getSites( sites, pluginSlug ) || [];
+		var installedOnSites = this.getSites( sites, pluginSlug ) || [];
 		return sites.filter( function( site ) {
 			if ( ! site.visible ) {
 				return false;
@@ -434,4 +431,4 @@ PluginsStore.dispatchToken = Dispatcher.register( function( { action } ) {
 } );
 
 emitter( PluginsStore );
-export default PluginsStore;
+module.exports = PluginsStore;

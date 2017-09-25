@@ -1,20 +1,21 @@
 /**
  * External dependencies
  */
-import { assert } from 'chai';
+import { assert } from 'chai' ;
 
 /**
  * Internal dependencies
  */
-import actions from './fixtures/actions';
-import multiSite from './fixtures/multi-site';
+import useMockery from 'test/helpers/use-mockery';
+import useFakeDom from 'test/helpers/use-fake-dom';
+import { useFakeTimers } from 'test/helpers/use-sinon';
+
 import plugins from './fixtures/plugins';
 import site from './fixtures/site';
+import multiSite from './fixtures/multi-site';
+import actions from './fixtures/actions';
 import updatePluginData from './fixtures/updated-plugin';
 import mockedSitesList from './mocks/sites-list';
-import useFakeDom from 'test/helpers/use-fake-dom';
-import useMockery from 'test/helpers/use-mockery';
-import { useFakeTimers } from 'test/helpers/use-sinon';
 
 /**
  * setup a react test enviroment

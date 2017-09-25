@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-modules */
+
 /**
  * External dependencies
  */
@@ -6,12 +8,8 @@ import { flow } from 'lodash';
 /**
  * Internal dependencies
  */
-import Site from 'lib/site';
-import sitesFactory from 'lib/sites-list';
 import { receiveSiteUpdates, receiveSite } from 'state/sites/actions';
 import { getSite } from 'state/sites/selectors';
-
-const sites = sitesFactory();
 
 /**
  * Redux store enhancer which binds to the application-wide sites-list
@@ -24,11 +22,17 @@ const sites = sitesFactory();
 export default ( createStore ) => ( ...args ) => {
 	const store = createStore( ...args );
 
+	// Ugly hack by which we hook into the sites sync mechanism, since a change
+	// event may or may not occur as a result of fresh data being received.
+	const sites = require( 'lib/sites-list' )();
 	sites.sync = flow(
 		sites.sync.bind( sites ),
 		() => store.dispatch( receiveSiteUpdates( sites.get() ) )
 	);
 
+	// To sync changes made to an individual site in sites-list, override the
+	// prototype of Site's `set` method, used in updating a set of attributes.
+	const Site = require( 'lib/site' );
 	const originalSet = Site.prototype.set;
 	Site.prototype.set = function() {
 		// Preserve original behavior
