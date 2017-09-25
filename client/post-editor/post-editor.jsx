@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDom from 'react-dom';
 import page from 'page';
 import PropTypes from 'prop-types';
@@ -64,7 +65,9 @@ import EditorDiffViewer from 'post-editor/editor-diff-viewer';
 import { NESTED_SIDEBAR_NONE, NESTED_SIDEBAR_REVISIONS } from 'post-editor/editor-sidebar/constants';
 import { removep } from 'lib/formatting';
 
-export const PostEditor = localize( React.createClass( {
+export const PostEditor = localize( createReactClass( {
+	displayName: 'PostEditor',
+
 	propTypes: {
 		siteId: PropTypes.number,
 		preferences: PropTypes.object,
@@ -975,7 +978,7 @@ export const PostEditor = localize( React.createClass( {
 		}
 	},
 
-	// when a post that is published, modifies its date, this updates the post url
+    // when a post that is published, modifies its date, this updates the post url
 	// we should warn users of this case
 	warnPublishDateChange( { clearWarning = false } = {} ) {
 		if ( clearWarning ) {
@@ -1156,7 +1159,7 @@ export const PostEditor = localize( React.createClass( {
 		ed.target.off( 'SetContent', this.focusHTMLBookmarkInVisualEditor );
 	},
 
-	/**
+    /**
 	 * Finds the current selection position in the Visual editor.
 	 *
 	 * It uses some black magic raw JS trickery. Not for the faint-hearted.
@@ -1318,7 +1321,6 @@ export const PostEditor = localize( React.createClass( {
 			}
 		}.bind( this ), 0 );
 	}
-
 } ) );
 
 export default connect(

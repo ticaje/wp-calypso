@@ -5,14 +5,14 @@ import { map } from 'lodash';
 import { localize } from 'i18n-calypso';
 import React from 'react';
 
-export default localize( React.createClass( {
-	displayName: 'ValidationErrorList',
+export default localize( class extends React.Component {
+	static displayName = 'ValidationErrorList';
 
-	propTypes: {
+	static propTypes = {
 		messages: React.PropTypes.array.isRequired
-	},
+	};
 
-	render: function() {
+	render() {
 		return (
 		    <div>
 				<p>
@@ -32,4 +32,4 @@ export default localize( React.createClass( {
 			</div>
 		);
 	}
-} ) );
+} );
