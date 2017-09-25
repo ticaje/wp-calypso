@@ -82,3 +82,7 @@ $ NODE_ENV=test NODE_PATH=client:test node_modules/.bin/mocha test/run-mocha.js
 # Run all server tests within the single test runner
 $ NODE_ENV=test NODE_PATH=server:client:test node_modules/.bin/mocha test/run-mocha.js
 ```
+
+### Troubleshooting
+
+* Valid tests can fail if a component is wrapped in a higher order component, like `localize()` or `connect()`. This is because a shallow render only results in the higher component being rendered, not it's children. The best practice is to test the raw component directly, with external dependencies mocked, so that the results aren't influenced by anything outside the component being tested. See [#5221](https://github.com/Automattic/wp-calypso/pull/5221) and [#18064](https://github.com/Automattic/wp-calypso/pull/18064) for examples using `React.createClass()` and ES6 classes, respectively.
