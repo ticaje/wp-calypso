@@ -255,6 +255,8 @@ class ActivityLog extends Component {
 
 	renderLogs() {
 		const { isPressable, isRewindActive, logs, moment, translate, siteId } = this.props;
+		const { requestedRestoreTimestamp, showRestoreConfirmDialog } = this.state;
+
 		const startMoment = this.getStartMoment();
 
 		if ( isNull( logs ) ) {
@@ -317,7 +319,19 @@ class ActivityLog extends Component {
 			);
 		}
 
-		return <section className="activity-log__wrapper">{ activityDays }</section>;
+		return (
+			<section className="activity-log__wrapper">
+				{ activityDays }
+				{ showRestoreConfirmDialog && (
+					<ActivityLogConfirmDialog
+						applySiteOffset={ this.applySiteOffset }
+						timestamp={ requestedRestoreTimestamp }
+						onClose={ this.handleRestoreDialogClose }
+						onConfirm={ this.handleRestoreDialogConfirm }
+					/>
+				) }
+			</section>
+		);
 	}
 
 	renderMonthNavigation( position ) {
@@ -353,7 +367,6 @@ class ActivityLog extends Component {
 			isPressable,
 			isRewindActive,
 			siteId,
-			siteTitle,
 			slug,
 			startDate,
 			timezone,
@@ -372,8 +385,6 @@ class ActivityLog extends Component {
 			);
 		}
 
-		const { requestedRestoreTimestamp, showRestoreConfirmDialog } = this.state;
-
 		return (
 			<Main wideLayout>
 				{ rewindEnabledByConfig && <QueryRewindStatus siteId={ siteId } /> }
@@ -391,15 +402,6 @@ class ActivityLog extends Component {
 				{ ! isRewindActive && !! isPressable && <ActivityLogRewindToggle siteId={ siteId } /> }
 				{ this.renderLogs() }
 				{ this.renderMonthNavigation( 'bottom' ) }
-
-				<ActivityLogConfirmDialog
-					applySiteOffset={ this.applySiteOffset }
-					isVisible={ showRestoreConfirmDialog }
-					siteTitle={ siteTitle }
-					timestamp={ requestedRestoreTimestamp }
-					onClose={ this.handleRestoreDialogClose }
-					onConfirm={ this.handleRestoreDialogConfirm }
-				/>
 				<JetpackColophon />
 			</Main>
 		);
