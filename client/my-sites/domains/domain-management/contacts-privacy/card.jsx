@@ -1,20 +1,19 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-import CompactCard from 'components/card/compact';
 import ContactDisplay from './contact-display';
+import CompactCard from 'components/card/compact';
 import Notice from 'components/notice';
-import paths from 'my-sites/domains/paths';
 import SectionHeader from 'components/section-header';
 import support from 'lib/url/support';
+import paths from 'my-sites/domains/paths';
 
 class ContactsPrivacyCard extends React.PureComponent {
 	static propTypes = {

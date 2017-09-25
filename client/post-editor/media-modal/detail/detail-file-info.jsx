@@ -1,14 +1,11 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
-import { localize } from 'i18n-calypso';
-
-import createFragment from 'react-addons-create-fragment';
 import classNames from 'classnames';
+import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
+import createFragment from 'react-addons-create-fragment';
 
 /**
  * Internal dependencies

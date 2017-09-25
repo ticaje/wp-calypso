@@ -1,10 +1,9 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import { isEqual } from 'lodash';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const StoreConnection = React.createClass( {
 	propTypes: {

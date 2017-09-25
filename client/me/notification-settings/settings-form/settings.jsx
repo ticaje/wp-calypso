@@ -1,11 +1,10 @@
 /**
  * External dependencies
  */
+import Immutable from 'immutable';
 import PropTypes from 'prop-types';
-
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
 
 /**
  * Internal dependencies

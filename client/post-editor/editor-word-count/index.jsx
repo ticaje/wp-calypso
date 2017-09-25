@@ -1,17 +1,16 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React, { PureComponent } from 'react';
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
 /**
  * Internal dependencies
  */
 import PostEditStore from 'lib/posts/post-edit-store';
-import userModule from 'lib/user';
 import { countWords } from 'lib/text-utils';
+import userModule from 'lib/user';
 
 /**
  * Module variables

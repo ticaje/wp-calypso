@@ -1,20 +1,17 @@
-import { assign, isEqual } from 'lodash';
-
 /**
  * External dependencies
  */
+import { assign, isEqual } from 'lodash';
 import PropTypes from 'prop-types';
-
 import React from 'react';
 
 /**
  * Internal dependencies
  */
+import utils from './utils';
 import MediaActions from 'lib/media/actions';
-
 import MediaListStore from 'lib/media/list-store';
 import passToChildren from 'lib/react-pass-to-children';
-import utils from './utils';
 
 function getStateData( siteId ) {
 	return {

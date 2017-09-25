@@ -1,18 +1,17 @@
 /**
- * External Dependencies
+ * External dependencies
  */
+import { get } from 'lodash';
 import page from 'page';
 import React from 'react';
 
 /**
- * Internal Dependencies
+ * Internal dependencies
  */
-import { renderWithReduxStore } from 'lib/react-helpers';
-import { get } from 'lodash';
-import { isValidFeatureKey } from 'lib/plans';
-
-import Plans from 'my-sites/plans/main';
 import CheckoutData from 'components/data/checkout';
+import { isValidFeatureKey } from 'lib/plans';
+import { renderWithReduxStore } from 'lib/react-helpers';
+import Plans from 'my-sites/plans/main';
 
 export default {
 	plans( context ) {

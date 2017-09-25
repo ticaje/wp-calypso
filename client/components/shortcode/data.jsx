@@ -1,11 +1,10 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import { cloneElement, Component } from 'react';
 import { Container } from 'flux/utils';
 import { pick } from 'lodash';
+import PropTypes from 'prop-types';
+import { cloneElement, Component } from 'react';
 
 /**
  * Internal dependencies

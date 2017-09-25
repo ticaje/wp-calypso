@@ -1,25 +1,23 @@
-import debugFactory from 'debug';
-import { omit } from 'lodash';
-import page from 'page';
-
 /**
  * External dependencies
  */
+import debugFactory from 'debug';
+import { omit } from 'lodash';
+import page from 'page';
 import PropTypes from 'prop-types';
-
 import React from 'react';
 import ReactDom from 'react-dom';
 
 /**
  * Internal dependencies
  */
+import ScrollHelper from './scroll-helper';
 import detectHistoryNavigation from 'lib/detect-history-navigation';
 import InfiniteListActions from 'lib/infinite-list/actions';
 import InfiniteListPositionsStore from 'lib/infinite-list/positions-store';
 import InfiniteListScrollStore from 'lib/infinite-list/scroll-store';
-import ScrollHelper from './scroll-helper';
-import scrollTo from 'lib/scroll-to';
 import smartSetState from 'lib/react-smart-set-state';
+import scrollTo from 'lib/scroll-to';
 
 const debug = debugFactory( 'calypso:infinite-list' );
 

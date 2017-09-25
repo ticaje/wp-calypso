@@ -1,21 +1,17 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
+import CartToggle from './cart-toggle';
 import PayButton from './pay-button';
-
 import PaymentBox from './payment-box';
 import TermsOfService from './terms-of-service';
-
-import CartToggle from './cart-toggle';
 
 const FreeCartPaymentBox = React.createClass( {
 	propTypes: {

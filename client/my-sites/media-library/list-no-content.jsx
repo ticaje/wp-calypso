@@ -1,16 +1,15 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React, { Component } from 'react';
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 /**
  * Internal dependencies
  */
-import EmptyContent from 'components/empty-content';
 import UploadButton from './upload-button';
+import EmptyContent from 'components/empty-content';
 import { userCan } from 'lib/site/utils';
 
 class MediaLibraryListNoContent extends Component {

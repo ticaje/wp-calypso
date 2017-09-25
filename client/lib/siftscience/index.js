@@ -3,15 +3,14 @@
  */
 import debugFactory from 'debug';
 
-const debug = debugFactory( 'calypso:siftscience' );
-
 /**
  * Internal dependencies
  */
-import loadScript from 'lib/load-script';
-
-import user from 'lib/user';
 import config from 'config';
+import loadScript from 'lib/load-script';
+import user from 'lib/user';
+
+const debug = debugFactory( 'calypso:siftscience' );
 
 let SIFTSCIENCE_URL = 'https://cdn.siftscience.com/s.js',
 	hasLoaded = false;

@@ -8,10 +8,9 @@ import sinon from 'sinon';
 /**
  * Internal dependencies
  */
-import useMockery from 'test/helpers/use-mockery';
-import useFakeDom from 'test/helpers/use-fake-dom';
-
 import EMPTY_COMPONENT from 'test/helpers/react/empty-component';
+import useFakeDom from 'test/helpers/use-fake-dom';
+import useMockery from 'test/helpers/use-mockery';
 
 let ReactDom, React, TestUtils, SectionNav;
 

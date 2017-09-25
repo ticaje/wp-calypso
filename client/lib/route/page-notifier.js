@@ -1,8 +1,7 @@
-/*eslint no-multi-spaces: 0*/
-// node dependency
+/**
+ * External dependencies
+ */
 import { EventEmitter } from 'events';
-
-// internal dependency
 import page from 'page';
 
 const Route          = page.Route;

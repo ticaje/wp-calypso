@@ -1,10 +1,9 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import Gridicon from 'gridicons';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const TipInfo = ( { info = '', className = '' } ) => {
 	className += ' purchase-detail__info form-setting-explanation';

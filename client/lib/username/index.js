@@ -7,9 +7,8 @@ import i18n from 'i18n-calypso';
  * Internal dependencies
  */
 import Emitter from 'lib/mixins/emitter';
-
-import wpcom from 'lib/wp';
 import userFactory from 'lib/user';
+import wpcom from 'lib/wp';
 const user = userFactory();
 
 /**

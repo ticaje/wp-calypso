@@ -1,17 +1,15 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-import MediaUtils from 'lib/media/utils';
-
 import EditorMediaModalDetailItemVideoPress from './detail-preview-videopress';
+import MediaUtils from 'lib/media/utils';
 
 export default React.createClass( {
 	displayName: 'EditorMediaModalDetailPreviewVideo',

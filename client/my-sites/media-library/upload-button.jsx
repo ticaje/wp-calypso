@@ -1,22 +1,20 @@
-import ReactDom from 'react-dom';
-
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
-import { noop, uniq } from 'lodash';
 import classNames from 'classnames';
+import { noop, uniq } from 'lodash';
 import page from 'page';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReactDom from 'react-dom';
 
 /**
  * Internal dependencies
  */
 import analytics from 'lib/analytics';
 import MediaActions from 'lib/media/actions';
-import MediaUtils from 'lib/media/utils';
 import { VideoPressFileTypes } from 'lib/media/constants';
+import MediaUtils from 'lib/media/utils';
 
 export default React.createClass( {
 	displayName: 'MediaLibraryUploadButton',

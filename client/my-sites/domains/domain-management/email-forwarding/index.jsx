@@ -1,24 +1,23 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import { localize } from 'i18n-calypso';
 import page from 'page';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-import Main from 'components/main';
-import MainPlaceholder from 'my-sites/domains/domain-management/components/domain/main-placeholder';
-import Header from 'my-sites/domains/domain-management/components/header';
-import EmailForwardingList from './email-forwarding-list';
 import EmailForwardingAddNew from './email-forwarding-add-new';
 import EmailForwardingDetails from './email-forwarding-details';
-import paths from 'my-sites/domains/paths';
+import EmailForwardingList from './email-forwarding-list';
 import Card from 'components/card/compact';
+import Main from 'components/main';
 import SectionHeader from 'components/section-header';
+import MainPlaceholder from 'my-sites/domains/domain-management/components/domain/main-placeholder';
+import Header from 'my-sites/domains/domain-management/components/header';
+import paths from 'my-sites/domains/paths';
 
 const EmailForwarding = React.createClass( {
 	propTypes: {

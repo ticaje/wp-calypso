@@ -1,18 +1,16 @@
 /**
-* External dependencies
-*/
+ * External dependencies
+ */
+import Gridicon from 'gridicons';
 import React from 'react';
-
 import PureRenderMixin from 'react-pure-render/mixin';
 
 /**
  * Internal dependencies
  */
-import ButtonGroup from 'components/button-group';
-
 import Button from 'components/button';
+import ButtonGroup from 'components/button-group';
 import Card from 'components/card';
-import Gridicon from 'gridicons';
 
 var Buttons = React.createClass( {
 	displayName: 'ButtonGroup',

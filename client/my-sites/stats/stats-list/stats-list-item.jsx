@@ -1,27 +1,24 @@
 /**
  * External dependencies
  */
-import React from 'react';
-
-import { localize } from 'i18n-calypso';
-
 import classNames from 'classnames';
 import debugFactory from 'debug';
-const debug = debugFactory( 'calypso:stats:list-item' );
+import Gridicon from 'gridicons';
+import { localize } from 'i18n-calypso';
 import page from 'page';
+import React from 'react';
+import titlecase from 'to-title-case';
 
 /**
  * Internal dependencies
  */
 import Follow from './action-follow';
-
-import Page from './action-page';
 import OpenLink from './action-link';
+import Page from './action-page';
 import Spam from './action-spam';
 import Emojify from 'components/emojify';
-import titlecase from 'to-title-case';
 import analytics from 'lib/analytics';
-import Gridicon from 'gridicons';
+const debug = debugFactory( 'calypso:stats:list-item' );
 
 export default localize( React.createClass( {
 	displayName: 'StatsListItem',

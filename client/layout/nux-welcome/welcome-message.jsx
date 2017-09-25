@@ -1,17 +1,15 @@
 /**
  * External dependencies
  */
-import React from 'react';
-
 import { localize } from 'i18n-calypso';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
 import config from 'config';
-
-import route from 'lib/route';
 import analytics from 'lib/analytics';
+import route from 'lib/route';
 
 function recordEvent( eventAction ) {
 	analytics.ga.recordEvent( 'Welcome Box', eventAction );

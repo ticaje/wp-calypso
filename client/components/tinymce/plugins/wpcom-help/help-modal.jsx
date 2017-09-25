@@ -1,20 +1,15 @@
-import { forEach } from 'lodash';
-import { localize } from 'i18n-calypso';
-
-/* eslint-disable no-multi-spaces */
-
 /**
  * External dependencies
  */
+import { localize } from 'i18n-calypso';
+import { forEach } from 'lodash';
 import PropTypes from 'prop-types';
-
 import React from 'react';
 
 /**
  * Internal dependencies
  */
 import Dialog from 'components/dialog';
-
 import FormButton from 'components/forms/form-button';
 
 const HelpModal = React.createClass( {

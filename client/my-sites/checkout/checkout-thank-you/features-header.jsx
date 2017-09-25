@@ -1,21 +1,15 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import classNames from 'classnames';
 import i18n from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-import {
-	isDomainMapping,
-	isDomainRegistration,
-	isGoogleApps,
-	isGuidedTransfer,
-} from 'lib/products-values';
+import { isDomainMapping, isDomainRegistration, isGoogleApps, isGuidedTransfer } from 'lib/products-values';
 
 const FeaturesHeader = ( { isDataLoaded, isGenericReceipt, purchases, hasFailedPurchases } ) => {
 	const classes = classNames( 'checkout-thank-you__features-header', {

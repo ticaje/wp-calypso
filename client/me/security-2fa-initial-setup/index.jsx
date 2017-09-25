@@ -1,21 +1,18 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
-import { localize } from 'i18n-calypso';
-
 import debugFactory from 'debug';
-const debug = debugFactory( 'calypso:me:security:2fa-initial-setup' );
+import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
 import FormButton from 'components/forms/form-button';
-
 import analytics from 'lib/analytics';
+
+const debug = debugFactory( 'calypso:me:security:2fa-initial-setup' );
 
 export default localize( React.createClass( {
 

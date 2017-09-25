@@ -1,17 +1,15 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
 import { localize } from 'i18n-calypso';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-import EmptyContent from 'components/empty-content';
 import Field from './field';
+import EmptyContent from 'components/empty-content';
 
 export default localize( React.createClass( {
 	displayName: 'ContactFormDialogFieldList',

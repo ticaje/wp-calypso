@@ -1,10 +1,13 @@
-/** External Dependencies */
-import PropTypes from 'prop-types';
-
-import React from 'react';
+/**
+ * External dependencies
+ */
 import Gridicon from 'gridicons';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-/** Internal Dependencies */
+/**
+ * Internal dependencies
+ */
 import Spinner from 'components/spinner';
 
 export default React.createClass( {

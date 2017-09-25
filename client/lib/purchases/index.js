@@ -1,20 +1,14 @@
 /**
  * External dependencies
  */
-import { find, includes } from 'lodash';
-
-import moment from 'moment';
 import i18n from 'i18n-calypso';
+import { find, includes } from 'lodash';
+import moment from 'moment';
 
 /**
  * Internal dependencies
  */
-import {
-	isJetpackPlan,
-	isDomainRegistration,
-	isPlan,
-	isTheme
-} from 'lib/products-values';
+import { isJetpackPlan, isDomainRegistration, isPlan, isTheme } from 'lib/products-values';
 
 function getIncludedDomain( purchase ) {
 	return purchase.includedDomain;

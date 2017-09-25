@@ -1,22 +1,20 @@
 /**
  * External dependencies
  */
-import React from 'react';
-import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
 import { noop } from 'lodash';
+import React from 'react';
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
  */
+import { defaultStandardPlugins } from './default-plugins';
+import StandardPluginsPanel from './standard-plugins-panel';
 import HeaderCake from 'components/header-cake';
 import PageViewTracker from 'lib/analytics/page-view-tracker';
-import { getSelectedSiteId } from 'state/ui/selectors';
 import { getSiteSlug } from 'state/sites/selectors';
-
-import StandardPluginsPanel from './standard-plugins-panel';
-
-import { defaultStandardPlugins } from './default-plugins';
+import { getSelectedSiteId } from 'state/ui/selectors';
 
 export const PluginsList = ( { siteSlug, translate } ) => (
 	<div className="wpcom-plugin-panel wpcom-plugins-expanded">
