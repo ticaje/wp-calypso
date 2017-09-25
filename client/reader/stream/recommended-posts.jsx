@@ -2,9 +2,7 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { map, partial, some } from 'lodash';
 import { localize } from 'i18n-calypso';
 import Gridicon from 'gridicons';

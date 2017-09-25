@@ -1,12 +1,9 @@
-import ReactDom from 'react-dom';
-
 /** @format */
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
-import React from 'react';
+import ReactDom from 'react-dom';
+import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { defer, findLast, noop, times, clamp, identity, map } from 'lodash';
 import { connect } from 'react-redux';

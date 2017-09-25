@@ -2,8 +2,6 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { localize } from 'i18n-calypso';
 
@@ -16,7 +14,7 @@ import { isDiscoverEnabled } from 'reader/discover/helper';
 
 class TagEmptyContent extends React.Component {
 	static propTypes = {
-		decodedTagSlug: PropTypes.string,
+		decodedTagSlug: React.PropTypes.string,
 	};
 
 	shouldComponentUpdate() {

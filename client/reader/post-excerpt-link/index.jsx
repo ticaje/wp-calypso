@@ -2,8 +2,6 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { localize } from 'i18n-calypso';
 import classNames from 'classnames';
@@ -15,8 +13,8 @@ import { recordPermalinkClick } from 'reader/stats';
 
 class PostExcerptLink extends React.Component {
 	static propTypes = {
-		siteName: PropTypes.string,
-		postUrl: PropTypes.string,
+		siteName: React.PropTypes.string,
+		postUrl: React.PropTypes.string,
 	};
 
 	state = {

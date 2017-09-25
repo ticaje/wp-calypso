@@ -2,8 +2,6 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import classNames from 'classnames';
 
@@ -17,13 +15,13 @@ import { recordFollowToggle, recordSiteClick } from './stats';
 
 class DiscoverSiteAttribution extends React.Component {
 	static propTypes = {
-		attribution: PropTypes.shape( {
-			blog_name: PropTypes.string.isRequired,
-			blog_url: PropTypes.string.isRequired,
-			avatar_url: PropTypes.string,
+		attribution: React.PropTypes.shape( {
+			blog_name: React.PropTypes.string.isRequired,
+			blog_url: React.PropTypes.string.isRequired,
+			avatar_url: React.PropTypes.string,
 		} ).isRequired,
-		siteUrl: PropTypes.string.isRequired,
-		followUrl: PropTypes.string.isRequired,
+		siteUrl: React.PropTypes.string.isRequired,
+		followUrl: React.PropTypes.string.isRequired,
 	};
 
 	onSiteClick = () => recordSiteClick( this.props.siteUrl );

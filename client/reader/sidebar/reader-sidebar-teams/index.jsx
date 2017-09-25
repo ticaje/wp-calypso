@@ -2,8 +2,6 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import { map } from 'lodash';
 
@@ -19,8 +17,8 @@ const renderItems = ( teams, path ) =>
 
 export class ReaderSidebarTeams extends Component {
 	static propTypes = {
-		teams: PropTypes.array,
-		path: PropTypes.string.isRequired,
+		teams: React.PropTypes.array,
+		path: React.PropTypes.string.isRequired,
 	};
 
 	render() {

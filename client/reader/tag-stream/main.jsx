@@ -2,8 +2,6 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { localize } from 'i18n-calypso';
 import { connect } from 'react-redux';
@@ -25,9 +23,9 @@ import QueryReaderTag from 'components/data/query-reader-tag';
 
 class TagStream extends React.Component {
 	static propTypes = {
-		encodedTagSlug: PropTypes.string,
-		decodedTagSlug: PropTypes.string,
-		followSource: PropTypes.string.isRequired,
+		encodedTagSlug: React.PropTypes.string,
+		decodedTagSlug: React.PropTypes.string,
+		followSource: React.PropTypes.string.isRequired,
 	};
 
 	state = {

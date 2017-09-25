@@ -2,8 +2,6 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { localize } from 'i18n-calypso';
 import { connect } from 'react-redux';
@@ -19,10 +17,10 @@ import { getDocumentHeadCappedUnreadCount } from 'state/document-head/selectors'
 
 class UpdateNotice extends React.PureComponent {
 	static propTypes = {
-		count: PropTypes.number.isRequired,
-		onClick: PropTypes.func,
+		count: React.PropTypes.number.isRequired,
+		onClick: React.PropTypes.func,
 		// connected props
-		cappedUnreadCount: PropTypes.string,
+		cappedUnreadCount: React.PropTypes.string,
 	};
 
 	static defaultProps = { onClick: noop };

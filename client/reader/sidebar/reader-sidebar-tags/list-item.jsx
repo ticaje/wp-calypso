@@ -2,8 +2,6 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { localize } from 'i18n-calypso';
@@ -18,11 +16,11 @@ import { recordAction, recordGaEvent, recordTrack } from 'reader/stats';
 
 export class ReaderSidebarTagsListItem extends Component {
 	static propTypes = {
-		tag: PropTypes.object.isRequired,
-		onUnfollow: PropTypes.func.isRequired,
-		path: PropTypes.string.isRequired,
-		currentTag: PropTypes.string,
-		translate: PropTypes.func,
+		tag: React.PropTypes.object.isRequired,
+		onUnfollow: React.PropTypes.func.isRequired,
+		path: React.PropTypes.string.isRequired,
+		currentTag: React.PropTypes.string,
+		translate: React.PropTypes.func,
 	};
 
 	static defaultProps = {

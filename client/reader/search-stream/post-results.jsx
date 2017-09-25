@@ -2,8 +2,6 @@
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import { identity } from 'lodash';
 import { localize } from 'i18n-calypso';
@@ -20,7 +18,7 @@ import PostPlaceholder from 'reader/stream/post-placeholder';
 
 class PostResults extends Component {
 	static propTypes = {
-		query: PropTypes.string,
+		query: React.PropTypes.string,
 	};
 
 	placeholderFactory = ( { key, ...rest } ) => {

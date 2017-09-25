@@ -102,7 +102,7 @@ export default localize(
 					case 'error':
 						break;
 					default:
-						const style = {
+						let style = {
 							backgroundImage:
 								post.canonical_image && post.canonical_image.uri
 									? 'url(' + cssSafeUrl( post.canonical_image.uri ) + ')'

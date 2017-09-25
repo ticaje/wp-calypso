@@ -2,8 +2,6 @@
 /**
  * External dependencies
  */
-import PropTypes from 'prop-types';
-
 import React from 'react';
 
 /**
@@ -39,9 +37,9 @@ function ReaderFollowButton( props ) {
 }
 
 ReaderFollowButton.propTypes = {
-	onFollowToggle: PropTypes.func,
-	railcar: PropTypes.object,
-	followSource: PropTypes.string,
+	onFollowToggle: React.PropTypes.func,
+	railcar: React.PropTypes.object,
+	followSource: React.PropTypes.string,
 };
 
 export default ReaderFollowButton;

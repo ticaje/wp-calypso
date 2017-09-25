@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { trim, debounce, random, take, reject, includes } from 'lodash';
-import { localize } from 'i18n-calypso';
-import page from 'page';
-
 /** @format */
 /**
  * External Dependencies
  */
-import PropTypes from 'prop-types';
-
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { trim, debounce, random, take, reject, includes } from 'lodash';
+import { localize } from 'i18n-calypso';
+import page from 'page';
 import qs from 'qs';
 
 /**

@@ -16,7 +16,7 @@ const exported = {
 	 * @returns {object} - urls of site and post url
 	 */
 	getXPostMetadata( post ) {
-		const xPostMetadata = {
+		let xPostMetadata = {
 			siteURL: null,
 			postURL: null,
 			commentURL: null,
@@ -31,7 +31,7 @@ const exported = {
 					meta.key === '_xpost_original_permalink' ||
 					meta.key === 'xcomment_original_permalink'
 				) {
-					const parsedURL = url.parse( meta.value, false, false );
+					let parsedURL = url.parse( meta.value, false, false );
 					xPostMetadata.siteURL = `${ parsedURL.protocol }//${ parsedURL.host }`;
 					xPostMetadata.postURL = `${ xPostMetadata.siteURL }${ parsedURL.path }`;
 					if ( parsedURL.hash && parsedURL.hash.indexOf( '#comment-' ) === 0 ) {
