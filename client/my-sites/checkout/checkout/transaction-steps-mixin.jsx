@@ -136,45 +136,45 @@ const TransactionStepsMixin = {
 			return;
 		}
 		const { ID:siteId, domain: siteDomain } = selectedSite;
-		console.time('total');
-
-		let isEligible = false;
 		let checkInterval;
-		console.log( '%c **** Polling for eligibility ****', 'color: red' );
-		console.time( 'eligibility' );
-		const checkEligibility = ( ) => {
 
+		console.time('total');
+		debug( '**** Polling for eligibility ****' );
+		console.time( 'eligibility' );
+		
+		const checkEligibility = () => {
 			wpcom.req.get( `/sites/${siteId}/automated-transfers/eligibility` ).then(  status => {
 				if ( status.is_eligible ) {
-					isEligible = true;
+					clearInterval( checkInterval );
+					
 					console.timeEnd( 'eligibility');
+					debug( '**** init transfer ****' );
 					wpcom.req.post( `/sites/${siteId}/automated-transfers/initiate`, {plugin: 'woocommerce' } ).then( initStatus => {
 						const transferId = initStatus.transfer_id;
-						console.log( '%c **** Polling for transfer status ****', 'color:red' );
+						
+						debug( '**** Polling for transfer status ****' );
 						console.time( 'transfer' );
+						
 						let transferInterval;
-						let isTranfered = false;
 						const checkTransfer = () => {
 							wpcom.req.get( `/sites/${siteId}/automated-transfers/status/${transferId}`).then( transferStatus => {
 								if ( transferStatus.status === "complete" ) {
+									clearInterval( transferInterval );
+									
 									console.timeEnd( 'transfer' );
 									console.timeEnd( 'total');
-									clearInterval( transferInterval );
-									console.log( 'the store is ready!' );
-								  page.redirect( `/store/${siteDomain}` );
+									debug( 'The store is ready!' );
+								  
+									page.redirect( `/store/${siteDomain}` );
 								}
 							} );
 						} 
-						transferInterval = setInterval( checkTransfer, 5000 );
+						transferInterval = setInterval( checkTransfer, 2000 );
 					} );
-				}
-				if ( isEligible ) {
-					clearInterval( checkInterval );
 				}
 			} );
 		}
-		checkEligibility();
-		checkInterval = setInterval( checkEligibility, 5000 );
+		checkInterval = setInterval( checkEligibility, 2000 );
 /*
 		defer( () => {
 			// The Thank You page throws a rendering error if this is not in a defer.
