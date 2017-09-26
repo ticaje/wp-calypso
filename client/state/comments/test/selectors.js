@@ -7,11 +7,7 @@ import { expect } from 'chai';
 /***
  * Internal dependencies
  */
-import {
-	getPostOldestCommentDate,
-	getPostMostRecentCommentDate,
-	getCommentLike,
-} from '../selectors';
+import { getPostOldestCommentDate, getPostNewestCommentDate, getCommentLike } from '../selectors';
 
 const state = {
 	comments: {
@@ -39,15 +35,15 @@ const state = {
 };
 
 describe( 'selectors', () => {
-	describe( '#getPostMostRecentCommentDate()', () => {
+	describe( '#getPostNewestCommentDate()', () => {
 		it( 'should get most recent date', () => {
-			const res = getPostMostRecentCommentDate( state, 1, 1 );
+			const res = getPostNewestCommentDate( state, 1, 1 );
 
 			expect( res ).to.be.eql( new Date( '2017-01-31T10:07:18-08:00' ) );
 		} );
 
 		it( 'should return undefined if no comment items', () => {
-			const res = getPostMostRecentCommentDate(
+			const res = getPostNewestCommentDate(
 				{
 					comments: { items: { '1-1': [] } },
 				},
@@ -57,7 +53,7 @@ describe( 'selectors', () => {
 
 			expect( res ).to.be.eql( undefined );
 		} );
-	} ); // end of getPostMostRecentCommentDate
+	} ); // end of getPostNewestCommentDate
 
 	describe( '#getPostOldestCommentDate()', () => {
 		it( 'should get earliest date', () => {
