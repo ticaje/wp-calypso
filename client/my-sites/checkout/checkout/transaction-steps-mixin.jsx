@@ -17,6 +17,11 @@ import { displayError, clear } from 'lib/upgrades/notices';
 import upgradesActions from 'lib/upgrades/actions';
 import { removeNestedProperties } from 'lib/cart/store/cart-analytics';
 
+// HACK PROTOTYPE
+import { http } from 'state/data-layer/wpcom-http/actions';
+import wpcom from 'lib/wp';
+import page from 'page';
+
 const TransactionStepsMixin = {
 	submitTransaction: function( event ) {
 		event.preventDefault();
@@ -130,11 +135,52 @@ const TransactionStepsMixin = {
 		if ( ! step.last || step.error ) {
 			return;
 		}
+		const { ID:siteId, domain: siteDomain } = selectedSite;
+		console.time('total');
 
+		let isEligible = false;
+		let checkInterval;
+		console.log( '%c **** Polling for eligibility ****', 'color: red' );
+		console.time( 'eligibility' );
+		const checkEligibility = ( ) => {
+
+			wpcom.req.get( `/sites/${siteId}/automated-transfers/eligibility` ).then(  status => {
+				if ( status.is_eligible ) {
+					isEligible = true;
+					console.timeEnd( 'eligibility');
+					wpcom.req.post( `/sites/${siteId}/automated-transfers/initiate`, {plugin: 'woocommerce' } ).then( initStatus => {
+						const transferId = initStatus.transfer_id;
+						console.log( '%c **** Polling for transfer status ****', 'color:red' );
+						console.time( 'transfer' );
+						let transferInterval;
+						let isTranfered = false;
+						const checkTransfer = () => {
+							wpcom.req.get( `/sites/${siteId}/automated-transfers/status/${transferId}`).then( transferStatus => {
+								if ( transferStatus.status === "complete" ) {
+									console.timeEnd( 'transfer' );
+									console.timeEnd( 'total');
+									clearInterval( transferInterval );
+									console.log( 'the store is ready!' );
+								  page.redirect( `/store/${siteDomain}` );
+								}
+							} );
+						} 
+						transferInterval = setInterval( checkTransfer, 5000 );
+					} );
+				}
+				if ( isEligible ) {
+					clearInterval( checkInterval );
+				}
+			} );
+		}
+		checkEligibility();
+		checkInterval = setInterval( checkEligibility, 5000 );
+/*
 		defer( () => {
 			// The Thank You page throws a rendering error if this is not in a defer.
 			this.props.handleCheckoutCompleteRedirect();
 		} );
+*/
 	}
 };
 
