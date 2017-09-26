@@ -30,6 +30,16 @@ export const isError = ( state, orderId, siteId = getSelectedSiteId( state ) ) =
 	return shippingLabel && shippingLabel.error;
 };
 
+export const shouldFulfillOrder = ( state, orderId, siteId = getSelectedSiteId( state ) ) => {
+	const shippingLabel = getShippingLabel( state, orderId, siteId );
+	return shippingLabel && shippingLabel.fulfillOrder;
+};
+
+export const shouldEmailDetails = ( state, orderId, siteId = getSelectedSiteId( state ) ) => {
+	const shippingLabel = getShippingLabel( state, orderId, siteId );
+	return shippingLabel && shippingLabel.emailDetails;
+};
+
 export const getForm = ( state, orderId, siteId = getSelectedSiteId( state ) ) => {
 	const shippingLabel = getShippingLabel( state, orderId, siteId );
 	return shippingLabel && shippingLabel.form;
