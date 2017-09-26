@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -13,10 +14,8 @@ import userFactory from 'lib/user';
 
 const user = userFactory();
 
-const MeSidebarNavigation = ( { translate } ) => (
-	<SidebarNavigation
-		sectionName="me"
-		sectionTitle={ translate( 'Me' ) }>
+const MeSidebarNavigation = ( { translate } ) => (
+	<SidebarNavigation sectionName="me" sectionTitle={ translate( 'Me' ) }>
 		<Gravatar user={ user.get() } size={ 30 } imgSize={ 400 } />
 	</SidebarNavigation>
 );

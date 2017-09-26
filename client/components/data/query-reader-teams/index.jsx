@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -20,10 +21,7 @@ class QueryReaderTeams extends Component {
 }
 
 QueryReaderTeams.propTypes = {
-	request: PropTypes.func
+	request: PropTypes.func,
 };
 
-export default connect(
-	null,
-	{ requestTeams },
-)( QueryReaderTeams );
+export default connect( null, { requestTeams } )( QueryReaderTeams );

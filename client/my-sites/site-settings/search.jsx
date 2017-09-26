@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -19,13 +20,13 @@ import InfoPopover from 'components/info-popover';
 import ExternalLink from 'components/external-link';
 import QueryJetpackConnection from 'components/data/query-jetpack-connection';
 import { getSelectedSite, getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
-import { getJetpackModule, isActivatingJetpackModule, isJetpackModuleActive } from 'state/selectors';
-import { isJetpackSite } from 'state/sites/selectors';
 import {
-	isBusiness,
-	isEnterprise,
-	isJetpackBusiness
-} from 'lib/products-values';
+	getJetpackModule,
+	isActivatingJetpackModule,
+	isJetpackModuleActive,
+} from 'state/selectors';
+import { isJetpackSite } from 'state/sites/selectors';
+import { isBusiness, isEnterprise, isJetpackBusiness } from 'lib/products-values';
 
 const hasBusinessPlan = overSome( isBusiness, isEnterprise, isJetpackBusiness );
 
@@ -71,46 +72,27 @@ class Search extends Component {
 			<div>
 				{ this.renderInfoLink( 'https://support.wordpress.com/search/' ) }
 
-				<div>
-					{ this.renderSearchExplanation() }
-				</div>
+				<div>{ this.renderSearchExplanation() }</div>
 			</div>
 		);
 	}
 
 	renderJetpackSettingsContent() {
-		const {
-			activatingSearchModule,
-			searchModuleActive,
-			translate
-		} = this.props;
+		const { activatingSearchModule, searchModuleActive, translate } = this.props;
 
 		return (
 			<div className="search__module-settings site-settings__child-settings">
-				{
-					activatingSearchModule &&
-					<FormSettingExplanation>
-						{ translate( 'Activating search…' ) }
-					</FormSettingExplanation>
-				}
+				{ activatingSearchModule && (
+					<FormSettingExplanation>{ translate( 'Activating search…' ) }</FormSettingExplanation>
+				) }
 
-				{
-					searchModuleActive &&
-					<div>
-						{ this.renderSearchExplanation() }
-					</div>
-				}
+				{ searchModuleActive && <div>{ this.renderSearchExplanation() }</div> }
 			</div>
 		);
 	}
 
 	renderJetpackSettings() {
-		const {
-			isRequestingSettings,
-			isSavingSettings,
-			siteId,
-			translate
-		} = this.props;
+		const { isRequestingSettings, isSavingSettings, siteId, translate } = this.props;
 
 		return (
 			<FormFieldset>
@@ -129,12 +111,7 @@ class Search extends Component {
 	}
 
 	render() {
-		const {
-			siteId,
-			siteIsJetpack,
-			enableFeature,
-			translate
-		} = this.props;
+		const { siteId, siteIsJetpack, enableFeature, translate } = this.props;
 
 		// for now, don't even show upgrade nudge
 		if ( ! enableFeature ) {
@@ -148,31 +125,26 @@ class Search extends Component {
 				<SectionHeader label={ translate( 'Search' ) } />
 
 				<Card className="search__card site-settings__traffic-settings">
-					{ siteIsJetpack
-						? this.renderJetpackSettings()
-						: this.renderWpcomSettings()
-					}
+					{ siteIsJetpack ? this.renderJetpackSettings() : this.renderWpcomSettings() }
 				</Card>
 			</div>
 		);
 	}
 }
 
-export default connect(
-	( state ) => {
-		const site = getSelectedSite( state );
-		const siteId = getSelectedSiteId( state );
-		const isSearchEligible = site && site.plan && hasBusinessPlan( site.plan );
+export default connect( state => {
+	const site = getSelectedSite( state );
+	const siteId = getSelectedSiteId( state );
+	const isSearchEligible = site && site.plan && hasBusinessPlan( site.plan );
 
-		return {
-			siteId,
-			activatingSearchModule: !! isActivatingJetpackModule( state, siteId, 'search' ),
-			enableFeature: isSearchEligible,
-			site: getSelectedSite( state ),
-			siteSlug: getSelectedSiteSlug( state ),
-			siteIsJetpack: isJetpackSite( state, siteId ),
-			searchModule: getJetpackModule( state, siteId, 'search' ),
-			searchModuleActive: !! isJetpackModuleActive( state, siteId, 'search' ),
-		};
-	}
-)( localize( Search ) );
+	return {
+		siteId,
+		activatingSearchModule: !! isActivatingJetpackModule( state, siteId, 'search' ),
+		enableFeature: isSearchEligible,
+		site: getSelectedSite( state ),
+		siteSlug: getSelectedSiteSlug( state ),
+		siteIsJetpack: isJetpackSite( state, siteId ),
+		searchModule: getJetpackModule( state, siteId, 'search' ),
+		searchModuleActive: !! isJetpackModuleActive( state, siteId, 'search' ),
+	};
+} )( localize( Search ) );

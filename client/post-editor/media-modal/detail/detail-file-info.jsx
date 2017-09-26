@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -14,7 +15,7 @@ module.exports = React.createClass( {
 	displayName: 'EditorMediaModalDetailFileInfo',
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
 	},
 
 	getItemValue( attribute ) {
@@ -31,9 +32,13 @@ module.exports = React.createClass( {
 
 			case 'dimensions':
 				value = createFragment( {
-					width: <abbr title={ this.translate( 'Width in pixels' ) }>{ this.props.item.width }</abbr>,
+					width: (
+						<abbr title={ this.translate( 'Width in pixels' ) }>{ this.props.item.width }</abbr>
+					),
 					separator: ' ✕ ',
-					height: <abbr title={ this.translate( 'Height in pixels' ) }>{ this.props.item.height }</abbr>
+					height: (
+						<abbr title={ this.translate( 'Height in pixels' ) }>{ this.props.item.height }</abbr>
+					),
 				} );
 				break;
 
@@ -80,7 +85,7 @@ module.exports = React.createClass( {
 
 	render() {
 		let classes = classNames( 'editor-media-modal-detail__file-info', {
-			'is-loading': ! this.props.item
+			'is-loading': ! this.props.item,
 		} );
 
 		return (
@@ -105,5 +110,5 @@ module.exports = React.createClass( {
 				</tbody>
 			</table>
 		);
-	}
+	},
 } );

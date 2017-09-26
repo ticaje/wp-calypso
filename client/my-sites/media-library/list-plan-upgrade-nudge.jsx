@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -22,18 +23,19 @@ function getTitle( filter, translate ) {
 
 function getSubtitle( filter, translate ) {
 	if ( filter === 'audio' ) {
-		return translate( 'By upgrading to the Premium plan you\'ll enable audio upload support on your site.' );
+		return translate(
+			"By upgrading to the Premium plan you'll enable audio upload support on your site."
+		);
 	}
 
-	return translate( 'By upgrading to a Premium Plan you\'ll enable VideoPress support on your site.' );
+	return translate(
+		"By upgrading to a Premium Plan you'll enable VideoPress support on your site."
+	);
 }
 
 export const MediaLibraryUpgradeNudge = ( { translate, filter, site } ) => (
 	<div className="media-library__videopress-nudge-container">
-		<ListPlanPromo
-			site={ site }
-			filter={ filter }
-			>
+		<ListPlanPromo site={ site } filter={ filter }>
 			<UpgradeNudge
 				className="media-library__videopress-nudge-regular"
 				title={ getTitle( filter, translate ) }
@@ -48,12 +50,12 @@ export const MediaLibraryUpgradeNudge = ( { translate, filter, site } ) => (
 MediaLibraryUpgradeNudge.propTypes = {
 	site: PropTypes.object,
 	translate: PropTypes.func,
-	filter: React.PropTypes.string
+	filter: React.PropTypes.string,
 };
 
 MediaLibraryUpgradeNudge.defaultProps = {
 	translate: identity,
-	filter: 'video'
+	filter: 'video',
 };
 
 export default localize( MediaLibraryUpgradeNudge );

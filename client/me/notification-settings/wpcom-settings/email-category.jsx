@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,7 +19,7 @@ const EmailCategory = React.createClass( {
 			name: React.PropTypes.string,
 			isEnabled: React.PropTypes.bool,
 			title: React.PropTypes.string,
-			description: React.PropTypes.string
+			description: React.PropTypes.string,
 		};
 	},
 
@@ -36,7 +37,7 @@ const EmailCategory = React.createClass( {
 				</FormLabel>
 			</FormFieldset>
 		);
-	}
+	},
 } );
 
 export default EmailCategory;

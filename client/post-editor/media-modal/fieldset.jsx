@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -8,10 +9,8 @@ module.exports = React.createClass( {
 	displayName: 'EditorMediaModalFieldset',
 
 	propTypes: {
-		legend: React.PropTypes.oneOfType( [
-			React.PropTypes.string,
-			React.PropTypes.element
-		] ).isRequired
+		legend: React.PropTypes.oneOfType( [ React.PropTypes.string, React.PropTypes.element ] )
+			.isRequired,
 	},
 
 	render: function() {
@@ -21,5 +20,5 @@ module.exports = React.createClass( {
 				{ this.props.children }
 			</fieldset>
 		);
-	}
+	},
 } );

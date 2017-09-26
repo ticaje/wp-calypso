@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,9 +16,7 @@ export default localize( ( { translate } ) => {
 			<PurchaseDetail
 				icon="comment"
 				title={ translate( 'Spam Filtering' ) }
-				description={ translate(
-					'Spam is being automatically filtered.'
-				) }
+				description={ translate( 'Spam is being automatically filtered.' ) }
 			/>
 		</div>
 	);

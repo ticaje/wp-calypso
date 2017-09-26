@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,18 +19,13 @@ import redirectNonJetpack from 'my-sites/site-settings/redirect-non-jetpack';
 
 class ManageConnection extends Component {
 	render() {
-		const {
-			redirect,
-			translate
-		} = this.props;
+		const { redirect, translate } = this.props;
 
 		return (
 			<Main className="manage-connection site-settings">
 				<DocumentHead title={ translate( 'Site Settings' ) } />
 
-				<HeaderCake onClick={ redirect }>
-					{ translate( 'Manage Connection' ) }
-				</HeaderCake>
+				<HeaderCake onClick={ redirect }>{ translate( 'Manage Connection' ) }</HeaderCake>
 
 				<SiteOwnership />
 				<DataSynchronization />
@@ -39,7 +35,4 @@ class ManageConnection extends Component {
 	}
 }
 
-export default flowRight(
-	localize,
-	redirectNonJetpack()
-)( ManageConnection );
+export default flowRight( localize, redirectNonJetpack() )( ManageConnection );

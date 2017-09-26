@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -21,7 +22,7 @@ import inputFilters from './input-filters';
 
 const renderDimensionsInput = ( dimensionsName, dimensionsStr, updateField ) => {
 	const { length, width, height } = inputFilters.parseDimensions( dimensionsStr );
-	const onChange = ( event ) => {
+	const onChange = event => {
 		const name = event.target.name;
 		const value = event.target.value;
 		const allDimensions = [
@@ -32,15 +33,11 @@ const renderDimensionsInput = ( dimensionsName, dimensionsStr, updateField ) => 
 		updateField( dimensionsName, allDimensions.join( ' x ' ) );
 	};
 
-	return (
-		<FormDimensionsInput
-			dimensions={ { width, height, length } }
-			onChange={ onChange } />
-	);
+	return <FormDimensionsInput dimensions={ { width, height, length } } onChange={ onChange } />;
 };
 
 const OuterDimensionsToggle = ( { siteId, toggleOuterDimensions, translate } ) => {
-	const onClick = ( event ) => {
+	const onClick = event => {
 		event.preventDefault();
 		toggleOuterDimensions( siteId );
 	};
@@ -52,7 +49,7 @@ const OuterDimensionsToggle = ( { siteId, toggleOuterDimensions, translate } ) =
 	);
 };
 
-const EditPackage = ( props ) => {
+const EditPackage = props => {
 	const {
 		siteId,
 		form,
@@ -62,14 +59,7 @@ const EditPackage = ( props ) => {
 		translate,
 	} = props;
 
-	const {
-		mode,
-		modalErrors,
-		dimensionUnit,
-		weightUnit,
-		packageData,
-		showOuterDimensions,
-	} = form;
+	const { mode, modalErrors, dimensionUnit, weightUnit, packageData, showOuterDimensions } = form;
 
 	const {
 		name,
@@ -87,7 +77,7 @@ const EditPackage = ( props ) => {
 		updatePackagesField( siteId, { [ key ]: value } );
 	};
 
-	const updateTextField = ( event ) => {
+	const updateTextField = event => {
 		const key = event.target.name;
 		const value = event.target.value;
 		updateField( key, value );
@@ -95,18 +85,23 @@ const EditPackage = ( props ) => {
 
 	const fieldInfo = ( field, nonEmptyText ) => {
 		const altText = nonEmptyText || translate( 'Invalid value.' );
-		const text = '' === trim( packageData[ field ] ) ? translate( 'This field is required.' ) : altText;
+		const text =
+			'' === trim( packageData[ field ] ) ? translate( 'This field is required.' ) : altText;
 		return modalErrors[ field ] ? <FieldError text={ text } /> : null;
 	};
 
-	const onPackageTypeSelect = ( event ) => {
+	const onPackageTypeSelect = event => {
 		updatePackagesField( siteId, { is_letter: 'envelope' === event.target.value } );
 	};
 	const renderTypeSelection = () => {
 		return (
 			<FormFieldset>
 				<FormLabel htmlFor="package_type">{ translate( 'Type of package' ) }</FormLabel>
-				<FormSelect id="package_type" onChange={ onPackageTypeSelect } value={ is_letter ? 'envelope' : 'box' }>
+				<FormSelect
+					id="package_type"
+					onChange={ onPackageTypeSelect }
+					value={ is_letter ? 'envelope' : 'box' }
+				>
 					<option value="box">{ translate( 'Box' ) }</option>
 					<option value="envelope">{ translate( 'Envelope' ) }</option>
 				</FormSelect>
@@ -116,7 +111,7 @@ const EditPackage = ( props ) => {
 
 	return (
 		<div>
-			{ ( 'add' === mode ) ? renderTypeSelection() : null }
+			{ 'add' === mode ? renderTypeSelection() : null }
 			<FormFieldset>
 				<FormLabel htmlFor="name">{ translate( 'Package name' ) }</FormLabel>
 				<FormTextInput
@@ -130,27 +125,28 @@ const EditPackage = ( props ) => {
 				{ fieldInfo( 'name', translate( 'This field must be unique' ) ) }
 			</FormFieldset>
 			<FormFieldset>
-				<FormLabel>{ translate( 'Inner Dimensions (L x W x H) %(dimensionUnit)s', { args: { dimensionUnit } } ) }</FormLabel>
-				{ renderDimensionsInput(
-					'inner_dimensions',
-					inner_dimensions,
-					updateField ) }
+				<FormLabel>
+					{ translate( 'Inner Dimensions (L x W x H) %(dimensionUnit)s', {
+						args: { dimensionUnit },
+					} ) }
+				</FormLabel>
+				{ renderDimensionsInput( 'inner_dimensions', inner_dimensions, updateField ) }
 				{ fieldInfo( 'inner_dimensions' ) }
-				{ ! isOuterDimensionsVisible ? <OuterDimensionsToggle { ...{ siteId, toggleOuterDimensions, translate } } /> : null }
+				{ ! isOuterDimensionsVisible ? (
+					<OuterDimensionsToggle { ...{ siteId, toggleOuterDimensions, translate } } />
+				) : null }
 			</FormFieldset>
-			{ isOuterDimensionsVisible
-				? ( <FormFieldset>
-						<FormLabel>
-							{ translate( 'Outer Dimensions (L x W x H) %(dimensionUnit)s', { args: { dimensionUnit } } ) }
-						</FormLabel>
-						{ renderDimensionsInput(
-							'outer_dimensions',
-							outer_dimensions,
-							updateField ) }
-						{ fieldInfo( 'outer_dimensions' ) }
-					</FormFieldset> )
-				: null
-			}
+			{ isOuterDimensionsVisible ? (
+				<FormFieldset>
+					<FormLabel>
+						{ translate( 'Outer Dimensions (L x W x H) %(dimensionUnit)s', {
+							args: { dimensionUnit },
+						} ) }
+					</FormLabel>
+					{ renderDimensionsInput( 'outer_dimensions', outer_dimensions, updateField ) }
+					{ fieldInfo( 'outer_dimensions' ) }
+				</FormFieldset>
+			) : null }
 			<FormFieldset className="packages__add-package-weight-group">
 				<div className="packages__add-package-weight">
 					<FormLabel htmlFor="box_weight">{ translate( 'Weight of empty package' ) }</FormLabel>
@@ -183,7 +179,9 @@ const EditPackage = ( props ) => {
 					{ fieldInfo( 'max_weight' ) }
 				</div>
 				<FormSettingExplanation>
-					{ translate( 'Defines both the weight of the empty package and the max weight it can hold' ) }
+					{ translate(
+						'Defines both the weight of the empty package and the max weight it can hold'
+					) }
 				</FormSettingExplanation>
 			</FormFieldset>
 		</div>

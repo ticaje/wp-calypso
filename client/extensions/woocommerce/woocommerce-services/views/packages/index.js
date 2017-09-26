@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -32,7 +33,7 @@ class Packages extends Component {
 		}
 	}
 
-	renderListHeader = ( packages ) => {
+	renderListHeader = packages => {
 		const { translate } = this.props;
 
 		if ( ! packages || ! packages.length ) {
@@ -56,10 +57,18 @@ class Packages extends Component {
 		let button = null;
 		if ( pckg.is_user_defined ) {
 			const onEdit = () => this.props.editPackage( siteId, pckg );
-			button = <Button compact onClick={ onEdit }>{ translate( 'Edit' ) }</Button>;
+			button = (
+				<Button compact onClick={ onEdit }>
+					{ translate( 'Edit' ) }
+				</Button>
+			);
 		} else {
 			const onRemove = () => this.props.removePredefinedPackage( siteId, pckg.serviceId, pckg.id );
-			button = <Button compact onClick={ onRemove }>{ translate( 'Remove' ) }</Button>;
+			button = (
+				<Button compact onClick={ onRemove }>
+					{ translate( 'Remove' ) }
+				</Button>
+			);
 		}
 
 		return (
@@ -68,7 +77,8 @@ class Packages extends Component {
 				siteId={ siteId }
 				isPlaceholder={ isFetching }
 				data={ pckg }
-				dimensionUnit={ dimensionUnit }>
+				dimensionUnit={ dimensionUnit }
+			>
 				{ button }
 			</PackagesListItem>
 		);
@@ -78,19 +88,24 @@ class Packages extends Component {
 		const { isFetching, siteId, allSelectedPackages, translate } = this.props;
 		const packages = isFetching ? [ {}, {}, {} ] : allSelectedPackages;
 
-		const addPackage = () => ( this.props.addPackage( siteId ) );
+		const addPackage = () => this.props.addPackage( siteId );
 
 		return (
 			<div>
 				<ExtendedHeader
 					label={ translate( 'Packages' ) }
-					description={ translate( 'Add boxes, envelopes, and other packages you use most frequently.' ) }>
-					<Button onClick={ addPackage } disabled={ isFetching }>{ translate( 'Add package' ) }</Button>
+					description={ translate(
+						'Add boxes, envelopes, and other packages you use most frequently.'
+					) }
+				>
+					<Button onClick={ addPackage } disabled={ isFetching }>
+						{ translate( 'Add package' ) }
+					</Button>
 				</ExtendedHeader>
 				<Card className="packages__packages">
 					{ this.renderListHeader( packages ) }
 					{ packages.map( this.renderListItem ) }
-					{ ( ! isFetching ) && <PackageDialog { ...this.props } /> }
+					{ ! isFetching && <PackageDialog { ...this.props } /> }
 				</Card>
 			</div>
 		);
@@ -117,7 +132,7 @@ Packages.propTypes = {
 };
 
 export default connect(
-	( state ) => {
+	state => {
 		const siteId = getSelectedSiteId( state );
 		const form = getPackagesForm( state, siteId );
 		return {
@@ -127,8 +142,7 @@ export default connect(
 			allSelectedPackages: getAllSelectedPackages( state, siteId ),
 		};
 	},
-	( dispatch ) => (
-		{
-			...bindActionCreators( PackagesActions, dispatch ),
-		} )
+	dispatch => ( {
+		...bindActionCreators( PackagesActions, dispatch ),
+	} )
 )( localize( Packages ) );

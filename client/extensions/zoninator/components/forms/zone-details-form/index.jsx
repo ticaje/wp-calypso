@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -26,25 +27,17 @@ class ZoneDetailsForm extends PureComponent {
 		onSubmit: PropTypes.func.isRequired,
 		submitting: PropTypes.bool.isRequired,
 		translate: PropTypes.func.isRequired,
-	}
+	};
 
 	save = data => this.props.onSubmit( form, mapValues( data, trim ) );
 
 	render() {
-		const {
-			handleSubmit,
-			label,
-			submitting,
-			translate,
-		} = this.props;
+		const { handleSubmit, label, submitting, translate } = this.props;
 
 		return (
 			<form onSubmit={ handleSubmit( this.save ) }>
 				<SectionHeader label={ label }>
-					<FormButton
-						compact
-						disabled={ submitting }
-						isSubmitting={ submitting }>
+					<FormButton compact disabled={ submitting } isSubmitting={ submitting }>
 						{ translate( 'Save' ) }
 					</FormButton>
 				</SectionHeader>
@@ -52,11 +45,13 @@ class ZoneDetailsForm extends PureComponent {
 					<ReduxFormFieldset
 						name="name"
 						label={ translate( 'Zone name' ) }
-						component={ FormTextInput } />
+						component={ FormTextInput }
+					/>
 					<ReduxFormFieldset
 						name="description"
 						label={ translate( 'Zone description' ) }
-						component={ FormTextarea } />
+						component={ FormTextarea }
+					/>
 				</CompactCard>
 			</form>
 		);
@@ -81,7 +76,4 @@ const createReduxForm = reduxForm( {
 	},
 } );
 
-export default flowRight(
-	localize,
-	createReduxForm,
-)( ZoneDetailsForm );
+export default flowRight( localize, createReduxForm )( ZoneDetailsForm );

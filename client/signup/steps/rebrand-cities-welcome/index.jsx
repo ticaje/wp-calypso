@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -12,28 +13,21 @@ import SignupActions from 'lib/signup/actions';
 import { generateUniqueRebrandCitiesSiteUrl } from 'lib/rebrand-cities';
 
 class RebrandCitiesWelcomeStep extends Component {
-	handleSubmit = ( event ) => {
+	handleSubmit = event => {
 		event.preventDefault();
 
-		const {
-			goToNextStep,
+		const { goToNextStep, stepName, stepSectionName, translate } = this.props;
+
+		SignupActions.submitSignupStep( {
+			isPurchasingItem: false,
+			processingMessage: translate( 'Setting up your site' ),
+			siteUrl: generateUniqueRebrandCitiesSiteUrl(),
 			stepName,
 			stepSectionName,
-			translate,
-		} = this.props;
-
-		SignupActions.submitSignupStep(
-			{
-				isPurchasingItem: false,
-				processingMessage: translate( 'Setting up your site' ),
-				siteUrl: generateUniqueRebrandCitiesSiteUrl(),
-				stepName,
-				stepSectionName,
-			}
-		);
+		} );
 
 		goToNextStep();
-	}
+	};
 
 	renderContent() {
 		const { translate } = this.props;
@@ -46,29 +40,26 @@ class RebrandCitiesWelcomeStep extends Component {
 	}
 
 	render() {
-		const {
-			flowName,
-			positionInFlow,
-			signupProgress,
-			stepName,
-			translate,
-		} = this.props;
+		const { flowName, positionInFlow, signupProgress, stepName, translate } = this.props;
 
 		return (
 			<div className="rebrand-cities-welcome">
 				<div className="rebrand-cities-welcome__illustration-wrapper">
-					<div className="rebrand-cities-welcome__illustration"></div>
+					<div className="rebrand-cities-welcome__illustration" />
 				</div>
 				<StepWrapper
 					flowName={ flowName }
 					stepName={ stepName }
 					positionInFlow={ positionInFlow }
 					headerText={ translate( 'Connect your business to the online world' ) }
-					subHeaderText={ translate( 'Rebrand Cities and WordPress.com have partnered ' +
-						'to get your business online. We’ll need you to create a WordPress.com ' +
-						'account to get you started.' ) }
+					subHeaderText={ translate(
+						'Rebrand Cities and WordPress.com have partnered ' +
+							'to get your business online. We’ll need you to create a WordPress.com ' +
+							'account to get you started.'
+					) }
 					signupProgress={ signupProgress }
-					stepContent={ this.renderContent() } />
+					stepContent={ this.renderContent() }
+				/>
 			</div>
 		);
 	}

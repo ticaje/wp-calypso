@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External depedencies
  */
@@ -23,7 +24,7 @@ class Promotions extends Component {
 	static propTypes = {
 		site: PropTypes.shape( {
 			ID: PropTypes.number,
-		} )
+		} ),
 	};
 
 	componentDidMount() {
@@ -35,8 +36,8 @@ class Promotions extends Component {
 
 	componentWillReceiveProps( newProps ) {
 		const { site } = this.props;
-		const newSiteId = newProps.site && newProps.site.ID || null;
-		const oldSiteId = site && site.ID || null;
+		const newSiteId = ( newProps.site && newProps.site.ID ) || null;
+		const oldSiteId = ( site && site.ID ) || null;
 		if ( oldSiteId !== newSiteId ) {
 			// TODO: Fill in with current page number.
 			this.props.fetchCouponsPage( newSiteId, 1 );
@@ -50,7 +51,7 @@ class Promotions extends Component {
 		return (
 			<Main className={ classes }>
 				<SidebarNavigation />
-				<ActionHeader breadcrumbs={ ( <span>{ translate( 'Promotions' ) }</span> ) }>
+				<ActionHeader breadcrumbs={ <span>{ translate( 'Promotions' ) }</span> }>
 					<Button primary href={ getLink( '/store/promotion/:site/', site ) }>
 						{ translate( 'Add promotion' ) }
 					</Button>

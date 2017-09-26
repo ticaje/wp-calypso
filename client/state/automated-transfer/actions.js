@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -31,7 +32,7 @@ export const initiateAutomatedTransferWithPluginZip = ( siteId, pluginZip ) => (
  * @param {number} siteId The id of the site to query.
  * @returns {Object} An action object
  */
-export const getAutomatedTransferStatus = ( siteId ) => ( {
+export const getAutomatedTransferStatus = siteId => ( {
 	type: AUTOMATED_TRANSFER_STATUS_REQUEST,
 	siteId,
 } );
@@ -77,7 +78,10 @@ export const requestEligibility = siteId => ( {
  * @param {Object} data eligibility information to be merged into existing state
  * @returns {Object} Redux action
  */
-export const updateEligibility = ( siteId, { eligibilityHolds, eligibilityWarnings, lastUpdate, status } ) => ( {
+export const updateEligibility = (
+	siteId,
+	{ eligibilityHolds, eligibilityWarnings, lastUpdate, status }
+) => ( {
 	type: AUTOMATED_TRANSFER_ELIGIBILITY_UPDATE,
 	eligibilityHolds,
 	eligibilityWarnings,

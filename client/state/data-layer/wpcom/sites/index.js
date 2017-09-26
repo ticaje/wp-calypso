@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -21,5 +22,5 @@ export default mergeHandlers(
 	media,
 	plugins,
 	posts,
-	simplePayments,
+	simplePayments
 );

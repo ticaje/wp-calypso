@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -22,7 +23,7 @@ class PublicizeMessage extends Component {
 		preview: PropTypes.string,
 		acceptableLength: PropTypes.number,
 		requireCount: PropTypes.bool,
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
 	};
 
 	static defaultProps = {
@@ -32,7 +33,7 @@ class PublicizeMessage extends Component {
 		requireCount: false,
 	};
 
-	onChange = ( event ) => {
+	onChange = event => {
 		// TODO: REDUX - remove flux actions when whole post-editor is reduxified
 		if ( this.props.onChange ) {
 			this.props.onChange( event.target.value );
@@ -57,13 +58,14 @@ class PublicizeMessage extends Component {
 				{ this.props.translate(
 					'The length includes space for the link to your post and an attached image.',
 					{ context: 'Post editor sharing message counter explanation' }
-			) }
+				) }
 			</InfoPopover>
 		);
 	}
 
 	renderTextarea() {
-		const placeholder = this.props.preview || this.props.translate( 'Write a message for your audience here.' );
+		const placeholder =
+			this.props.preview || this.props.translate( 'Write a message for your audience here.' );
 
 		if ( this.props.requireCount ) {
 			return (
@@ -87,7 +89,8 @@ class PublicizeMessage extends Component {
 					value={ this.props.message }
 					placeholder={ placeholder }
 					onChange={ this.onChange }
-					className="editor-sharing__message-input" />
+					className="editor-sharing__message-input"
+				/>
 			);
 		}
 	}
@@ -96,7 +99,9 @@ class PublicizeMessage extends Component {
 		return (
 			<div className="editor-sharing__publicize-message">
 				<h5 className="editor-sharing__message-heading">
-					{ this.props.translate( 'Customize the message', { context: 'Post editor sharing message heading' } ) }
+					{ this.props.translate( 'Customize the message', {
+						context: 'Post editor sharing message heading',
+					} ) }
 				</h5>
 				<TrackInputChanges onNewValue={ this.recordStats }>
 					{ this.renderTextarea() }

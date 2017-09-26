@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -23,5 +24,5 @@ export default function EditorDrawerLabel( { children, labelText, helpText } ) {
 EditorDrawerLabel.propTypes = {
 	children: PropTypes.node,
 	helpText: PropTypes.string,
-	labelText: PropTypes.string
+	labelText: PropTypes.string,
 };

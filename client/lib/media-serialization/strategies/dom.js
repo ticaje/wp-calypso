@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -26,7 +27,7 @@ function parseImage( node, _parsed ) {
 	_parsed.media.transient = node.hasAttribute( 'data-istransient' );
 
 	// Parse dimensions
-	[ 'width', 'height' ].forEach( ( dimension ) => {
+	[ 'width', 'height' ].forEach( dimension => {
 		var natural = 'natural' + dimension[ 0 ].toUpperCase() + dimension.slice( 1 ),
 			value = node.getAttribute( dimension ) || node[ natural ] || node[ dimension ];
 

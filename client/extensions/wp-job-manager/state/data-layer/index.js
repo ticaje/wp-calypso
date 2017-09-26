@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -9,10 +10,7 @@ import debugFactory from 'debug';
 
 const debug = debugFactory( 'wp-job-manager:errors' );
 
-const handlers = mergeHandlers(
-	settings,
-	setup,
-);
+const handlers = mergeHandlers( settings, setup );
 
 export default function installActionHandlers() {
 	const added = addHandlers( 'wp-job-manager', handlers );

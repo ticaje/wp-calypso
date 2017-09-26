@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -15,20 +16,25 @@ export const resetPassword = ( { dispatch }, action ) => {
 		userData, // userData can be either { user } or { firstname, lastname, url }
 		method,
 		key,
-		password
+		password,
 	} = action;
 
-	dispatch( http( {
-		method: 'POST',
-		apiNamespace: 'wpcom/v2',
-		path: '/account-recovery/reset',
-		body: {
-			...userData,
-			method,
-			key,
-			password,
-		},
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				apiNamespace: 'wpcom/v2',
+				path: '/account-recovery/reset',
+				body: {
+					...userData,
+					method,
+					key,
+					password,
+				},
+			},
+			action
+		)
+	);
 };
 
 export const handleError = ( { dispatch }, action, rawError ) => {
@@ -45,9 +51,7 @@ export const handleSuccess = ( { dispatch } ) => {
 };
 
 export default {
-	[ ACCOUNT_RECOVERY_RESET_PASSWORD_REQUEST ]: [ dispatchRequest(
-		resetPassword,
-		handleSuccess,
-		handleError
-	) ],
+	[ ACCOUNT_RECOVERY_RESET_PASSWORD_REQUEST ]: [
+		dispatchRequest( resetPassword, handleSuccess, handleError ),
+	],
 };

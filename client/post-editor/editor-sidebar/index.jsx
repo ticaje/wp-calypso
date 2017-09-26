@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -36,7 +37,7 @@ export default class EditorSidebar extends Component {
 		loadRevision: PropTypes.func,
 		selectedRevisionId: PropTypes.number,
 		selectRevision: PropTypes.func,
-	}
+	};
 
 	headerToggleSidebar = () => {
 		if ( this.props.nestedSidebar === NESTED_SIDEBAR_NONE ) {
@@ -44,7 +45,7 @@ export default class EditorSidebar extends Component {
 		} else {
 			this.props.setNestedSidebar( NESTED_SIDEBAR_NONE );
 		}
-	}
+	};
 
 	render() {
 		const {
@@ -66,14 +67,16 @@ export default class EditorSidebar extends Component {
 			selectRevision,
 		} = this.props;
 
-		const sidebarClassNames = classNames(
-			'editor-sidebar',
-			{ 'is-nested-sidebar-focused': nestedSidebar !== NESTED_SIDEBAR_NONE }
-		);
+		const sidebarClassNames = classNames( 'editor-sidebar', {
+			'is-nested-sidebar-focused': nestedSidebar !== NESTED_SIDEBAR_NONE,
+		} );
 
 		return (
-			<div className={ sidebarClassNames } >
-				<EditorSidebarHeader nestedSidebar={ nestedSidebar } toggleSidebar={ this.headerToggleSidebar } />
+			<div className={ sidebarClassNames }>
+				<EditorSidebarHeader
+					nestedSidebar={ nestedSidebar }
+					toggleSidebar={ this.headerToggleSidebar }
+				/>
 				<EditorActionBar
 					isNew={ isNew }
 					post={ post }
@@ -98,13 +101,13 @@ export default class EditorSidebar extends Component {
 					/>
 				</SidebarRegion>
 				<SidebarRegion className="editor-sidebar__nested-region">
-					{ nestedSidebar === NESTED_SIDEBAR_REVISIONS &&
+					{ nestedSidebar === NESTED_SIDEBAR_REVISIONS && (
 						<EditorRevisionsList
 							loadRevision={ loadRevision }
 							selectedRevisionId={ selectedRevisionId }
 							selectRevision={ selectRevision }
 						/>
-					}
+					) }
 				</SidebarRegion>
 				<SidebarFooter>
 					{ nestedSidebar === NESTED_SIDEBAR_NONE && (

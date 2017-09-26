@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -32,11 +33,15 @@ class SiteTitleStep extends React.Component {
 	submitSiteTitleStep = siteTitle => {
 		this.props.setSiteTitle( siteTitle );
 
-		SignupActions.submitSignupStep( {
-			processingMessage: translate( 'Setting up your site' ),
-			stepName: this.props.stepName,
-			siteTitle
-		}, [], { siteTitle } );
+		SignupActions.submitSignupStep(
+			{
+				processingMessage: translate( 'Setting up your site' ),
+				stepName: this.props.stepName,
+				siteTitle,
+			},
+			[],
+			{ siteTitle }
+		);
 
 		this.props.goToNextStep();
 	};
@@ -48,9 +53,7 @@ class SiteTitleStep extends React.Component {
 	renderSiteTitleStep = () => {
 		return (
 			<div>
-				<SignupSiteTitle
-					onSubmit={ this.submitSiteTitleStep }
-				/>
+				<SignupSiteTitle onSubmit={ this.submitSiteTitleStep } />
 				<SiteTitleExample />
 			</div>
 		);
@@ -58,7 +61,9 @@ class SiteTitleStep extends React.Component {
 
 	render() {
 		const headerText = translate( 'Give your new site a name.' );
-		const subHeaderText = translate( 'Enter a Site Title that will be displayed for visitors. You can always change this later.' );
+		const subHeaderText = translate(
+			'Enter a Site Title that will be displayed for visitors. You can always change this later.'
+		);
 
 		return (
 			<div>
@@ -79,7 +84,4 @@ class SiteTitleStep extends React.Component {
 	}
 }
 
-export default connect(
-	null,
-	{ setSiteTitle }
-)( SiteTitleStep );
+export default connect( null, { setSiteTitle } )( SiteTitleStep );

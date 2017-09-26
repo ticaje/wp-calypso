@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -24,9 +25,11 @@ export default function UpdateTemplate( {
 	switch ( status ) {
 		case 'trashing':
 		case 'deleting':
-			trashText = ( status === 'deleting' ) ? s.deleting : s.trashing;
+			trashText = status === 'deleting' ? s.deleting : s.trashing;
 			updateText = (
-				<span>{ trashText } <Ellipsis /></span>
+				<span>
+					{ trashText } <Ellipsis />
+				</span>
 			);
 			updateClass += ' conf-alert--trashing';
 			break;
@@ -34,7 +37,9 @@ export default function UpdateTemplate( {
 		case 'trash':
 			undoClick = resetToPreviousState;
 			undoTemplate = (
-				<a className="undo" onClick={ undoClick }><span>{ s.undo }</span></a>
+				<a className="undo" onClick={ undoClick }>
+					<span>{ s.undo }</span>
+				</a>
 			);
 			updateText = s.trashed;
 			updateClass += ' conf-alert--trashed';
@@ -47,7 +52,9 @@ export default function UpdateTemplate( {
 
 		case 'updating':
 			updateText = (
-				<span>{ s.updating } <Ellipsis /></span>
+				<span>
+					{ s.updating } <Ellipsis />
+				</span>
 			);
 			updateClass += ' conf-alert--updating';
 			break;
@@ -58,21 +65,24 @@ export default function UpdateTemplate( {
 			break;
 
 		case 'restoring':
-			updateText = ( <span>{ s.restoring } <Ellipsis /></span> );
+			updateText = (
+				<span>
+					{ s.restoring } <Ellipsis />
+				</span>
+			);
 			updateClass += ' conf-alert--updating';
 			break;
 
 		default:
-			updateText = previousStatus === 'trash'
-				? s.restored
-				: s.updated;
+			updateText = previousStatus === 'trash' ? s.restored : s.updated;
 	}
 
 	return (
 		<div key={ post.global_ID + '-update' } className="updated-confirmation">
 			<div className={ updateClass }>
 				<div className="conf-alert_con">
-					<span className="conf-alert_title">{ updateText }</span>{ undoTemplate }
+					<span className="conf-alert_title">{ updateText }</span>
+					{ undoTemplate }
 				</div>
 			</div>
 		</div>

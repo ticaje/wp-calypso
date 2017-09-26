@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,7 +26,7 @@ const DEFAULT_FILES = [
 	'docs/coding-guidelines.md',
 	'docs/coding-guidelines/javascript.md',
 	'docs/coding-guidelines/css.md',
-	'docs/coding-guidelines/html.md'
+	'docs/coding-guidelines/html.md',
 ];
 
 /**
@@ -38,11 +39,11 @@ export default class Devdocs extends React.Component {
 	static displayName = 'Devdocs';
 
 	static propTypes = {
-		term: PropTypes.string
+		term: PropTypes.string,
 	};
 
 	static defaultProps = {
-		term: ''
+		term: '',
 	};
 
 	state = {
@@ -50,7 +51,7 @@ export default class Devdocs extends React.Component {
 		results: [],
 		defaultResults: [],
 		inputValue: '',
-		searching: false
+		searching: false,
 	};
 
 	// load default files if not already cached
@@ -59,13 +60,16 @@ export default class Devdocs extends React.Component {
 			return;
 		}
 
-		DocService.list( DEFAULT_FILES, function( err, results ) {
-			if ( ! err ) {
-				this.setState( {
-					defaultResults: results
-				} );
-			}
-		}.bind( this ) );
+		DocService.list(
+			DEFAULT_FILES,
+			function( err, results ) {
+				if ( ! err ) {
+					this.setState( {
+						defaultResults: results,
+					} );
+				}
+			}.bind( this )
+		);
 	};
 
 	componentDidMount() {
@@ -85,14 +89,19 @@ export default class Devdocs extends React.Component {
 	}
 
 	notFound = () => {
-		return this.state.inputValue && this.state.term && ! this.state.results.length && ! this.state.searching;
+		return (
+			this.state.inputValue &&
+			this.state.term &&
+			! this.state.results.length &&
+			! this.state.searching
+		);
 	};
 
 	onSearchChange = term => {
 		this.setState( {
 			inputValue: term,
 			term: term,
-			searching: !! term
+			searching: !! term,
 		} );
 	};
 
@@ -100,16 +109,19 @@ export default class Devdocs extends React.Component {
 		if ( ! term ) {
 			return;
 		}
-		DocService.search( term, function( err, results ) {
-			if ( err ) {
-				log( 'search error: %o', err );
-			}
+		DocService.search(
+			term,
+			function( err, results ) {
+				if ( err ) {
+					log( 'search error: %o', err );
+				}
 
-			this.setState( {
-				results: results,
-				searching: false
-			} );
-		}.bind( this ) );
+				this.setState( {
+					results: results,
+					searching: false,
+				} );
+			}.bind( this )
+		);
 	};
 
 	results = () => {
@@ -129,7 +141,9 @@ export default class Devdocs extends React.Component {
 				<Card compact className="devdocs__result" key={ result.path }>
 					<header className="devdocs__result-header">
 						<h1 className="devdocs__result-title">
-							<a className="devdocs__result-link" href={ url }>{ result.title }</a>
+							<a className="devdocs__result-link" href={ url }>
+								{ result.title }
+							</a>
 						</h1>
 						<h2 className="devdocs__result-path">{ result.path }</h2>
 					</header>
@@ -168,9 +182,7 @@ export default class Devdocs extends React.Component {
 					onSearchChange={ this.onSearchChange }
 					onSearch={ this.onSearch }
 				/>
-				<div className="devdocs__results">
-					{ this.results() }
-				</div>
+				<div className="devdocs__results">{ this.results() }</div>
 			</Main>
 		);
 	}

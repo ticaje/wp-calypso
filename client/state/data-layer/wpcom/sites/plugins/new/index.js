@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,12 +26,17 @@ export const uploadPlugin = ( { dispatch }, action ) => {
 
 	dispatch( recordTracksEvent( 'calypso_plugin_upload' ) );
 
-	dispatch( http( {
-		method: 'POST',
-		path: `/sites/${ siteId }/plugins/new`,
-		apiVersion: '1',
-		formData: [ [ 'zip[]', file ] ],
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				path: `/sites/${ siteId }/plugins/new`,
+				apiVersion: '1',
+				formData: [ [ 'zip[]', file ] ],
+			},
+			action
+		)
+	);
 };
 
 const showErrorNotice = ( dispatch, error ) => {
@@ -48,9 +54,13 @@ const showErrorNotice = ( dispatch, error ) => {
 		return;
 	}
 	if ( error.error ) {
-		dispatch( errorNotice( translate( 'Upload problem: %(error)s.', {
-			args: { error: error.error }
-		} ) ) );
+		dispatch(
+			errorNotice(
+				translate( 'Upload problem: %(error)s.', {
+					args: { error: error.error },
+				} )
+			)
+		);
 		return;
 	}
 	dispatch( errorNotice( translate( 'Problem installing the plugin.' ) ) );
@@ -61,9 +71,11 @@ export const uploadComplete = ( { dispatch, getState }, { siteId }, data ) => {
 	const state = getState();
 	const site = getSite( state, siteId );
 
-	dispatch( recordTracksEvent( 'calypso_plugin_upload_complete', {
-		plugin_id: pluginId
-	} ) );
+	dispatch(
+		recordTracksEvent( 'calypso_plugin_upload_complete', {
+			plugin_id: pluginId,
+		} )
+	);
 
 	dispatch( completePluginUpload( siteId, pluginId ) );
 
@@ -81,26 +93,26 @@ export const uploadComplete = ( { dispatch, getState }, { siteId }, data ) => {
 };
 
 export const receiveError = ( { dispatch }, { siteId }, error ) => {
-	dispatch( recordTracksEvent( 'calypso_plugin_upload_error', {
-		error_code: error.error,
-		error_message: error.message
-	} ) );
+	dispatch(
+		recordTracksEvent( 'calypso_plugin_upload_error', {
+			error_code: error.error,
+			error_message: error.message,
+		} )
+	);
 
 	showErrorNotice( dispatch, error );
 	dispatch( pluginUploadError( siteId, error ) );
 };
 
 export const updateUploadProgress = ( { dispatch }, { siteId }, { loaded, total } ) => {
-	const progress = total ? ( loaded / total ) * 100 : total;
+	const progress = total ? loaded / total * 100 : total;
 	dispatch( updatePluginUploadProgress( siteId, progress ) );
 };
 
 export default {
-	[ PLUGIN_UPLOAD ]: [ dispatchRequest(
-		uploadPlugin,
-		uploadComplete,
-		receiveError,
-		{ onProgress: updateUploadProgress }
-	) ]
+	[ PLUGIN_UPLOAD ]: [
+		dispatchRequest( uploadPlugin, uploadComplete, receiveError, {
+			onProgress: updateUploadProgress,
+		} ),
+	],
 };
-

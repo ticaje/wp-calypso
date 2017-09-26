@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ export default React.createClass( {
 	propTypes: {
 		fieldCount: PropTypes.number.isRequired,
 		activeTab: PropTypes.oneOf( [ 'fields', 'settings' ] ).isRequired,
-		onChangeTabs: PropTypes.func.isRequired
+		onChangeTabs: PropTypes.func.isRequired,
 	},
 
 	render() {
@@ -30,12 +31,13 @@ export default React.createClass( {
 							key={ 'contact-form-' + tab }
 							selected={ this.props.activeTab === tab }
 							count={ tab === 'fields' ? this.props.fieldCount : null }
-							onClick={ () => this.props.onChangeTabs( tab ) } >
+							onClick={ () => this.props.onChangeTabs( tab ) }
+						>
 							{ tab === 'fields' ? this.translate( 'Form Fields' ) : this.translate( 'Settings' ) }
 						</SectionNavTabItem>
 					) ) }
 				</SectionNavTabs>
 			</SectionNav>
 		);
-	}
+	},
 } );

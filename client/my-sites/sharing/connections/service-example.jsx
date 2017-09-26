@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ const SharingServiceExample = ( { image, label, single } ) => (
 SharingServiceExample.propTypes = {
 	image: PropTypes.shape( {
 		src: PropTypes.string,
-		alt: PropTypes.string
+		alt: PropTypes.string,
 	} ),
 	label: PropTypes.node,
 	single: PropTypes.bool,

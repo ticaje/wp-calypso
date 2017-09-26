@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -19,7 +20,7 @@ const PluginSiteDisabledManage = ( {
 	plugin,
 	remoteManagementUrl,
 	site,
-	translate
+	translate,
 } ) => {
 	const url = remoteManagementUrl + '&section=plugins';
 	const message = isNetwork
@@ -53,8 +54,6 @@ const PluginSiteDisabledManage = ( {
 	);
 };
 
-export default connect(
-	( state, ownProps ) => ( {
-		remoteManagementUrl: getJetpackSiteRemoteManagementUrl( state, get( ownProps, 'site.ID' ) )
-	} )
-)( localize( PluginSiteDisabledManage ) );
+export default connect( ( state, ownProps ) => ( {
+	remoteManagementUrl: getJetpackSiteRemoteManagementUrl( state, get( ownProps, 'site.ID' ) ),
+} ) )( localize( PluginSiteDisabledManage ) );

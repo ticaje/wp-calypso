@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -40,14 +41,11 @@ export class MapDomain extends Component {
 	};
 
 	state = {
-		errorMessage: null
+		errorMessage: null,
 	};
 
 	goBack = () => {
-		const {
-			selectedSite,
-			selectedSiteSlug,
-		} = this.props;
+		const { selectedSite, selectedSiteSlug } = this.props;
 
 		if ( ! selectedSite ) {
 			page( '/domains/add' );
@@ -62,20 +60,20 @@ export class MapDomain extends Component {
 		page( '/domains/add/' + selectedSiteSlug );
 	};
 
-	handleRegisterDomain = ( suggestion ) => {
+	handleRegisterDomain = suggestion => {
 		const { selectedSiteSlug } = this.props;
 
 		upgradesActions.addItem(
 			cartItems.domainRegistration( {
 				productSlug: suggestion.product_slug,
-				domain: suggestion.domain_name
+				domain: suggestion.domain_name,
 			} )
 		);
 
 		page( '/checkout/' + selectedSiteSlug );
 	};
 
-	handleMapDomain = ( domain ) => {
+	handleMapDomain = domain => {
 		const { selectedSite, selectedSiteSlug } = this.props;
 
 		this.setState( { errorMessage: null } );
@@ -84,10 +82,11 @@ export class MapDomain extends Component {
 		// We don't go through the usual checkout process
 		// Instead, we add the mapping directly
 		if ( selectedSite.is_vip ) {
-			wpcom.addVipDomainMapping( selectedSite.ID, domain )
+			wpcom
+				.addVipDomainMapping( selectedSite.ID, domain )
 				.then(
 					() => page( paths.domainManagementList( selectedSiteSlug ) ),
-					( error ) => this.setState( { errorMessage: error.message } )
+					error => this.setState( { errorMessage: error.message } )
 				);
 			return;
 		}
@@ -121,17 +120,13 @@ export class MapDomain extends Component {
 			translate,
 		} = this.props;
 
-		const {
-			errorMessage
-		} = this.state;
+		const { errorMessage } = this.state;
 
 		return (
 			<span>
 				<QueryProductsList />
 
-				<HeaderCake onClick={ this.goBack }>
-					{ translate( 'Map a Domain' ) }
-				</HeaderCake>
+				<HeaderCake onClick={ this.goBack }>{ translate( 'Map a Domain' ) }</HeaderCake>
 
 				{ errorMessage && <Notice status="is-error" text={ errorMessage } /> }
 
@@ -150,13 +145,11 @@ export class MapDomain extends Component {
 	}
 }
 
-export default connect(
-	( state ) => ( {
-		selectedSite: getSelectedSite( state ),
-		selectedSiteId: getSelectedSiteId( state ),
-		selectedSiteSlug: getSelectedSiteSlug( state ),
-		domainsWithPlansOnly: currentUserHasFlag( state, DOMAINS_WITH_PLANS_ONLY ),
-		isSiteUpgradeable: isSiteUpgradeable( state, getSelectedSiteId( state ) ),
-		productsList: getProductsList( state ),
-	} )
-)( localize( MapDomain ) );
+export default connect( state => ( {
+	selectedSite: getSelectedSite( state ),
+	selectedSiteId: getSelectedSiteId( state ),
+	selectedSiteSlug: getSelectedSiteSlug( state ),
+	domainsWithPlansOnly: currentUserHasFlag( state, DOMAINS_WITH_PLANS_ONLY ),
+	isSiteUpgradeable: isSiteUpgradeable( state, getSelectedSiteId( state ) ),
+	productsList: getProductsList( state ),
+} ) )( localize( MapDomain ) );

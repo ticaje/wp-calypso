@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -13,15 +14,12 @@ import config from 'config';
 import { mapPostStatus } from 'lib/route/path';
 
 class PostListWrapper extends React.Component {
-
 	constructor( props ) {
 		super( props );
 	}
 
 	renderPostList() {
-		return (
-			<PostList { ...this.props } />
-		);
+		return <PostList { ...this.props } />;
 	}
 
 	renderPostTypeList() {
@@ -49,11 +47,7 @@ class PostListWrapper extends React.Component {
 					category={ this.props.category }
 					tag={ this.props.tag }
 				>
-					<PostTypeList
-						query={ query }
-						largeTitles={ true }
-						wrapTitles={ true }
-					/>
+					<PostTypeList query={ query } largeTitles={ true } wrapTitles={ true } />
 				</PostListFetcher>
 			</div>
 		);
@@ -62,11 +56,11 @@ class PostListWrapper extends React.Component {
 	render() {
 		return (
 			<div>
-				{ config.isEnabled( 'posts/post-type-list' )
-					? this.renderPostTypeList()
-					: this.renderPostList()
-
-				}
+				{ config.isEnabled( 'posts/post-type-list' ) ? (
+					this.renderPostTypeList()
+				) : (
+					this.renderPostList()
+				) }
 			</div>
 		);
 	}

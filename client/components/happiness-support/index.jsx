@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -33,7 +34,7 @@ export class HappinessSupport extends Component {
 		if ( this.props.liveChatButtonEventName ) {
 			this.props.recordTracksEvent( this.props.liveChatButtonEventName );
 		}
-	}
+	};
 
 	renderContactButton() {
 		let url = support.CALYPSO_CONTACT,
@@ -53,7 +54,11 @@ export class HappinessSupport extends Component {
 
 	renderLiveChatButton() {
 		return (
-			<HappychatButton borderless={ false } onClick={ this.onLiveChatButtonClick } className="happiness-support__livechat-button">
+			<HappychatButton
+				borderless={ false }
+				onClick={ this.onLiveChatButtonClick }
+				className="happiness-support__livechat-button"
+			>
 				{ this.props.translate( 'Ask a question' ) }
 			</HappychatButton>
 		);
@@ -75,7 +80,12 @@ export class HappinessSupport extends Component {
 		}
 
 		return (
-			<Button href={ url } target="_blank" rel="noopener noreferrer" className="happiness-support__support-button">
+			<Button
+				href={ url }
+				target="_blank"
+				rel="noopener noreferrer"
+				className="happiness-support__support-button"
+			>
 				{ this.props.translate( 'Search our support site' ) }
 			</Button>
 		);
@@ -100,15 +110,19 @@ export class HappinessSupport extends Component {
 						'{{strong}}Need help?{{/strong}} A Happiness Engineer can answer questions about your site, your account or how to do just about anything.', // eslint-disable-line max-len
 						{
 							components: {
-								strong: <strong />
-							}
+								strong: <strong />,
+							},
 						}
 					) }
 				</p>
 
 				<div className="happiness-support__buttons">
 					{ showLiveChatButton && <HappychatConnection /> }
-					{ showLiveChatButton && liveChatAvailable ? this.renderLiveChatButton() : this.renderContactButton() }
+					{ showLiveChatButton && liveChatAvailable ? (
+						this.renderLiveChatButton()
+					) : (
+						this.renderContactButton()
+					) }
 					{ this.renderSupportButton() }
 				</div>
 			</div>

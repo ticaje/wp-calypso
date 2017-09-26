@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,8 +19,8 @@ describe( 'selectors', () => {
 				extensions: {
 					wpJobManager: {
 						setup: undefined,
-					}
-				}
+					},
+				},
 			};
 			const isCreating = isCreatingPages( state, primarySiteId );
 
@@ -33,10 +34,10 @@ describe( 'selectors', () => {
 						setup: {
 							creating: {
 								[ primarySiteId ]: true,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const isCreating = isCreatingPages( state, secondarySiteId );
 
@@ -50,10 +51,10 @@ describe( 'selectors', () => {
 						setup: {
 							creating: {
 								[ primarySiteId ]: false,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const isCreating = isCreatingPages( state, primarySiteId );
 
@@ -67,10 +68,10 @@ describe( 'selectors', () => {
 						setup: {
 							creating: {
 								[ primarySiteId ]: true,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const isCreating = isCreatingPages( state, primarySiteId );
 
@@ -84,8 +85,8 @@ describe( 'selectors', () => {
 				extensions: {
 					wpJobManager: {
 						setup: undefined,
-					}
-				}
+					},
+				},
 			};
 			const goToNextStep = shouldGoToNextStep( state, primarySiteId );
 
@@ -99,10 +100,10 @@ describe( 'selectors', () => {
 						setup: {
 							nextStep: {
 								[ primarySiteId ]: true,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const goToNextStep = shouldGoToNextStep( state, secondarySiteId );
 
@@ -116,10 +117,10 @@ describe( 'selectors', () => {
 						setup: {
 							nextStep: {
 								[ primarySiteId ]: false,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const goToNextStep = shouldGoToNextStep( state, primarySiteId );
 
@@ -133,10 +134,10 @@ describe( 'selectors', () => {
 						setup: {
 							nextStep: {
 								[ primarySiteId ]: true,
-							}
-						}
-					}
-				}
+							},
+						},
+					},
+				},
 			};
 			const goToNextStep = shouldGoToNextStep( state, primarySiteId );
 

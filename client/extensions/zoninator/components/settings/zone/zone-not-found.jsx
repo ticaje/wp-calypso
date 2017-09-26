@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -14,9 +15,10 @@ import { settingsPath } from '../../../app/util';
 const ZoneNotFound = ( { siteSlug, translate } ) => (
 	<EmptyContent
 		title={ translate( 'Zone not found' ) }
-		line={ translate( 'The zone you\'re trying to access doesn\'t exist.' ) }
+		line={ translate( "The zone you're trying to access doesn't exist." ) }
 		action={ translate( 'Add new' ) }
-		actionURL={ `${ settingsPath }/new/${ siteSlug }` } />
+		actionURL={ `${ settingsPath }/new/${ siteSlug }` }
+	/>
 );
 
 ZoneNotFound.propTypes = {

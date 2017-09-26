@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Returns site items object or empty object.
  *

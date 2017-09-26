@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -24,9 +25,7 @@ const PluginSectionsCustom = ( { plugin, translate } ) => {
 			<div className="plugin-sections__header">
 				<SectionNav selectedText={ translate( 'Description' ) }>
 					<NavTabs>
-						<NavItem selected>
-							{ translate( 'Description' ) }
-						</NavItem>
+						<NavItem selected>{ translate( 'Description' ) }</NavItem>
 					</NavTabs>
 				</SectionNav>
 			</div>

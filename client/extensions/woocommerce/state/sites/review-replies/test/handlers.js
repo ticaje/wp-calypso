@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -7,18 +8,14 @@ import { spy, match } from 'sinon';
 /**
  * Internal dependencies
  */
-import {
-	fetchReviewReplies,
-} from 'woocommerce/state/sites/review-replies/actions';
+import { fetchReviewReplies } from 'woocommerce/state/sites/review-replies/actions';
 import {
 	handleReviewRepliesRequest,
 	handleReviewRepliesRequestSuccess,
 	handleReviewRepliesRequestError,
 } from '../handlers.js';
 import reviewReplies from './fixtures/review-replies';
-import {
-	WOOCOMMERCE_REVIEW_REPLIES_UPDATED,
-} from 'woocommerce/state/action-types';
+import { WOOCOMMERCE_REVIEW_REPLIES_UPDATED } from 'woocommerce/state/action-types';
 import { WPCOM_HTTP_REQUEST } from 'state/action-types';
 
 describe( 'handlers', () => {
@@ -29,16 +26,18 @@ describe( 'handlers', () => {
 			const dispatch = spy();
 			const action = fetchReviewReplies( siteId, reviewId );
 			handleReviewRepliesRequest( { dispatch }, action );
-			expect( dispatch ).to.have.been.calledWith( match( {
-				type: WPCOM_HTTP_REQUEST,
-				method: 'GET',
-				path: `/jetpack-blogs/${ siteId }/rest-api/`,
-				query: {
-					path: `/wp/v2/comments&parent=${ reviewId }&per_page=15&_method=GET`,
-					json: true,
-					apiVersion: '1.1',
-				}
-			} ) );
+			expect( dispatch ).to.have.been.calledWith(
+				match( {
+					type: WPCOM_HTTP_REQUEST,
+					method: 'GET',
+					path: `/jetpack-blogs/${ siteId }/rest-api/`,
+					query: {
+						path: `/wp/v2/comments&parent=${ reviewId }&per_page=15&_method=GET`,
+						json: true,
+						apiVersion: '1.1',
+					},
+				} )
+			);
 		} );
 	} );
 	describe( '#handleReviewsRequestSuccess()', () => {

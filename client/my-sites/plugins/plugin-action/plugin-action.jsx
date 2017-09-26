@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -28,7 +29,7 @@ const PluginAction = React.createClass( {
 					onClick={ this.handleAction }
 					htmlFor={ this.props.htmlFor }
 					key="renderDisabledInfoLabel"
-					>
+				>
 					{ this.props.label }
 				</label>
 			);
@@ -46,10 +47,10 @@ const PluginAction = React.createClass( {
 				gaEventCategory="Plugins"
 				ref="infoPopover"
 				ignoreContext={ this.refs && this.refs.disabledInfoLabel }
-				>
+			>
 				{ this.props.disabledInfo }
 			</InfoPopover>,
-			this.renderLabel()
+			this.renderLabel(),
 		];
 	},
 
@@ -91,7 +92,7 @@ const PluginAction = React.createClass( {
 	render() {
 		const additionalClasses = {
 			'is-disabled': this.props.disabled,
-			'has-disabled-info': !! this.props.disabledInfo
+			'has-disabled-info': !! this.props.disabledInfo,
 		};
 
 		return (
@@ -99,7 +100,7 @@ const PluginAction = React.createClass( {
 				{ this.renderInner() }
 			</div>
 		);
-	}
+	},
 } );
 
 export default PluginAction;

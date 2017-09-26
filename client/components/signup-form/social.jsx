@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,7 +19,7 @@ class SocialSignupForm extends Component {
 		translate: PropTypes.func.isRequired,
 	};
 
-	handleGoogleResponse = ( response ) => {
+	handleGoogleResponse = response => {
 		if ( ! response.Zi || ! response.Zi.access_token || ! response.Zi.id_token ) {
 			return;
 		}
@@ -30,13 +31,16 @@ class SocialSignupForm extends Component {
 		return (
 			<Card className="signup-form__social">
 				<p>
-					{ preventWidows( this.props.translate( 'Or connect your existing profile to get started faster.' ) ) }
+					{ preventWidows(
+						this.props.translate( 'Or connect your existing profile to get started faster.' )
+					) }
 				</p>
 
 				<div className="signup-form__social-buttons">
 					<GoogleLoginButton
 						clientId={ config( 'google_oauth_client_id' ) }
-						responseHandler={ this.handleGoogleResponse } />
+						responseHandler={ this.handleGoogleResponse }
+					/>
 				</div>
 			</Card>
 		);

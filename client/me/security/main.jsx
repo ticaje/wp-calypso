@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -50,7 +51,7 @@ class Security extends React.Component {
 					<p>
 						{ translate(
 							'To update your password enter a new one below. Your password should be at least six characters long. ' +
-							'To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ & ).'
+								'To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ & ).'
 						) }
 					</p>
 

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,7 +26,7 @@ const getPostRevisionChanges = createSelector(
 			change => omitBy( change, isUndefined )
 		);
 	},
-	( state ) => [ state.posts.revisions.revisions ],
+	state => [ state.posts.revisions.revisions ]
 );
 
 export default getPostRevisionChanges;

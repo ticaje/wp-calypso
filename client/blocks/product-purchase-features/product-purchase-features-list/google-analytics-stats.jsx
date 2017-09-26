@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ export default localize( ( { selectedSite, translate } ) => {
 				icon="stats-alt"
 				title={ translate( 'Connect to Google Analytics' ) }
 				description={ translate(
-					'Complement WordPress.com\'s stats with Google\'s in-depth look at your visitors and traffic patterns.'
+					"Complement WordPress.com's stats with Google's in-depth look at your visitors and traffic patterns."
 				) }
 				buttonText={ translate( 'Connect Google Analytics' ) }
 				href={ '/settings/analytics/' + selectedSite.slug }

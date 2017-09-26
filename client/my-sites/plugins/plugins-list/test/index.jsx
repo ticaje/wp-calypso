@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -48,14 +49,15 @@ describe( 'PluginsList', () => {
 		before( () => {
 			plugins = [
 				{ sites, slug: 'hello', name: 'Hello Dolly' },
-				{ sites, slug: 'jetpack', name: 'Jetpack' } ];
+				{ sites, slug: 'jetpack', name: 'Jetpack' },
+			];
 
 			props = {
 				plugins,
 				header: 'Plugins',
 				selectedSite: sites[ 0 ],
 				isPlaceholder: false,
-				pluginUpdateCount: plugins.length
+				pluginUpdateCount: plugins.length,
 			};
 		} );
 
@@ -65,7 +67,10 @@ describe( 'PluginsList', () => {
 					<PluginsList { ...props } />
 				</ReduxProvider>
 			);
-			renderedPluginsList = TestUtils.scryRenderedComponentsWithType( renderedPluginsList, PluginsList )[ 0 ];
+			renderedPluginsList = TestUtils.scryRenderedComponentsWithType(
+				renderedPluginsList,
+				PluginsList
+			)[ 0 ];
 		} );
 
 		it( 'should be intialized with no selectedPlugins', () => {

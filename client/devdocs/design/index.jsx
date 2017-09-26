@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -106,16 +107,18 @@ class DesignAssets extends React.Component {
 
 		return (
 			<Main className="design">
-				{ component
-					? <HeaderCake onClick={ this.backToComponents } backText="All Components">
-							{ slugToCamelCase( component ) }
-						</HeaderCake>
-					: <SearchCard
-							onSearch={ this.onSearch }
-							initialValue={ filter }
-							placeholder="Search components…"
-							analyticsGroup="Docs"
-						/> }
+				{ component ? (
+					<HeaderCake onClick={ this.backToComponents } backText="All Components">
+						{ slugToCamelCase( component ) }
+					</HeaderCake>
+				) : (
+					<SearchCard
+						onSearch={ this.onSearch }
+						initialValue={ filter }
+						placeholder="Search components…"
+						analyticsGroup="Docs"
+					/>
+				) }
 
 				<Collection component={ component } filter={ filter }>
 					<Accordions componentUsageStats={ componentsUsageStats.accordion } />

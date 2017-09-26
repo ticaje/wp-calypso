@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -27,19 +28,19 @@ class RecentPostsDropdown extends PureComponent {
 		posts: PropTypes.array,
 		siteId: PropTypes.number,
 		translate: PropTypes.func,
-	}
+	};
 
 	static defaultProps = {
 		posts: [],
 		exclude: [],
-	}
+	};
 
 	handleSelect = option => {
 		const { onSelect, posts } = this.props;
 		const slug = option.value;
 
 		onSelect( find( posts, { slug } ) );
-	}
+	};
 
 	render() {
 		const { exclude, posts, siteId, translate } = this.props;
@@ -55,7 +56,8 @@ class RecentPostsDropdown extends PureComponent {
 					compact
 					selectedText={ translate( 'Recent posts' ) }
 					options={ options }
-					onSelect={ this.handleSelect } />
+					onSelect={ this.handleSelect }
+				/>
 			</div>
 		);
 	}
@@ -70,7 +72,4 @@ const connectComponent = connect( ( state, { exclude } ) => {
 	};
 } );
 
-export default flowRight(
-	connectComponent,
-	localize,
-)( RecentPostsDropdown );
+export default flowRight( connectComponent, localize )( RecentPostsDropdown );

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External depedencies
  */
@@ -43,20 +44,19 @@ class ReviewReplies extends Component {
 
 	renderReply = ( replyId, i ) => {
 		const { review } = this.props;
-		return <ReviewReply
-			key={ i }
-			reviewId={ review.id }
-			replyId={ replyId }
-		/>;
-	}
+		return <ReviewReply key={ i } reviewId={ review.id } replyId={ replyId } />;
+	};
 
 	render() {
 		const { replyIds, review, translate } = this.props;
-		const repliesOutput = replyIds.length && replyIds.map( this.renderReply ) || null;
+		const repliesOutput = ( replyIds.length && replyIds.map( this.renderReply ) ) || null;
 
-		const textAreaPlaceholder = 'approved' === review.status
-			? translate( 'Reply to %(reviewAuthor)s…', { args: { reviewAuthor: review.name } } )
-			: translate( 'Approve and reply to %(reviewAuthor)s…', { args: { reviewAuthor: review.name } } );
+		const textAreaPlaceholder =
+			'approved' === review.status
+				? translate( 'Reply to %(reviewAuthor)s…', { args: { reviewAuthor: review.name } } )
+				: translate( 'Approve and reply to %(reviewAuthor)s…', {
+						args: { reviewAuthor: review.name },
+					} );
 
 		return (
 			<div className="reviews__replies">
@@ -64,9 +64,7 @@ class ReviewReplies extends Component {
 
 				<form className="reviews__reply-textarea">
 					<textarea placeholder={ textAreaPlaceholder } />
-					<button className="reviews__reply-submit">
-						{ translate( 'Send' ) }
-					</button>
+					<button className="reviews__reply-submit">{ translate( 'Send' ) }</button>
 				</form>
 			</div>
 		);
@@ -78,7 +76,7 @@ export default connect(
 		const site = getSelectedSiteWithFallback( state );
 		const siteId = site ? site.ID : false;
 		const replies = getReviewReplies( state, props.review.id );
-		const replyIds = replies && replies.map( reply => reply.id ) || [];
+		const replyIds = ( replies && replies.map( reply => reply.id ) ) || [];
 		return {
 			siteId,
 			replyIds,

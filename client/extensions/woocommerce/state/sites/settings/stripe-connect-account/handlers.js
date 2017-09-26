@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -9,18 +10,18 @@ import {
 } from 'woocommerce/state/action-types';
 
 export default {
-	[ WOOCOMMERCE_SETTINGS_STRIPE_CONNECT_ACCOUNT_CREATE ]: [ dispatchRequest(
-		handleAccountCreate,
-		handleAccountCreateSuccess,
-		handleAccountCreateFailure
-	) ],
+	[ WOOCOMMERCE_SETTINGS_STRIPE_CONNECT_ACCOUNT_CREATE ]: [
+		dispatchRequest( handleAccountCreate, handleAccountCreateSuccess, handleAccountCreateFailure ),
+	],
 };
 
 export function handleAccountCreate( { dispatch }, action ) {
 	const { email, countryCode, siteId } = action;
 	dispatch(
-		request( siteId, action, '/wc/v1' ).
-		post( 'connect/stripe/account/', { email, country: countryCode } )
+		request( siteId, action, '/wc/v1' ).post( 'connect/stripe/account/', {
+			email,
+			country: countryCode,
+		} )
 	);
 }
 

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -24,11 +25,11 @@ export class PageViewTracker extends React.Component {
 		delay: PropTypes.number,
 		path: PropTypes.string.isRequired,
 		recorder: PropTypes.func,
-		title: PropTypes.string.isRequired
+		title: PropTypes.string.isRequired,
 	};
 
 	state = {
-		timer: null
+		timer: null,
 	};
 
 	componentDidMount() {
@@ -42,12 +43,7 @@ export class PageViewTracker extends React.Component {
 	}
 
 	queuePageView = () => {
-		const {
-			delay = 0,
-			path,
-			recorder = noop,
-			title
-		} = this.props;
+		const { delay = 0, path, recorder = noop, title } = this.props;
 
 		debug( `Queuing Page View: "${ title }" at "${ path }" with ${ delay }ms delay` );
 
@@ -60,7 +56,7 @@ export class PageViewTracker extends React.Component {
 		}
 
 		this.setState( {
-			timer: setTimeout( () => recorder( path, title ), delay )
+			timer: setTimeout( () => recorder( path, title ), delay ),
 		} );
 	};
 
@@ -70,7 +66,7 @@ export class PageViewTracker extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ( {
-	recorder: flowRight( dispatch, recordPageView )
+	recorder: flowRight( dispatch, recordPageView ),
 } );
 
 export default connect( null, mapDispatchToProps )( PageViewTracker );

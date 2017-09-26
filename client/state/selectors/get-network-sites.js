@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -8,10 +9,7 @@ import { get } from 'lodash';
  */
 import createSelector from 'lib/create-selector';
 import { isMainSiteOf } from 'state/selectors';
-import {
-	getSite,
-	isJetpackSiteMainNetworkSite
-} from 'state/sites/selectors';
+import { getSite, isJetpackSiteMainNetworkSite } from 'state/sites/selectors';
 
 /**
  * Returns the secondary sites of a given site
@@ -28,8 +26,9 @@ export default createSelector(
 			return null;
 		}
 		const siteIds = Object.keys( get( state, 'sites.items', {} ) );
-		return siteIds.filter( secondarySiteId => isMainSiteOf( state, siteId, secondarySiteId ) )
+		return siteIds
+			.filter( secondarySiteId => isMainSiteOf( state, siteId, secondarySiteId ) )
 			.map( secondarySiteId => getSite( state, secondarySiteId ) );
 	},
-	( state ) => [ state.sites.items, state.currentUser.capabilities ]
+	state => [ state.sites.items, state.currentUser.capabilities ]
 );

@@ -1,3 +1,4 @@
+/** @format */
 /* eslint-disable wpcalypso/jsx-classname-namespace */
 
 /**
@@ -62,12 +63,8 @@ class ProductListItem extends Component {
 					onChange={ this.handleRadioChange }
 				/>
 				<label className="editor-simple-payments-modal__list-label" htmlFor={ radioId }>
-					<div className="editor-simple-payments-modal__list-name">
-						{ title }
-					</div>
-					<div>
-						{ this.formatPrice( price, currency ) }
-					</div>
+					<div className="editor-simple-payments-modal__list-name">{ title }</div>
+					<div>{ this.formatPrice( price, currency ) }</div>
 				</label>
 				<ProductImage siteId={ siteId } imageId={ featuredImageId } />
 				<EllipsisMenu

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -13,7 +14,7 @@ export default class UserItem extends Component {
 	static displayName = 'UserItem';
 
 	static propTypes = {
-		user: PropTypes.object
+		user: PropTypes.object,
 	};
 
 	render() {
@@ -22,9 +23,7 @@ export default class UserItem extends Component {
 		return (
 			<div className="user" title={ name }>
 				<Gravatar size={ 26 } user={ user } />
-				<span className="user__name">
-					{ name }
-				</span>
+				<span className="user__name">{ name }</span>
 			</div>
 		);
 	}

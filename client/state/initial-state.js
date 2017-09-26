@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -8,10 +9,7 @@ import { pick, throttle } from 'lodash';
  * Internal dependencies
  */
 import { createReduxStore, reducer } from 'state';
-import {
-	SERIALIZE,
-	DESERIALIZE,
-} from 'state/action-types';
+import { SERIALIZE, DESERIALIZE } from 'state/action-types';
 import localforage from 'lib/localforage';
 import { isSupportUserSession } from 'lib/user/support-user-interop';
 import config from 'config';
@@ -91,7 +89,8 @@ function maybeAddSympathy( initialStateLoader ) {
 		return initialStateLoader;
 	}
 
-	console.log( // eslint-disable-line no-console
+	console.log(
+		// eslint-disable-line no-console
 		'%cSkipping initial state rehydration to recreate first-load experience.',
 		'font-size: 14px; color: red;'
 	);
@@ -129,23 +128,28 @@ function isLoggedIn() {
 export function persistOnChange( reduxStore, serializeState = serialize ) {
 	let state;
 
-	const throttledSaveState = throttle( function() {
-		if ( ! isLoggedIn() ) {
-			return;
-		}
+	const throttledSaveState = throttle(
+		function() {
+			if ( ! isLoggedIn() ) {
+				return;
+			}
 
-		const nextState = reduxStore.getState();
-		if ( state && nextState === state ) {
-			return;
-		}
+			const nextState = reduxStore.getState();
+			if ( state && nextState === state ) {
+				return;
+			}
 
-		state = nextState;
+			state = nextState;
 
-		localforage.setItem( 'redux-state-' + user.get().ID, serializeState( state ) )
-			.catch( ( setError ) => {
-				debug( 'failed to set redux-store state', setError );
-			} );
-	}, SERIALIZE_THROTTLE, { leading: false, trailing: true } );
+			localforage
+				.setItem( 'redux-state-' + user.get().ID, serializeState( state ) )
+				.catch( setError => {
+					debug( 'failed to set redux-store state', setError );
+				} );
+		},
+		SERIALIZE_THROTTLE,
+		{ leading: false, trailing: true }
+	);
 
 	if ( global.window ) {
 		global.window.addEventListener( 'beforeunload', throttledSaveState.flush );
@@ -158,7 +162,8 @@ export function persistOnChange( reduxStore, serializeState = serialize ) {
 
 export default function createReduxStoreFromPersistedInitialState( reduxStoreReady ) {
 	if ( config.isEnabled( 'persist-redux' ) && isLoggedIn() && ! isSupportUserSession() ) {
-		localforage.getItem( 'redux-state-' + user.get().ID )
+		localforage
+			.getItem( 'redux-state-' + user.get().ID )
 			.then( loadInitialState )
 			.catch( loadInitialStateFailed )
 			.then( persistOnChange )

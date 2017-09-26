@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -61,15 +62,15 @@ const POST_TYPE_SUPPORTS = {
 		'post-formats': true,
 		'geo-location': true,
 		tags: true,
-		comments: true
+		comments: true,
 	},
 	page: {
 		thumbnail: true,
 		'page-attributes': true,
 		'geo-location': true,
 		excerpt: true,
-		comments: true
-	}
+		comments: true,
+	},
 };
 
 const EditorDrawer = React.createClass( {
@@ -126,9 +127,7 @@ const EditorDrawer = React.createClass( {
 		// Categories & Tags
 		let categories;
 		if ( 'post' === type || typeSupportsTags ) {
-			categories = (
-				<CategoriesTagsAccordion />
-			);
+			categories = <CategoriesTagsAccordion />;
 		}
 
 		// Custom Taxonomies
@@ -159,7 +158,8 @@ const EditorDrawer = React.createClass( {
 			<AsyncLoad
 				require="post-editor/editor-sharing/accordion"
 				site={ this.props.site }
-				post={ this.props.post } />
+				post={ this.props.post }
+			/>
 		);
 	},
 
@@ -169,11 +169,7 @@ const EditorDrawer = React.createClass( {
 		}
 
 		return (
-			<AsyncLoad
-				require="./featured-image"
-				site={ this.props.site }
-				post={ this.props.post }
-			/>
+			<AsyncLoad require="./featured-image" site={ this.props.site } post={ this.props.post } />
 		);
 	},
 
@@ -327,7 +323,7 @@ const EditorDrawer = React.createClass( {
 		const { translate } = this.props;
 
 		return (
-			<Accordion title={ translate( 'Status' ) } e2eTitle="status" >
+			<Accordion title={ translate( 'Status' ) } e2eTitle="status">
 				<EditPostStatus
 					savedPost={ this.props.savedPost }
 					postDate={ postDate }
@@ -352,12 +348,8 @@ const EditorDrawer = React.createClass( {
 
 		return (
 			<div className="editor-drawer">
-				{ site && (
-					<QueryPostTypes siteId={ site.ID } />
-				) }
-				{ site && (
-					<QuerySiteSettings siteId={ site.ID } />
-				) }
+				{ site && <QueryPostTypes siteId={ site.ID } /> }
+				{ site && <QuerySiteSettings siteId={ site.ID } /> }
 				{ this.renderStatus() }
 				{ this.renderTaxonomies() }
 				{ this.renderFeaturedImage() }
@@ -368,11 +360,11 @@ const EditorDrawer = React.createClass( {
 				{ this.renderMoreOptions() }
 			</div>
 		);
-	}
+	},
 } );
 
 export default connect(
-	( state ) => {
+	state => {
 		const siteId = getSelectedSiteId( state );
 		const type = getEditedPostValue( state, siteId, getEditorPostId( state ), 'type' );
 

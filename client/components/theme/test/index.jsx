@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -45,7 +46,7 @@ describe( 'Theme', function() {
 				screenshot: '/theme/screenshot.png',
 			},
 			buttonContents: { dummyAction: { label: 'Dummy action', action: sinon.spy() } }, // TODO: test if called when clicked
-			translate: identity
+			translate: identity,
 		};
 	} );
 
@@ -53,14 +54,20 @@ describe( 'Theme', function() {
 		context( 'with default display buttonContents', function() {
 			beforeEach( function() {
 				this.props.onScreenshotClick = sinon.spy();
-				const themeElement = TestUtils.renderIntoDocument( React.createElement( Theme, this.props ) );
+				const themeElement = TestUtils.renderIntoDocument(
+					React.createElement( Theme, this.props )
+				);
 				this.themeNode = ReactDom.findDOMNode( themeElement );
 			} );
 
 			it( 'should render a <div> with a className of "theme"', function() {
-				assert( this.themeNode !== null, 'DOM node doesn\'t exist' );
+				assert( this.themeNode !== null, "DOM node doesn't exist" );
 				assert( this.themeNode.nodeName === 'DIV', 'nodeName doesn\'t equal "DIV"' );
-				assert.include( this.themeNode.className, 'theme is-actionable', 'className does not contain "theme is-actionable"' );
+				assert.include(
+					this.themeNode.className,
+					'theme is-actionable',
+					'className does not contain "theme is-actionable"'
+				);
 
 				assert( this.themeNode.getElementsByTagName( 'h2' )[ 0 ].textContent === 'Theme name' );
 			} );
@@ -73,11 +80,17 @@ describe( 'Theme', function() {
 			it( 'should call onScreenshotClick() on click on screenshot', function() {
 				const imgNode = this.themeNode.getElementsByTagName( 'img' )[ 0 ];
 				TestUtils.Simulate.click( imgNode );
-				assert( this.props.onScreenshotClick.calledOnce, 'onClick did not trigger onScreenshotClick' );
+				assert(
+					this.props.onScreenshotClick.calledOnce,
+					'onClick did not trigger onScreenshotClick'
+				);
 			} );
 
 			it( 'should not show a price when there is none', function() {
-				assert( this.themeNode.getElementsByClassName( 'price' ).length === 0, 'price should not appear' );
+				assert(
+					this.themeNode.getElementsByClassName( 'price' ).length === 0,
+					'price should not appear'
+				);
 			} );
 
 			it( 'should render a More button', function() {
@@ -93,7 +106,9 @@ describe( 'Theme', function() {
 		context( 'with empty buttonContents', function() {
 			beforeEach( function() {
 				this.props.buttonContents = {};
-				const themeElement = TestUtils.renderIntoDocument( React.createElement( Theme, this.props ) );
+				const themeElement = TestUtils.renderIntoDocument(
+					React.createElement( Theme, this.props )
+				);
 				this.themeNode = ReactDom.findDOMNode( themeElement );
 			} );
 
@@ -111,7 +126,7 @@ describe( 'Theme', function() {
 				React.createElement( Theme, {
 					theme: { id: 'placeholder-1', name: 'Loading' },
 					isPlaceholder: true,
-					translate: identity
+					translate: identity,
 				} )
 			);
 			this.themeNode = ReactDom.findDOMNode( themeElement );
@@ -126,14 +141,14 @@ describe( 'Theme', function() {
 	context( 'when the theme has a price', function() {
 		beforeEach( function() {
 			this.props.price = '$50';
-			const themeElement = TestUtils.renderIntoDocument(
-				React.createElement( Theme, this.props )
-			);
+			const themeElement = TestUtils.renderIntoDocument( React.createElement( Theme, this.props ) );
 			this.themeNode = ReactDom.findDOMNode( themeElement );
 		} );
 
 		it( 'should show a price', function() {
-			assert( this.themeNode.getElementsByClassName( 'theme-badge__price' )[ 0 ].textContent === '$50' );
+			assert(
+				this.themeNode.getElementsByClassName( 'theme-badge__price' )[ 0 ].textContent === '$50'
+			);
 		} );
 	} );
 } );

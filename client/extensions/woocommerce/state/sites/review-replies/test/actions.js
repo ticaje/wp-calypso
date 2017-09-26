@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -7,9 +8,7 @@ import { expect } from 'chai';
  * Internal dependencies
  */
 import { fetchReviewReplies } from '../actions';
-import {
-	WOOCOMMERCE_REVIEW_REPLIES_REQUEST,
-} from 'woocommerce/state/action-types';
+import { WOOCOMMERCE_REVIEW_REPLIES_REQUEST } from 'woocommerce/state/action-types';
 
 describe( 'actions', () => {
 	describe( '#fetchReviewReplies()', () => {

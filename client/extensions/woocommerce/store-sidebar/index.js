@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -31,7 +32,7 @@ class StoreSidebar extends Component {
 	static propTypes = {
 		path: PropTypes.string.isRequired,
 		site: PropTypes.object,
-	}
+	};
 
 	componentDidMount = () => {
 		const { productsLoaded, site } = this.props;
@@ -44,15 +45,15 @@ class StoreSidebar extends Component {
 				this.props.fetchProducts( site.ID, 1 );
 			}
 		}
-	}
+	};
 
-	componentWillReceiveProps = ( newProps ) => {
+	componentWillReceiveProps = newProps => {
 		const { productsLoaded, site } = this.props;
 
 		const newSiteId = newProps.site ? newProps.site.ID : null;
 		const oldSiteId = site ? site.ID : null;
 
-		if ( newSiteId && ( oldSiteId !== newSiteId ) ) {
+		if ( newSiteId && oldSiteId !== newSiteId ) {
 			this.props.fetchSetupChoices( newSiteId );
 			this.props.fetchOrders( newSiteId );
 
@@ -60,9 +61,9 @@ class StoreSidebar extends Component {
 				this.props.fetchProducts( newSiteId, 1 );
 			}
 		}
-	}
+	};
 
-	isItemLinkSelected = ( paths ) => {
+	isItemLinkSelected = paths => {
 		if ( ! Array.isArray( paths ) ) {
 			paths = [ paths ];
 		}
@@ -70,7 +71,7 @@ class StoreSidebar extends Component {
 		return paths.some( function( path ) {
 			return path === this.props.path || 0 === this.props.path.indexOf( path + '/' );
 		}, this );
-	}
+	};
 
 	dashboard = () => {
 		const { site, siteSuffix, translate } = this.props;
@@ -90,7 +91,7 @@ class StoreSidebar extends Component {
 				link={ link }
 			/>
 		);
-	}
+	};
 
 	products = () => {
 		const { site, siteSuffix, translate } = this.props;
@@ -110,12 +111,12 @@ class StoreSidebar extends Component {
 				label={ translate( 'Products' ) }
 				link={ link }
 			>
-				<SidebarButton disabled={ ! site } href={ addLink } >
+				<SidebarButton disabled={ ! site } href={ addLink }>
 					{ translate( 'Add' ) }
 				</SidebarButton>
 			</SidebarItem>
 		);
-	}
+	};
 
 	reviews = () => {
 		if ( ! config.isEnabled( 'woocommerce/extension-reviews' ) ) {
@@ -138,18 +139,14 @@ class StoreSidebar extends Component {
 				icon="star-outline"
 				label={ translate( 'Reviews' ) }
 				link={ link }
-			>
-			</SidebarItem>
+			/>
 		);
-	}
+	};
 
 	orders = () => {
 		const { orders, site, siteSuffix, translate } = this.props;
 		const link = '/store/orders' + siteSuffix;
-		const childLinks = [
-			'/store/order',
-			'/store/orders',
-		];
+		const childLinks = [ '/store/order', '/store/orders' ];
 		const selected = this.isItemLinkSelected( childLinks );
 		const classes = classNames( {
 			orders: true,
@@ -158,19 +155,11 @@ class StoreSidebar extends Component {
 		} );
 
 		return (
-			<SidebarItem
-				className={ classes }
-				icon="pages"
-				label={ translate( 'Orders' ) }
-				link={ link }
-			>
-				{ orders.length
-					? <Count count={ orders.length } />
-					: null
-				}
+			<SidebarItem className={ classes } icon="pages" label={ translate( 'Orders' ) } link={ link }>
+				{ orders.length ? <Count count={ orders.length } /> : null }
 			</SidebarItem>
 		);
-	}
+	};
 
 	promotions = () => {
 		// TODO: Remove this check when ready to release to production.
@@ -180,10 +169,7 @@ class StoreSidebar extends Component {
 
 		const { site, siteSuffix, translate } = this.props;
 		const link = '/store/promotions' + siteSuffix;
-		const validLinks = [
-			'/store/promotions',
-			'/store/promotion',
-		];
+		const validLinks = [ '/store/promotions', '/store/promotion' ];
 
 		const selected = this.isItemLinkSelected( validLinks );
 		const classes = classNames( {
@@ -198,10 +184,9 @@ class StoreSidebar extends Component {
 				icon="star-outline"
 				label={ translate( 'Promotions' ) }
 				link={ link }
-			>
-			</SidebarItem>
+			/>
 		);
-	}
+	};
 
 	settings = () => {
 		const { site, siteSuffix, translate } = this.props;
@@ -226,16 +211,10 @@ class StoreSidebar extends Component {
 				link={ link }
 			/>
 		);
-	}
+	};
 
 	render = () => {
-		const {
-			finishedAddressSetup,
-			hasProducts,
-			path,
-			site,
-			siteSuffix,
-		} = this.props;
+		const { finishedAddressSetup, hasProducts, path, site, siteSuffix } = this.props;
 
 		// Show all items if: we're not on the dashboard, we have finished setup, or we have products.
 		const notOnDashboard = 0 !== path.indexOf( '/store' + siteSuffix );
@@ -257,7 +236,7 @@ class StoreSidebar extends Component {
 				</SidebarMenu>
 			</Sidebar>
 		);
-	}
+	};
 }
 
 function mapStateToProps( state ) {

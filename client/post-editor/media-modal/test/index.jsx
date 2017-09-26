@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -21,13 +22,15 @@ import { ModalViews } from 'state/ui/media-modal/constants';
 const DUMMY_SITE = { ID: 1 };
 const DUMMY_MEDIA = [
 	{ ID: 100, date: '2015-06-19T11:36:09-04:00', mime_type: 'image/jpeg' },
-	{ ID: 200, date: '2015-06-19T09:36:09-04:00', mime_type: 'image/jpeg' }
+	{ ID: 200, date: '2015-06-19T09:36:09-04:00', mime_type: 'image/jpeg' },
 ];
-const DUMMY_VIDEO_MEDIA = [ { ID: 100, date: '2015-06-19T11:36:09-04:00', mime_type: 'video/mp4' } ];
+const DUMMY_VIDEO_MEDIA = [
+	{ ID: 100, date: '2015-06-19T11:36:09-04:00', mime_type: 'video/mp4' },
+];
 const EMPTY_COMPONENT = React.createClass( {
 	render: function() {
 		return <div />;
-	}
+	},
 } );
 
 describe( 'EditorMediaModal', function() {
@@ -39,7 +42,7 @@ describe( 'EditorMediaModal', function() {
 		mockery.registerSubstitute( 'event', 'component-event' );
 	} );
 	useFakeDom();
-	useSandbox( ( sandbox ) => {
+	useSandbox( sandbox => {
 		spy = sandbox.spy();
 		setLibrarySelectedItems = sandbox.stub();
 		deleteMedia = sandbox.stub();
@@ -50,7 +53,7 @@ describe( 'EditorMediaModal', function() {
 	before( function() {
 		// Mockery
 		mockery.registerMock( 'my-sites/media-library', EMPTY_COMPONENT );
-		mockery.registerMock( './detail', { 'default': EMPTY_COMPONENT } );
+		mockery.registerMock( './detail', { default: EMPTY_COMPONENT } );
 		mockery.registerMock( './gallery', EMPTY_COMPONENT );
 		mockery.registerMock( './markup', { get: identity } );
 		mockery.registerMock( './secondary-actions', EMPTY_COMPONENT );
@@ -59,11 +62,14 @@ describe( 'EditorMediaModal', function() {
 		mockery.registerMock( 'lib/accept', accept );
 		mockery.registerMock( 'lib/analytics', { mc: { bumpStat: noop } } );
 		mockery.registerMock( 'component-closest', {} );
-		mockery.registerMock( 'lib/media/actions', { 'delete': deleteMedia, setLibrarySelectedItems: setLibrarySelectedItems } );
+		mockery.registerMock( 'lib/media/actions', {
+			delete: deleteMedia,
+			setLibrarySelectedItems: setLibrarySelectedItems,
+		} );
 		mockery.registerMock( 'lib/posts/actions', { blockSave: noop } );
 		mockery.registerMock( 'lib/posts/stats', {
 			recordEvent: noop,
-			recordState: noop
+			recordState: noop,
 		} );
 
 		EditorMediaModal = require( '../' ).EditorMediaModal;
@@ -74,13 +80,19 @@ describe( 'EditorMediaModal', function() {
 			tree;
 
 		tree = shallow(
-			<EditorMediaModal site={ DUMMY_SITE } mediaLibrarySelectedItems={ media } translate={ translate } />
+			<EditorMediaModal
+				site={ DUMMY_SITE }
+				mediaLibrarySelectedItems={ media }
+				translate={ translate }
+			/>
 		).instance();
 		tree.deleteMedia();
 
-		expect( accept ).to.have.been.calledWith( 'Are you sure you want to delete this item? ' +
-			'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
-			'This cannot be undone.' );
+		expect( accept ).to.have.been.calledWith(
+			'Are you sure you want to delete this item? ' +
+				'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
+				'This cannot be undone.'
+		);
 		process.nextTick( function() {
 			expect( deleteMedia ).to.have.been.calledWith( DUMMY_SITE.ID, media );
 			done();
@@ -89,13 +101,19 @@ describe( 'EditorMediaModal', function() {
 
 	it( 'should prompt to delete multiple items from the list view', function( done ) {
 		var tree = shallow(
-			<EditorMediaModal site={ DUMMY_SITE } mediaLibrarySelectedItems={ DUMMY_MEDIA } translate={ translate } />
+			<EditorMediaModal
+				site={ DUMMY_SITE }
+				mediaLibrarySelectedItems={ DUMMY_MEDIA }
+				translate={ translate }
+			/>
 		).instance();
 		tree.deleteMedia();
 
-		expect( accept ).to.have.been.calledWith( 'Are you sure you want to delete these items? ' +
-			'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
-			'This cannot be undone.' );
+		expect( accept ).to.have.been.calledWith(
+			'Are you sure you want to delete these items? ' +
+				'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
+				'This cannot be undone.'
+		);
 		process.nextTick( function() {
 			expect( deleteMedia ).to.have.been.calledWith( DUMMY_SITE.ID, DUMMY_MEDIA );
 			done();
@@ -107,41 +125,58 @@ describe( 'EditorMediaModal', function() {
 			tree;
 
 		tree = shallow(
-			<EditorMediaModal site={ DUMMY_SITE } mediaLibrarySelectedItems={ [ media ] } view={ ModalViews.DETAIL } />
+			<EditorMediaModal
+				site={ DUMMY_SITE }
+				mediaLibrarySelectedItems={ [ media ] }
+				view={ ModalViews.DETAIL }
+			/>
 		).instance();
 		tree.deleteMedia();
 
-		expect( accept ).to.have.been.calledWith( 'Are you sure you want to delete this item? ' +
-			'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
-			'This cannot be undone.' );
+		expect( accept ).to.have.been.calledWith(
+			'Are you sure you want to delete this item? ' +
+				'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
+				'This cannot be undone.'
+		);
 		process.nextTick( function() {
 			expect( deleteMedia ).to.have.been.calledWith( DUMMY_SITE.ID, media );
 			done();
 		} );
 	} );
 
-	it( 'should prompt to delete a single item from the detail view, even when multiple selected', function( done ) {
+	it( 'should prompt to delete a single item from the detail view, even when multiple selected', function(
+		done
+	) {
 		var tree = shallow(
-			<EditorMediaModal site={ DUMMY_SITE } mediaLibrarySelectedItems={ DUMMY_MEDIA } view={ ModalViews.DETAIL } />
+			<EditorMediaModal
+				site={ DUMMY_SITE }
+				mediaLibrarySelectedItems={ DUMMY_MEDIA }
+				view={ ModalViews.DETAIL }
+			/>
 		).instance();
 		tree.deleteMedia();
 
-		expect( accept ).to.have.been.calledWith( 'Are you sure you want to delete this item? ' +
-			'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
-			'This cannot be undone.' );
+		expect( accept ).to.have.been.calledWith(
+			'Are you sure you want to delete this item? ' +
+				'Deleted media will no longer appear anywhere on your website, including all posts, pages, and widgets. ' +
+				'This cannot be undone.'
+		);
 		process.nextTick( function() {
 			expect( deleteMedia ).to.have.been.calledWith( DUMMY_SITE.ID, DUMMY_MEDIA[ 0 ] );
 			done();
 		} );
 	} );
 
-	it( 'should return to the list view after deleting the only item in detail view', function( done ) {
+	it( 'should return to the list view after deleting the only item in detail view', function(
+		done
+	) {
 		const tree = shallow(
 			<EditorMediaModal
 				site={ DUMMY_SITE }
 				mediaLibrarySelectedItems={ DUMMY_MEDIA.slice( 0, 1 ) }
 				view={ ModalViews.DETAIL }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		tree.deleteMedia();
@@ -152,13 +187,16 @@ describe( 'EditorMediaModal', function() {
 		} );
 	} );
 
-	it( 'should revert to an earlier media item when the last item is deleted from detail view', function( done ) {
+	it( 'should revert to an earlier media item when the last item is deleted from detail view', function(
+		done
+	) {
 		var tree = shallow(
 			<EditorMediaModal
 				site={ DUMMY_SITE }
 				mediaLibrarySelectedItems={ DUMMY_MEDIA }
 				view={ ModalViews.DETAIL }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 		tree.setDetailSelectedIndex( 1 );
 		tree.deleteMedia();
@@ -176,7 +214,8 @@ describe( 'EditorMediaModal', function() {
 				site={ DUMMY_SITE }
 				mediaLibrarySelectedItems={ [] }
 				view={ ModalViews.IMAGE_EDITOR }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		const buttons = tree.getModalButtons();
@@ -186,10 +225,7 @@ describe( 'EditorMediaModal', function() {
 
 	it( 'should show an insert button when viewing external media (no selection)', () => {
 		const tree = shallow(
-			<EditorMediaModal
-				site={ DUMMY_SITE }
-				view={ ModalViews.DETAIL }
-				setView={ spy } />
+			<EditorMediaModal site={ DUMMY_SITE } view={ ModalViews.DETAIL } setView={ spy } />
 		).instance();
 
 		tree.setState( { source: 'external' } );
@@ -205,7 +241,8 @@ describe( 'EditorMediaModal', function() {
 				site={ DUMMY_SITE }
 				view={ ModalViews.DETAIL }
 				mediaLibrarySelectedItems={ DUMMY_MEDIA.slice( 0, 1 ) }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		tree.setState( { source: 'external' } );
@@ -221,7 +258,8 @@ describe( 'EditorMediaModal', function() {
 				site={ DUMMY_SITE }
 				view={ ModalViews.DETAIL }
 				mediaLibrarySelectedItems={ DUMMY_VIDEO_MEDIA }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		tree.setState( { source: 'external' } );
@@ -237,7 +275,8 @@ describe( 'EditorMediaModal', function() {
 				site={ DUMMY_SITE }
 				view={ ModalViews.DETAIL }
 				mediaLibrarySelectedItems={ DUMMY_MEDIA }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		tree.setState( { source: 'external' } );
@@ -253,7 +292,8 @@ describe( 'EditorMediaModal', function() {
 				site={ DUMMY_SITE }
 				mediaLibrarySelectedItems={ DUMMY_MEDIA }
 				view={ ModalViews.DETAIL }
-				setView={ spy } />
+				setView={ spy }
+			/>
 		).instance();
 
 		const buttons = tree.getModalButtons();
@@ -263,10 +303,7 @@ describe( 'EditorMediaModal', function() {
 
 	it( 'should show an insert button if none or one local items are selected', () => {
 		const tree = shallow(
-			<EditorMediaModal
-				site={ DUMMY_SITE }
-				view={ ModalViews.DETAIL }
-				setView={ spy } />
+			<EditorMediaModal site={ DUMMY_SITE } view={ ModalViews.DETAIL } setView={ spy } />
 		).instance();
 
 		const buttons = tree.getModalButtons();
@@ -282,7 +319,8 @@ describe( 'EditorMediaModal', function() {
 					mediaLibrarySelectedItems={ DUMMY_MEDIA }
 					onClose={ onClose }
 					view={ ModalViews.DETAIL }
-					setView={ spy } />
+					setView={ spy }
+				/>
 			).instance();
 
 			tree.confirmSelection();
@@ -304,7 +342,8 @@ describe( 'EditorMediaModal', function() {
 					site={ DUMMY_SITE }
 					mediaLibrarySelectedItems={ DUMMY_MEDIA }
 					view={ ModalViews.DETAIL }
-					setView={ spy } />
+					setView={ spy }
+				/>
 			).instance();
 
 			tree.setState( { source: 'external' } );
@@ -314,8 +353,8 @@ describe( 'EditorMediaModal', function() {
 			// EditorMediaModal will generate transient ID for the media selected
 			// by using uniqueId, which increments its value within the same session.
 			const transientItems = [
-				Object.assign( {}, DUMMY_MEDIA[ 0 ], { ID: 'media-1', 'transient': true } ),
-				Object.assign( {}, DUMMY_MEDIA[ 1 ], { ID: 'media-2', 'transient': true } )
+				Object.assign( {}, DUMMY_MEDIA[ 0 ], { ID: 'media-1', transient: true } ),
+				Object.assign( {}, DUMMY_MEDIA[ 1 ], { ID: 'media-2', transient: true } ),
 			];
 			process.nextTick( () => {
 				expect( onClose ).to.have.been.calledWith( transientItems, 'external' );
@@ -330,7 +369,8 @@ describe( 'EditorMediaModal', function() {
 					site={ DUMMY_SITE }
 					mediaLibrarySelectedItems={ SINGLE_ITEM_MEDIA }
 					view={ ModalViews.DETAIL }
-					setView={ spy } />
+					setView={ spy }
+				/>
 			).instance();
 
 			tree.setState( { source: 'external' } );
@@ -340,7 +380,7 @@ describe( 'EditorMediaModal', function() {
 			// EditorMediaModal will generate transient ID for the media selected
 			// by using uniqueId, which increments its value within the same session.
 			const transientItems = [
-				Object.assign( {}, SINGLE_ITEM_MEDIA[ 0 ], { ID: 'media-3', 'transient': true } )
+				Object.assign( {}, SINGLE_ITEM_MEDIA[ 0 ], { ID: 'media-3', transient: true } ),
 			];
 			process.nextTick( () => {
 				expect( onClose ).to.have.been.calledWith( transientItems, 'external' );
@@ -354,7 +394,8 @@ describe( 'EditorMediaModal', function() {
 					site={ DUMMY_SITE }
 					mediaLibrarySelectedItems={ DUMMY_VIDEO_MEDIA }
 					view={ ModalViews.DETAIL }
-					setView={ spy } />
+					setView={ spy }
+				/>
 			).instance();
 
 			tree.setState( { source: 'external' } );
@@ -364,7 +405,7 @@ describe( 'EditorMediaModal', function() {
 			// EditorMediaModal will generate transient ID for the media selected
 			// by using uniqueId, which increments its value within the same session.
 			const transientItems = [
-				Object.assign( {}, DUMMY_VIDEO_MEDIA[ 0 ], { ID: 'media-4', 'transient': true } )
+				Object.assign( {}, DUMMY_VIDEO_MEDIA[ 0 ], { ID: 'media-4', transient: true } ),
 			];
 			process.nextTick( () => {
 				expect( onClose ).to.have.been.calledWith( transientItems, 'external' );

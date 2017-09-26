@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -11,11 +12,7 @@ import { localize } from 'i18n-calypso';
 import Emojify from 'components/emojify';
 import Gravatar from 'components/gravatar';
 import SiteIcon from 'blocks/site-icon';
-import {
-	bumpStat,
-	composeAnalytics,
-	recordTracksEvent,
-} from 'state/analytics/actions';
+import { bumpStat, composeAnalytics, recordTracksEvent } from 'state/analytics/actions';
 
 export const CommentDetailPost = ( {
 	commentId,
@@ -43,17 +40,17 @@ export const CommentDetailPost = ( {
 					<Gravatar user={ author } />
 				</div>
 				<div className="comment-detail__post-info">
-					{ parentCommentAuthorDisplayName &&
+					{ parentCommentAuthorDisplayName && (
 						<span>
 							<Emojify>
-								{ translate( '%(authorName)s:', { args: { authorName: parentCommentAuthorDisplayName } } ) }
+								{ translate( '%(authorName)s:', {
+									args: { authorName: parentCommentAuthorDisplayName },
+								} ) }
 							</Emojify>
 						</span>
-					}
+					) }
 					<a href={ `${ postUrl }#comment-${ commentId }` } onClick={ recordReaderCommentOpened }>
-						<Emojify>
-							{ parentCommentContent }
-						</Emojify>
+						<Emojify>{ parentCommentContent }</Emojify>
 					</a>
 				</div>
 			</div>
@@ -64,17 +61,15 @@ export const CommentDetailPost = ( {
 		<div className="comment-detail__post">
 			<SiteIcon siteId={ siteId } size={ 24 } />
 			<div className="comment-detail__post-info">
-				{ postAuthorDisplayName &&
+				{ postAuthorDisplayName && (
 					<span>
 						<Emojify>
 							{ translate( '%(authorName)s:', { args: { authorName: postAuthorDisplayName } } ) }
 						</Emojify>
 					</span>
-				}
+				) }
 				<a href={ postUrl } onClick={ recordReaderArticleOpened }>
-					<Emojify>
-						{ postTitle || translate( 'Untitled' ) }
-					</Emojify>
+					<Emojify>{ postTitle || translate( 'Untitled' ) }</Emojify>
 				</a>
 			</div>
 		</div>
@@ -82,14 +77,20 @@ export const CommentDetailPost = ( {
 };
 
 const mapDispatchToProps = dispatch => ( {
-	recordReaderArticleOpened: () => dispatch( composeAnalytics(
-		recordTracksEvent( 'calypso_comment_management_article_opened' ),
-		bumpStat( 'calypso_comment_management', 'article_opened' )
-	) ),
-	recordReaderCommentOpened: () => dispatch( composeAnalytics(
-		recordTracksEvent( 'calypso_comment_management_comment_opened' ),
-		bumpStat( 'calypso_comment_management', 'comment_opened' )
-	) ),
+	recordReaderArticleOpened: () =>
+		dispatch(
+			composeAnalytics(
+				recordTracksEvent( 'calypso_comment_management_article_opened' ),
+				bumpStat( 'calypso_comment_management', 'article_opened' )
+			)
+		),
+	recordReaderCommentOpened: () =>
+		dispatch(
+			composeAnalytics(
+				recordTracksEvent( 'calypso_comment_management_comment_opened' ),
+				bumpStat( 'calypso_comment_management', 'comment_opened' )
+			)
+		),
 } );
 
 export default connect( null, mapDispatchToProps )( localize( CommentDetailPost ) );

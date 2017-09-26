@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -31,7 +32,7 @@ class Intro extends Component {
 				<CompactCard>
 					<p>
 						{ translate(
-							'Thanks for installing {{em}}WP Job Manager{{/em}}! Let\'s get your site ready to accept job listings.',
+							"Thanks for installing {{em}}WP Job Manager{{/em}}! Let's get your site ready to accept job listings.",
 							{ components: { em: <em /> } }
 						) }
 					</p>
@@ -39,14 +40,14 @@ class Intro extends Component {
 					<p>
 						{ translate(
 							'This setup wizard will walk you through the process of creating pages for job submissions, ' +
-							'management, and listings.'
+								'management, and listings.'
 						) }
 					</p>
 
 					<p>
 						{ translate(
-							'If you\'d prefer to skip this and set up your pages manually, our {{docs}}documentation{{/docs}} ' +
-							'will walk you through each step.',
+							"If you'd prefer to skip this and set up your pages manually, our {{docs}}documentation{{/docs}} " +
+								'will walk you through each step.',
 							{
 								components: {
 									docs: (
@@ -56,7 +57,7 @@ class Intro extends Component {
 											href="https://wpjobmanager.com/documentation/"
 										/>
 									),
-								}
+								},
 							}
 						) }
 					</p>
@@ -65,12 +66,15 @@ class Intro extends Component {
 				<CompactCard>
 					<a
 						className="intro__skip-setup"
-						href={ slug && `${ SetupPath }/${ slug }/${ Steps.CONFIRMATION }` }>
+						href={ slug && `${ SetupPath }/${ slug }/${ Steps.CONFIRMATION }` }
+					>
 						{ translate( 'Skip setup. I will set up the plugin manually.' ) }
 					</a>
-					<Button primary
+					<Button
+						primary
 						className="intro__start-setup"
-						href={ slug && `${ SetupPath }/${ slug }/${ Steps.PAGE_SETUP }` }>
+						href={ slug && `${ SetupPath }/${ slug }/${ Steps.PAGE_SETUP }` }
+					>
 						{ translate( 'Start setup' ) }
 					</Button>
 				</CompactCard>

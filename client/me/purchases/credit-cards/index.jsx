@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,11 +26,7 @@ import SectionHeader from 'components/section-header';
 class CreditCards extends Component {
 	renderCards() {
 		if ( this.props.isFetching && ! this.props.hasLoadedFromServer ) {
-			return (
-				<div className="credit-cards__no-results">
-					{ this.props.translate( 'Loading…' ) }
-				</div>
-			);
+			return <div className="credit-cards__no-results">{ this.props.translate( 'Loading…' ) }</div>;
 		}
 
 		if ( ! this.props.cards.length ) {
@@ -75,9 +72,7 @@ class CreditCards extends Component {
 				</SectionHeader>
 
 				<Card>
-					<div>
-						{ this.renderCards() }
-					</div>
+					<div>{ this.renderCards() }</div>
 				</Card>
 			</div>
 		);

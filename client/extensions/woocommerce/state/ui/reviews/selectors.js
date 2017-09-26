@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -14,7 +15,11 @@ import { getSelectedSiteId } from 'state/ui/selectors';
  * @return {Number} The current page being viewed. Defaults to 1.
  */
 export const getReviewsCurrentPage = ( state, siteId = getSelectedSiteId( state ) ) => {
-	return get( state, [ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentPage' ], 1 );
+	return get(
+		state,
+		[ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentPage' ],
+		1
+	);
 };
 
 /**
@@ -23,7 +28,11 @@ export const getReviewsCurrentPage = ( state, siteId = getSelectedSiteId( state 
  * @return {String} The current product being viewed. Defaults to null.
  */
 export const getReviewsCurrentProduct = ( state, siteId = getSelectedSiteId( state ) ) => {
-	return get( state, [ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentProduct' ], null );
+	return get(
+		state,
+		[ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentProduct' ],
+		null
+	);
 };
 
 /**
@@ -32,5 +41,9 @@ export const getReviewsCurrentProduct = ( state, siteId = getSelectedSiteId( sta
  * @return {String} The current search term being viewed. Defaults to an empty string.
  */
 export const getReviewsCurrentSearch = ( state, siteId = getSelectedSiteId( state ) ) => {
-	return get( state, [ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentSearch' ], '' );
+	return get(
+		state,
+		[ 'extensions', 'woocommerce', 'ui', 'reviews', siteId, 'list', 'currentSearch' ],
+		''
+	);
 };

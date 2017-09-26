@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -11,7 +12,7 @@ const LoadStatus = {
 	PENDING: 'PENDING',
 	LOADING: 'LOADING',
 	LOADED: 'LOADED',
-	FAILED: 'FAILED'
+	FAILED: 'FAILED',
 };
 
 export default React.createClass( {
@@ -22,12 +23,12 @@ export default React.createClass( {
 		placeholder: React.PropTypes.element.isRequired,
 		children: React.PropTypes.node,
 		onLoad: React.PropTypes.func,
-		onError: React.PropTypes.func
+		onError: React.PropTypes.func,
 	},
 
 	getInitialState() {
 		return {
-			status: LoadStatus.PENDING
+			status: LoadStatus.PENDING,
 		};
 	},
 
@@ -50,7 +51,7 @@ export default React.createClass( {
 
 		this.destroyLoader();
 		this.setState( {
-			status: LoadStatus.LOADING
+			status: LoadStatus.LOADING,
 		} );
 
 		if ( ! src ) {
@@ -108,13 +109,10 @@ export default React.createClass( {
 				children = this.props.children;
 				break;
 
-			default: break;
+			default:
+				break;
 		}
 
-		return (
-			<div className="image-preloader">
-				{ children }
-			</div>
-		);
-	}
+		return <div className="image-preloader">{ children }</div>;
+	},
 } );

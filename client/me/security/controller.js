@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -32,13 +33,11 @@ export default {
 		analytics.pageView.record( basePath, ANALYTICS_PAGE_TITLE + ' > Password' );
 
 		renderWithReduxStore(
-			React.createElement( PasswordComponent,
-				{
-					userSettings: userSettings,
-					path: context.path,
-					accountPasswordData: accountPasswordData
-				}
-			),
+			React.createElement( PasswordComponent, {
+				userSettings: userSettings,
+				path: context.path,
+				accountPasswordData: accountPasswordData,
+			} ),
 			document.getElementById( 'primary' ),
 			context.store
 		);
@@ -52,13 +51,11 @@ export default {
 		analytics.pageView.record( basePath, ANALYTICS_PAGE_TITLE + ' > Two-Step Authentication' );
 
 		renderWithReduxStore(
-			React.createElement( TwoStepComponent,
-				{
-					userSettings: userSettings,
-					path: context.path,
-					appPasswordsData: appPasswordsData
-				}
-			),
+			React.createElement( TwoStepComponent, {
+				userSettings: userSettings,
+				path: context.path,
+				appPasswordsData: appPasswordsData,
+			} ),
 			document.getElementById( 'primary' ),
 			context.store
 		);
@@ -72,13 +69,11 @@ export default {
 		analytics.pageView.record( basePath, ANALYTICS_PAGE_TITLE + ' > Connected Applications' );
 
 		renderWithReduxStore(
-			React.createElement( ConnectedAppsComponent,
-				{
-					userSettings: userSettings,
-					path: context.path,
-					connectedAppsData: connectedAppsData
-				}
-			),
+			React.createElement( ConnectedAppsComponent, {
+				userSettings: userSettings,
+				path: context.path,
+				connectedAppsData: connectedAppsData,
+			} ),
 			document.getElementById( 'primary' ),
 			context.store
 		);
@@ -91,12 +86,10 @@ export default {
 		analytics.pageView.record( basePath, ANALYTICS_PAGE_TITLE + ' > Account Recovery' );
 
 		renderWithReduxStore(
-			React.createElement( AccountRecoveryComponent,
-				{
-					userSettings: userSettings,
-					path: basePath
-				}
-			),
+			React.createElement( AccountRecoveryComponent, {
+				userSettings: userSettings,
+				path: basePath,
+			} ),
 			document.getElementById( 'primary' ),
 			context.store
 		);
@@ -109,12 +102,10 @@ export default {
 		analytics.pageView.record( basePath, ANALYTICS_PAGE_TITLE + ' > Social Login' );
 
 		renderWithReduxStore(
-			React.createElement( SocialLoginComponent,
-				{
-					userSettings: userSettings,
-					path: basePath
-				}
-			),
+			React.createElement( SocialLoginComponent, {
+				userSettings: userSettings,
+				path: basePath,
+			} ),
 			document.getElementById( 'primary' ),
 			context.store
 		);

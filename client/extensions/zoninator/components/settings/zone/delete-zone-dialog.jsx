@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -11,15 +12,12 @@ import { localize } from 'i18n-calypso';
 import Button from 'components/button';
 import Dialog from 'components/dialog';
 
-const DeleteZoneDialog = ( {
-	onCancel,
-	onConfirm,
-	translate,
-	zoneName,
-} ) => {
+const DeleteZoneDialog = ( { onCancel, onConfirm, translate, zoneName } ) => {
 	const buttons = [
 		<Button onClick={ onCancel }>{ translate( 'Cancel' ) }</Button>,
-		<Button primary scary onClick={ onConfirm }>{ translate( 'Delete' ) }</Button>,
+		<Button primary scary onClick={ onConfirm }>
+			{ translate( 'Delete' ) }
+		</Button>,
 	];
 
 	return (
@@ -36,7 +34,7 @@ const DeleteZoneDialog = ( {
 						em: <em />,
 						strong: <strong />,
 					},
-				},
+				}
 			) }
 		</Dialog>
 	);

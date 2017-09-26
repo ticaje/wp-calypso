@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -11,6 +12,12 @@ export function fetchCouponsPage( siteId, pageIndex = 1, perPage = 10 ) {
 }
 
 export function couponsPageUpdated( siteId, pageIndex, coupons, totalPages, totalCoupons ) {
-	return { type: WOOCOMMERCE_COUPONS_PAGE_UPDATED, siteId, pageIndex, coupons, totalPages, totalCoupons };
+	return {
+		type: WOOCOMMERCE_COUPONS_PAGE_UPDATED,
+		siteId,
+		pageIndex,
+		coupons,
+		totalPages,
+		totalCoupons,
+	};
 }
-

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -53,6 +54,5 @@ PostCommentWithError.propTypes = {
 	repliesList: PropTypes.object.isRequired,
 	commentsTree: PropTypes.object.isRequired,
 	onUpdateCommentText: PropTypes.func.isRequired,
-	commentId: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] )
-		.isRequired,
+	commentId: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ).isRequired,
 };

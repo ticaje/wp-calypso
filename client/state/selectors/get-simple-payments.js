@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -34,7 +35,7 @@ export default createSelector( ( state, siteId, simplePaymentId = null ) => {
 
 	const simplePaymentProduct = find(
 		simplePaymentProducts,
-		product => product.ID === simplePaymentId,
+		product => product.ID === simplePaymentId
 	);
 
 	if ( ! simplePaymentProduct ) {

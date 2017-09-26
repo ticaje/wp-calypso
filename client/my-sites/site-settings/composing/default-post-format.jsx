@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,15 +26,13 @@ const DefaultPostFormat = ( {
 	isSavingSettings,
 	postFormats,
 	siteId,
-	translate
+	translate,
 } ) => {
 	return (
 		<FormFieldset>
 			{ siteId && <QueryPostFormats siteId={ siteId } /> }
 
-			<FormLabel htmlFor="default_post_format">
-				{ translate( 'Default Post Format' ) }
-			</FormLabel>
+			<FormLabel htmlFor="default_post_format">{ translate( 'Default Post Format' ) }</FormLabel>
 			<FormSelect
 				name="default_post_format"
 				id="default_post_format"
@@ -43,11 +42,14 @@ const DefaultPostFormat = ( {
 				onClick={ eventTracker( 'Selected Default Post Format' ) }
 			>
 				<option value="0">{ translate( 'Standard', { context: 'Post format' } ) }</option>
-				{
-					postFormats && map( postFormats, ( label, slug ) => {
-						return <option key={ slug } value={ slug }>{ label }</option>;
-					} )
-				}
+				{ postFormats &&
+					map( postFormats, ( label, slug ) => {
+						return (
+							<option key={ slug } value={ slug }>
+								{ label }
+							</option>
+						);
+					} ) }
 			</FormSelect>
 		</FormFieldset>
 	);
@@ -56,7 +58,7 @@ const DefaultPostFormat = ( {
 DefaultPostFormat.defaultProps = {
 	isSavingSettings: false,
 	isRequestingSettings: true,
-	fields: {}
+	fields: {},
 };
 
 DefaultPostFormat.propTypes = {
@@ -67,13 +69,11 @@ DefaultPostFormat.propTypes = {
 	fields: PropTypes.object,
 };
 
-export default connect(
-	( state ) => {
-		const siteId = getSelectedSiteId( state );
+export default connect( state => {
+	const siteId = getSelectedSiteId( state );
 
-		return {
-			siteId,
-			postFormats: getPostFormats( state, siteId ),
-		};
-	}
-)( localize( DefaultPostFormat ) );
+	return {
+		siteId,
+		postFormats: getPostFormats( state, siteId ),
+	};
+} )( localize( DefaultPostFormat ) );

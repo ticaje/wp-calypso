@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -41,11 +42,11 @@ class CurrentSite extends Component {
 		selectedSiteId: React.PropTypes.number,
 		selectedSite: React.PropTypes.object,
 		translate: React.PropTypes.func.isRequired,
-		anySiteSelected: React.PropTypes.array
+		anySiteSelected: React.PropTypes.array,
 	};
 
 	state = {
-		domainsStore: DomainsStore
+		domainsStore: DomainsStore,
 	};
 
 	componentWillMount() {
@@ -72,7 +73,7 @@ class CurrentSite extends Component {
 
 	handleStoreChange = () => {
 		this.setState( { domainsStore: DomainsStore } );
-	}
+	};
 
 	showStaleCartItemsNotice = () => {
 		const { selectedSite } = this.props,
@@ -88,32 +89,32 @@ class CurrentSite extends Component {
 		}
 
 		// Show a notice if there are stale items in the cart and it hasn't been shown in the last 10 minutes (cart abandonment)
-		if ( cartItems.hasStaleItem( CartStore.get() ) && this.props.staleCartItemNoticeLastTimeShown < Date.now() - ( 10 * 60 * 1000 ) ) {
-			this.props.infoNotice(
-				this.props.translate( 'Your site deserves a boost!' ),
-				{
-					id: staleCartItemNoticeId,
-					isPersistent: false,
-					duration: 10000,
-					button: this.props.translate( 'Complete your purchase' ),
-					href: '/checkout/' + selectedSite.slug,
-					onClick: this.clickStaleCartItemsNotice
-				}
-			);
+		if (
+			cartItems.hasStaleItem( CartStore.get() ) &&
+			this.props.staleCartItemNoticeLastTimeShown < Date.now() - 10 * 60 * 1000
+		) {
+			this.props.infoNotice( this.props.translate( 'Your site deserves a boost!' ), {
+				id: staleCartItemNoticeId,
+				isPersistent: false,
+				duration: 10000,
+				button: this.props.translate( 'Complete your purchase' ),
+				href: '/checkout/' + selectedSite.slug,
+				onClick: this.clickStaleCartItemsNotice,
+			} );
 		}
-	}
+	};
 
 	clickStaleCartItemsNotice = () => {
 		this.props.recordTracksEvent( 'calypso_cart_abandonment_notice_click' );
-	}
+	};
 
-	switchSites = ( event ) => {
+	switchSites = event => {
 		event.preventDefault();
 		event.stopPropagation();
 		this.props.setLayoutFocus( 'sites' );
 
 		analytics.ga.recordEvent( 'Sidebar', 'Clicked Switch Site' );
-	}
+	};
 
 	getDomainWarnings() {
 		const { selectedSiteId, selectedSite: site } = this.props;
@@ -123,7 +124,7 @@ class CurrentSite extends Component {
 		}
 
 		const domainStore = this.state.domainsStore.getBySite( selectedSiteId );
-		const domains = domainStore && domainStore.list || [];
+		const domains = ( domainStore && domainStore.list ) || [];
 
 		return (
 			<DomainWarnings
@@ -139,32 +140,26 @@ class CurrentSite extends Component {
 					'expiredDomainsCannotManage',
 					'expiringDomainsCannotManage',
 					'wrongNSMappedDomains',
-					'pendingGappsTosAcceptanceDomains'
+					'pendingGappsTosAcceptanceDomains',
 				] }
 			/>
 		);
 	}
 
-	previewSite = ( event ) => this.props.onClick && this.props.onClick( event );
+	previewSite = event => this.props.onClick && this.props.onClick( event );
 
 	renderSiteViewLink() {
 		if ( config.isEnabled( 'standalone-site-preview' ) ) {
 			return;
 		}
 
-		const {
-			isPreviewShowing,
-			selectedSite,
-			translate,
-		} = this.props;
+		const { isPreviewShowing, selectedSite, translate } = this.props;
 
 		const viewText = selectedSite.is_previewable
 			? translate( 'Site Preview' )
 			: translate( 'View site' );
 
-		const viewIcon = selectedSite.is_previewable
-			? 'computer'
-			: 'external';
+		const viewIcon = selectedSite.is_previewable ? 'computer' : 'external';
 
 		return (
 			<a
@@ -176,9 +171,7 @@ class CurrentSite extends Component {
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				<span className="current-site__view-site-text">
-					{ viewText }
-				</span>
+				<span className="current-site__view-site-text">{ viewText }</span>
 				<Gridicon icon={ viewIcon } />
 			</a>
 		);
@@ -190,9 +183,7 @@ class CurrentSite extends Component {
 		if ( ! anySiteSelected.length ) {
 			return (
 				<Card className="current-site is-loading">
-					{ this.props.siteCount > 1 &&
-						<span className="current-site__switch-sites">&nbsp;</span>
-					}
+					{ this.props.siteCount > 1 && <span className="current-site__switch-sites">&nbsp;</span> }
 					<div className="site">
 						<a className="site__content">
 							<div className="site-icon" />
@@ -207,21 +198,22 @@ class CurrentSite extends Component {
 
 		return (
 			<Card className="current-site">
-				{ this.props.siteCount > 1 &&
+				{ this.props.siteCount > 1 && (
 					<span className="current-site__switch-sites">
 						<Button compact borderless onClick={ this.switchSites }>
 							<Gridicon icon="arrow-left" size={ 18 } />
 							{ translate( 'Switch Site' ) }
 						</Button>
 					</span>
-				}
-				{ selectedSite
-					? <div>
+				) }
+				{ selectedSite ? (
+					<div>
 						<Site site={ selectedSite } />
 						{ this.renderSiteViewLink() }
 					</div>
-					: <AllSites />
-				}
+				) : (
+					<AllSites />
+				) }
 				{ ! isJetpack && this.getDomainWarnings() }
 				<SiteNotice site={ selectedSite } allSitesPath={ this.props.allSitesPath } />
 			</Card>
@@ -230,7 +222,7 @@ class CurrentSite extends Component {
 }
 
 export default connect(
-	( state ) => {
+	state => {
 		const selectedSiteId = getSelectedSiteId( state );
 		const user = getCurrentUser( state );
 
@@ -244,5 +236,5 @@ export default connect(
 			sectionName: getSectionName( state ),
 		};
 	},
-	{ setLayoutFocus, infoNotice, removeNotice, recordTracksEvent },
+	{ setLayoutFocus, infoNotice, removeNotice, recordTracksEvent }
 )( localize( CurrentSite ) );

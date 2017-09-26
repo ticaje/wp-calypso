@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -19,16 +20,14 @@ function PostTypePostAuthor( { name } ) {
 
 	return (
 		<div className="post-type-post-author">
-			<div className="post-type-post-author__name">
-				{ name }
-			</div>
+			<div className="post-type-post-author__name">{ name }</div>
 		</div>
 	);
 }
 
 PostTypePostAuthor.propTypes = {
 	globalId: PropTypes.string,
-	name: PropTypes.string
+	name: PropTypes.string,
 };
 
 export default connect( ( state, ownProps ) => {

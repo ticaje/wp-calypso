@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,9 +19,12 @@ import {
 	areReviewsLoading,
 	areReviewsLoaded,
 	getReviews,
-	getTotalReviews
+	getTotalReviews,
 } from 'woocommerce/state/sites/reviews/selectors';
-import { getReviewsCurrentPage, getReviewsCurrentSearch } from 'woocommerce/state/ui/reviews/selectors';
+import {
+	getReviewsCurrentPage,
+	getReviewsCurrentSearch,
+} from 'woocommerce/state/ui/reviews/selectors';
 import { getSelectedSiteWithFallback } from 'woocommerce/state/sites/selectors';
 import Pagination from 'components/pagination';
 import ReviewCard from './review-card';
@@ -55,12 +59,11 @@ class ReviewsList extends Component {
 	componentWillReceiveProps( newProps ) {
 		const { currentPage, currentSearch, currentStatus, siteId } = this.props;
 
-		const hasAnythingChanged = (
+		const hasAnythingChanged =
 			newProps.currentPage !== currentPage ||
 			newProps.currentSearch !== currentSearch ||
 			newProps.currentStatus !== currentStatus ||
-			newProps.siteId !== siteId
-		);
+			newProps.siteId !== siteId;
 		if ( ! newProps.siteId || ! hasAnythingChanged ) {
 			return;
 		}
@@ -88,15 +91,14 @@ class ReviewsList extends Component {
 	}
 
 	renderPlaceholders = () => {
-		return range( 5 ).map( ( i ) => {
+		return range( 5 ).map( i => {
 			return (
 				<Card key={ i } className="reviews__card">
-					<div className="reviews__placeholder">
-					</div>
+					<div className="reviews__placeholder" />
 				</Card>
 			);
 		} );
-	}
+	};
 
 	renderNoContent = () => {
 		const { currentSearch, currentStatus, translate } = this.props;
@@ -121,7 +123,7 @@ class ReviewsList extends Component {
 				line={ lineMessage }
 			/>
 		);
-	}
+	};
 
 	renderReview = ( review, i ) => {
 		const { siteId } = this.props;
@@ -133,44 +135,36 @@ class ReviewsList extends Component {
 				currentStatus={ this.props.currentStatus }
 			/>
 		);
-	}
+	};
 
 	renderReviews = () => {
 		const { reviews, reviewsLoaded } = this.props;
 		return (
 			<div className="reviews__list">
-				{ ! reviewsLoaded
-					? this.renderPlaceholders()
-					: reviews.map( this.renderReview )
-				}
+				{ ! reviewsLoaded ? this.renderPlaceholders() : reviews.map( this.renderReview ) }
 			</div>
 		);
-	}
+	};
 
 	onPageClick = nextPage => {
 		this.props.updateCurrentReviewsQuery( this.props.siteId, {
 			page: nextPage,
 			status: this.props.currentStatus,
 		} );
-	}
+	};
 
 	render() {
-		const {
-			currentPage,
-			currentStatus,
-			reviews,
-			reviewsLoaded,
-			total,
-		} = this.props;
+		const { currentPage, currentStatus, reviews, reviewsLoaded, total } = this.props;
 
 		return (
 			<div className="reviews__container">
 				<ReviewsFilterNav status={ currentStatus } />
 
-				{ ( ! reviewsLoaded || ( reviews && reviews.length ) )
-					? this.renderReviews()
-					: this.renderNoContent()
-				}
+				{ ! reviewsLoaded || ( reviews && reviews.length ) ? (
+					this.renderReviews()
+				) : (
+					this.renderNoContent()
+				) }
 
 				<Pagination
 					page={ currentPage }

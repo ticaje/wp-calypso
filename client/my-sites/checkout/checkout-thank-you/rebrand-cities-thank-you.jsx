@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -28,13 +29,17 @@ class RebrandCitiesThankYou extends Component {
 					descriptionWithHTML={
 						<div>
 							<p>
-								{ translate( 'Congratulations on taking steps to introduce or reintroduce your ' +
-									'brand to the world. We commend you on starting this journey of establishing ' +
-									'a digital footprint and reaching more customers.' ) }
+								{ translate(
+									'Congratulations on taking steps to introduce or reintroduce your ' +
+										'brand to the world. We commend you on starting this journey of establishing ' +
+										'a digital footprint and reaching more customers.'
+								) }
 							</p>
 							<p>
-								{ translate( 'Please complete our business survey so we can learn more about you ' +
-									'and your business.' ) }
+								{ translate(
+									'Please complete our business survey so we can learn more about you ' +
+										'and your business.'
+								) }
 							</p>
 						</div>
 					}

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -9,10 +10,7 @@ import debugFactory from 'debug';
 
 const debug = debugFactory( 'zoninator:errors' );
 
-const handlers = mergeHandlers(
-	feeds,
-	zones,
-);
+const handlers = mergeHandlers( feeds, zones );
 
 export default function installActionHandlers() {
 	const added = addHandlers( 'zoninator', handlers );

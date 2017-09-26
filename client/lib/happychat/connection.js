@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -17,7 +18,6 @@ import { HAPPYCHAT_MESSAGE_TYPES } from 'state/happychat/constants';
 const debug = require( 'debug' )( 'calypso:happychat:connection' );
 
 class Connection extends EventEmitter {
-
 	open( signer_user_id, jwt, locale, groups ) {
 		if ( ! this.openSocket ) {
 			this.openSocket = new Promise( resolve => {
@@ -52,16 +52,14 @@ class Connection extends EventEmitter {
 	}
 
 	typing( message ) {
-		this.openSocket
-		.then(
+		this.openSocket.then(
 			socket => socket.emit( 'typing', { message } ),
 			e => debug( 'failed to send typing', e )
 		);
 	}
 
 	notTyping() {
-		this.openSocket
-		.then(
+		this.openSocket.then(
 			socket => socket.emit( 'typing', false ),
 			e => debug( 'failed to send typing', e )
 		);
@@ -76,12 +74,13 @@ class Connection extends EventEmitter {
 
 	sendEvent( message ) {
 		this.openSocket.then(
-			socket => socket.emit( 'message', {
-				text: message,
-				id: uuid(),
-				type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_EVENT,
-				meta: { forOperator: true, event_type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_EVENT }
-			} ),
+			socket =>
+				socket.emit( 'message', {
+					text: message,
+					id: uuid(),
+					type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_EVENT,
+					meta: { forOperator: true, event_type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_EVENT },
+				} ),
 			e => debug( 'failed to send message', e )
 		);
 	}
@@ -100,12 +99,13 @@ class Connection extends EventEmitter {
 
 	sendLog( message ) {
 		this.openSocket.then(
-			socket => socket.emit( 'message', {
-				text: message,
-				id: uuid(),
-				type: HAPPYCHAT_MESSAGE_TYPES.LOG,
-				meta: { forOperator: true, event_type: HAPPYCHAT_MESSAGE_TYPES.LOG }
-			} ),
+			socket =>
+				socket.emit( 'message', {
+					text: message,
+					id: uuid(),
+					type: HAPPYCHAT_MESSAGE_TYPES.LOG,
+					meta: { forOperator: true, event_type: HAPPYCHAT_MESSAGE_TYPES.LOG },
+				} ),
 			e => debug( 'failed to send message', e )
 		);
 	}
@@ -116,31 +116,35 @@ class Connection extends EventEmitter {
 	 */
 	sendInfo( info ) {
 		this.openSocket.then(
-			socket => socket.emit( 'message', {
-				id: uuid(),
-				meta: { ...info, forOperator: true },
-				type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_INFO,
-			} ),
+			socket =>
+				socket.emit( 'message', {
+					id: uuid(),
+					meta: { ...info, forOperator: true },
+					type: HAPPYCHAT_MESSAGE_TYPES.CUSTOMER_INFO,
+				} ),
 			e => debug( 'failed to send message', e )
 		);
 	}
 
 	transcript( timestamp ) {
-		return this.openSocket.then( socket => Promise.race( [
-			new Promise( ( resolve, reject ) => {
-				socket.emit( 'transcript', timestamp || null, ( e, result ) => {
-					if ( e ) {
-						return reject( new Error( e ) );
-					}
-					resolve( result );
-				} );
-			} ),
-			new Promise( ( resolve, reject ) => setTimeout( () => {
-				reject( Error( 'timeout' ) );
-			}, 10000 ) )
-		] ) );
+		return this.openSocket.then( socket =>
+			Promise.race( [
+				new Promise( ( resolve, reject ) => {
+					socket.emit( 'transcript', timestamp || null, ( e, result ) => {
+						if ( e ) {
+							return reject( new Error( e ) );
+						}
+						resolve( result );
+					} );
+				} ),
+				new Promise( ( resolve, reject ) =>
+					setTimeout( () => {
+						reject( Error( 'timeout' ) );
+					}, 10000 )
+				),
+			] )
+		);
 	}
-
 }
 
 export default () => new Connection();

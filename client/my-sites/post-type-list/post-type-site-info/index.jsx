@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -21,9 +22,7 @@ function PostTypeSiteInfo( { site, siteTitle } ) {
 	return (
 		<div className="post-type-site-info">
 			<SiteIcon size={ 16 } site={ site } />
-			<div className="post-type-site-info__title">
-				{ siteTitle }
-			</div>
+			<div className="post-type-site-info__title">{ siteTitle }</div>
 		</div>
 	);
 }

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -27,5 +28,5 @@ export const Tabs = {
 	DEBUG: {
 		label: translate( 'Debug' ),
 		slug: 'debug',
-	}
+	},
 };

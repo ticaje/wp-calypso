@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -11,7 +12,7 @@ import { requestTimezones } from 'state/timezones/actions';
 
 export class QueryTimezones extends Component {
 	static propTypes = {
-		requestTimezones: PropTypes.func
+		requestTimezones: PropTypes.func,
 	};
 
 	componentDidMount() {
@@ -23,7 +24,4 @@ export class QueryTimezones extends Component {
 	}
 }
 
-export default connect(
-	null,
-	{ requestTimezones }
-)( QueryTimezones );
+export default connect( null, { requestTimezones } )( QueryTimezones );

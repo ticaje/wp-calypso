@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -19,7 +20,8 @@ export default class ValidationFieldset extends Component {
 			<FormInputValidation
 				isError={ true }
 				isValid={ false }
-				text={ head( values( this.props.errorMessages ) ) } />
+				text={ head( values( this.props.errorMessages ) ) }
+			/>
 		);
 
 		return <div className="validation-fieldset__validation-message">{ validationElement }</div>;

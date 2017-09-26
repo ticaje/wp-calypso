@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,12 +26,15 @@ module.exports = React.createClass( {
 
 					<div className="sharing-buttons-preview__reblog-like">
 						<a className="sharing-buttons-preview-button is-enabled style-icon-text sharing-buttons-preview__like">
-							<span className="noticon noticon-like" />{ this.translate( 'Like' ) }
+							<span className="noticon noticon-like" />
+							{ this.translate( 'Like' ) }
 						</a>
 						<div className="sharing-buttons-preview__fake-user">
 							<img src="https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60" />
 						</div>
-						<div className="sharing-buttons-preview__fake-like">{ this.translate( 'One blogger likes this' ) }</div>
+						<div className="sharing-buttons-preview__fake-like">
+							{ this.translate( 'One blogger likes this' ) }
+						</div>
 					</div>
 				</div>
 
@@ -44,5 +48,5 @@ module.exports = React.createClass( {
 				</div>
 			</div>
 		);
-	}
+	},
 } );

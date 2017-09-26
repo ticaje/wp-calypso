@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -21,9 +22,7 @@ const adTrackingMocks = [
 const mockIt = spy => mock => set( {}, mock, () => spy( mock ) );
 
 export const moduleMock = moduleMocks => spy =>
-	moduleMocks
-		.map( mockIt( spy ) )
-		.reduce( ( mocks, mock ) => merge( mocks, mock ), {} );
+	moduleMocks.map( mockIt( spy ) ).reduce( ( mocks, mock ) => merge( mocks, mock ), {} );
 
 export const analyticsMock = moduleMock( analyticsMocks );
 export const adTrackingMock = moduleMock( adTrackingMocks );

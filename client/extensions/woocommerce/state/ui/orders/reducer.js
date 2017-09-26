@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -9,7 +10,10 @@ import { combineReducers, keyedReducer } from 'state/utils';
 import edits from './edits/reducer';
 import list from './list/reducer';
 
-export default keyedReducer( 'siteId', combineReducers( {
-	edits,
-	list,
-} ) );
+export default keyedReducer(
+	'siteId',
+	combineReducers( {
+		edits,
+		list,
+	} )
+);

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -17,9 +18,9 @@ const GetDotBlogPlansStep = ( { queryObject, ...props } ) => (
 			isPurchasingItem: true,
 			domainItem: cartItems.domainMapping( {
 				domain: queryObject.domain,
-				source: 'get-dot-blog-signup'
+				source: 'get-dot-blog-signup',
 			} ),
-			siteUrl: queryObject.domain.replace( /\W+/g, '' )
+			siteUrl: queryObject.domain.replace( /\W+/g, '' ),
 		} }
 		{ ...props }
 		hideFreePlan

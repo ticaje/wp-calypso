@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,7 +26,7 @@ export default React.createClass( {
 		preloadSectionName: PropTypes.string,
 		forceInternalLink: PropTypes.bool,
 		testTarget: PropTypes.string,
-		tipTarget: PropTypes.string
+		tipTarget: PropTypes.string,
 	},
 
 	_preloaded: false,
@@ -62,5 +63,5 @@ export default React.createClass( {
 				{ this.props.children }
 			</li>
 		);
-	}
+	},
 } );

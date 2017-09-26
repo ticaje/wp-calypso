@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,20 +17,20 @@ class VerticalNavItem extends Component {
 		external: PropTypes.bool,
 		isPlaceholder: PropTypes.bool,
 		onClick: PropTypes.func,
-		path: PropTypes.string
+		path: PropTypes.string,
 	};
 
 	static defaultProps = {
 		external: false,
 		isPlaceholder: false,
-		onClick: noop
+		onClick: noop,
 	};
 
 	placeholder = () => {
 		return (
 			<CompactCard className="vertical-nav-item is-placeholder">
-				<span></span>
-				<span></span>
+				<span />
+				<span />
 			</CompactCard>
 		);
 	};
@@ -43,7 +44,8 @@ class VerticalNavItem extends Component {
 			<a
 				href={ this.props.path }
 				onClick={ this.props.onClick }
-				target={ this.props.external ? '_blank' : null }>
+				target={ this.props.external ? '_blank' : null }
+			>
 				<CompactCard className="vertical-nav-item">
 					{ this.getIcon() }
 					<span>{ this.props.children }</span>

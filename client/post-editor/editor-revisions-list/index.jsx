@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,11 +16,7 @@ import EditorRevisionsListItem from './item';
 import QueryPostRevisions from 'components/data/query-post-revisions';
 import QueryUsers from 'components/data/query-users';
 import { getEditedPostValue } from 'state/posts/selectors';
-import {
-	getPostRevision,
-	getPostRevisions,
-	getPostRevisionsAuthorsId,
-} from 'state/selectors';
+import { getPostRevision, getPostRevisions, getPostRevisionsAuthorsId } from 'state/selectors';
 import { getSelectedSiteId } from 'state/ui/selectors';
 import { getEditorPostId } from 'state/ui/editor/selectors';
 import { isWithinBreakpoint } from 'lib/viewport';
@@ -35,11 +32,11 @@ class EditorRevisionsList extends PureComponent {
 		selectRevision: PropTypes.func.isRequired,
 		siteId: PropTypes.number,
 		type: PropTypes.string,
-	}
+	};
 
 	loadRevision = () => {
 		this.props.loadRevision( this.props.selectedRevision );
-	}
+	};
 
 	trySelectingRevision() {
 		if (
@@ -72,20 +69,16 @@ class EditorRevisionsList extends PureComponent {
 					postType={ this.props.type }
 					siteId={ this.props.siteId }
 				/>
-				<QueryUsers
-					siteId={ this.props.siteId }
-					userIds={ this.props.authorsIds }
-				/>
+				<QueryUsers siteId={ this.props.siteId } userIds={ this.props.authorsIds } />
 				<EditorRevisionsListHeader
 					loadRevision={ this.loadRevision }
 					selectedRevisionId={ this.props.selectedRevisionId }
 				/>
 				<ul className="editor-revisions-list__list">
 					{ map( this.props.revisions, revision => {
-						const itemClasses = classNames(
-							'editor-revisions-list__revision',
-							{ 'is-selected': revision.id === this.props.selectedRevisionId }
-						);
+						const itemClasses = classNames( 'editor-revisions-list__revision', {
+							'is-selected': revision.id === this.props.selectedRevisionId,
+						} );
 						return (
 							<li className={ itemClasses } key={ revision.id }>
 								<EditorRevisionsListItem
@@ -101,20 +94,16 @@ class EditorRevisionsList extends PureComponent {
 	}
 }
 
-export default connect(
-	( state, { selectedRevisionId } ) => {
-		const siteId = getSelectedSiteId( state );
-		const postId = getEditorPostId( state );
-		const type = getEditedPostValue( state, siteId, postId, 'type' );
-		return {
-			authorsIds: getPostRevisionsAuthorsId( state, siteId, postId ),
-			postId,
-			revisions: getPostRevisions( state, siteId, postId, 'display' ),
-			selectedRevision: getPostRevision(
-				state, siteId, postId, selectedRevisionId, 'editing'
-			),
-			siteId,
-			type,
-		};
-	},
-)( EditorRevisionsList );
+export default connect( ( state, { selectedRevisionId } ) => {
+	const siteId = getSelectedSiteId( state );
+	const postId = getEditorPostId( state );
+	const type = getEditedPostValue( state, siteId, postId, 'type' );
+	return {
+		authorsIds: getPostRevisionsAuthorsId( state, siteId, postId ),
+		postId,
+		revisions: getPostRevisions( state, siteId, postId, 'display' ),
+		selectedRevision: getPostRevision( state, siteId, postId, selectedRevisionId, 'editing' ),
+		siteId,
+		type,
+	};
+} )( EditorRevisionsList );

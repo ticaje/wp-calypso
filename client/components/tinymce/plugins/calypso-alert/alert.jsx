@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -31,7 +32,7 @@ export default React.createClass( {
 				onClick={ this.props.onClose }
 			>
 				{ this.translate( 'OK' ) }
-			</FormButton>
+			</FormButton>,
 		];
 	},
 
@@ -46,5 +47,5 @@ export default React.createClass( {
 				{ this.splitMessage() }
 			</Dialog>
 		);
-	}
+	},
 } );

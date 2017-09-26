@@ -1,11 +1,12 @@
+/** @format */
 /**
  * External dependencies
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
-import { map } from 'lodash';
+import { map } from 'lodash';
 
 /**
  * Internal dependencies
@@ -15,22 +16,27 @@ import SectionNav from 'components/section-nav';
 import SectionNavTabs from 'components/section-nav/tabs';
 import SectionNavTabItem from 'components/section-nav/item';
 import { addSiteFragment } from 'lib/route/path';
-import { getSiteSlug } from 'state/sites/selectors';
+import { getSiteSlug } from 'state/sites/selectors';
 import { Tabs } from '../../app/constants';
 
 const Navigation = ( { activeTab, siteSlug, translate } ) => (
 	<div>
-		<HeaderCake backText={ translate( 'Plugin Overview' ) }
-			backHref={ siteSlug && addSiteFragment( '/plugins/wp-super-cache', siteSlug ) }>
+		<HeaderCake
+			backText={ translate( 'Plugin Overview' ) }
+			backHref={ siteSlug && addSiteFragment( '/plugins/wp-super-cache', siteSlug ) }
+		>
 			WP Super Cache
 		</HeaderCake>
 		<SectionNav selectedText="Settings">
 			<SectionNavTabs>
-				{ map( Tabs, ( { label, slug: tabSlug } ) => (
+				{ map( Tabs, ( { label, slug: tabSlug } ) => (
 					<SectionNavTabItem
-						key={ `wp-super-cache-${ tabSlug || 'easy' }` }
-						path={ siteSlug && addSiteFragment( '/extensions/wp-super-cache/' + tabSlug, siteSlug ) }
-						selected={ activeTab === tabSlug }>
+						key={ `wp-super-cache-${ tabSlug || 'easy' }` }
+						path={
+							siteSlug && addSiteFragment( '/extensions/wp-super-cache/' + tabSlug, siteSlug )
+						}
+						selected={ activeTab === tabSlug }
+					>
 						{ label }
 					</SectionNavTabItem>
 				) ) }
@@ -51,10 +57,8 @@ Navigation.defaultProps = {
 	activeTab: '',
 };
 
-const connectComponent = connect(
-	( state, { siteId } ) => ( {
-		siteSlug: getSiteSlug( state, siteId )
-	} )
-);
+const connectComponent = connect( ( state, { siteId } ) => ( {
+	siteSlug: getSiteSlug( state, siteId ),
+} ) );
 
 export default connectComponent( localize( Navigation ) );

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,8 @@ export default function DocsSelectorsParamType( { expression, name, type } ) {
 	return (
 		<div className="docs-selectors__param-type">
 			<code>{ get( expression, 'name', name ) }</code>
-			{ expression && REGEXP_EXPRESSION_TYPE.test( type ) && (
+			{ expression &&
+			REGEXP_EXPRESSION_TYPE.test( type ) && (
 				<span>({ type.match( REGEXP_EXPRESSION_TYPE )[ 1 ] })</span>
 			) }
 		</div>
@@ -25,8 +27,8 @@ export default function DocsSelectorsParamType( { expression, name, type } ) {
 
 DocsSelectorsParamType.propTypes = {
 	expression: PropTypes.shape( {
-		name: PropTypes.string
+		name: PropTypes.string,
 	} ),
 	name: PropTypes.string,
-	type: PropTypes.string
+	type: PropTypes.string,
 };

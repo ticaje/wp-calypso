@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -41,7 +42,7 @@ function addLog( status, action, siteId, user, error ) {
 		action: action,
 		siteId: siteId,
 		user: user,
-		error: error
+		error: error,
 	};
 
 	debug( 'Add in ' + status + ' data:', log );
@@ -86,7 +87,7 @@ PeopleLogStore = {
 
 	emitChange: function() {
 		this.emit( 'change' );
-	}
+	},
 };
 
 PeopleLogStore.dispatchToken = Dispatcher.register( function( payload ) {
@@ -103,7 +104,13 @@ PeopleLogStore.dispatchToken = Dispatcher.register( function( payload ) {
 		case 'RECEIVE_EMAIL_FOLLOWERS':
 		case 'RECEIVE_ROLES':
 			if ( action.error ) {
-				addLog( 'error', action.type, action.siteId || action.fetchOptions.siteId, null, action.error.error );
+				addLog(
+					'error',
+					action.type,
+					action.siteId || action.fetchOptions.siteId,
+					null,
+					action.error.error
+				);
 				PeopleLogStore.emitChange();
 			}
 			break;
@@ -124,7 +131,7 @@ PeopleLogStore.dispatchToken = Dispatcher.register( function( payload ) {
 				status: 'inProgress',
 				action: action.action,
 				siteId: action.siteId,
-				user: action.user
+				user: action.user,
 			} );
 			if ( action.error ) {
 				addLog( 'error', action.type, action.siteId, action.user, action.error );
@@ -133,7 +140,6 @@ PeopleLogStore.dispatchToken = Dispatcher.register( function( payload ) {
 			}
 			PeopleLogStore.emitChange();
 			break;
-
 	}
 } );
 

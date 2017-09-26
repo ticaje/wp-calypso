@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -66,7 +67,8 @@ export default connect(
 			status: post.status,
 			isPublicizeEnabled: isPublicizeEnabled( state, post.site_ID, post.type ),
 		};
-	}, {
+	},
+	{
 		toggleSharePanel,
 	}
 )( localize( PostActionsEllipsisMenuShare ) );

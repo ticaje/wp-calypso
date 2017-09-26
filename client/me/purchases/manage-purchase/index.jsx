@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External Dependencies
  */
@@ -84,9 +85,11 @@ class ManagePurchase extends Component {
 		hasLoadedSites: React.PropTypes.bool.isRequired,
 		hasLoadedUserPurchasesFromServer: React.PropTypes.bool.isRequired,
 		selectedPurchase: React.PropTypes.object,
-		selectedSite: React.PropTypes.oneOfType(
-			[ React.PropTypes.object, React.PropTypes.bool, React.PropTypes.undefined ]
-		),
+		selectedSite: React.PropTypes.oneOfType( [
+			React.PropTypes.object,
+			React.PropTypes.bool,
+			React.PropTypes.undefined,
+		] ),
 	};
 
 	componentWillMount() {
@@ -215,14 +218,16 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPurchaseNavItem() {
-		const purchase = getPurchase( this.props ), { id } = purchase;
+		const purchase = getPurchase( this.props ),
+			{ id } = purchase;
 		const { translate } = this.props;
 
 		if ( ! isCancelable( purchase ) || ! getSelectedSite( this.props ) ) {
 			return null;
 		}
 
-		let text, link = paths.cancelPurchase( this.props.selectedSite.slug, id );
+		let text,
+			link = paths.cancelPurchase( this.props.selectedSite.slug, id );
 
 		if ( isRefundable( purchase ) ) {
 			if ( isDomainRegistration( purchase ) ) {
@@ -251,15 +256,12 @@ class ManagePurchase extends Component {
 			}
 		}
 
-		return (
-			<CompactCard href={ link }>
-				{ text }
-			</CompactCard>
-		);
+		return <CompactCard href={ link }>{ text }</CompactCard>;
 	}
 
 	renderCancelPrivacyProtection() {
-		const purchase = getPurchase( this.props ), { id } = purchase;
+		const purchase = getPurchase( this.props ),
+			{ id } = purchase;
 		const { translate } = this.props;
 
 		if (
@@ -329,9 +331,7 @@ class ManagePurchase extends Component {
 
 		return (
 			<div className="manage-purchase__content">
-				<span className="manage-purchase__description">
-					{ description }
-				</span>
+				<span className="manage-purchase__description">{ description }</span>
 				<span className="manage-purchase__settings-link">
 					<ProductLink selectedPurchase={ purchase } selectedSite={ selectedSite } />
 				</span>
@@ -387,12 +387,8 @@ class ManagePurchase extends Component {
 				<Card className={ classes }>
 					<header className="manage-purchase__header">
 						{ this.renderPlanIcon() }
-						<h2 className="manage-purchase__title">
-							{ getName( purchase ) }
-						</h2>
-						<div className="manage-purchase__description">
-							{ purchaseType( purchase ) }
-						</div>
+						<h2 className="manage-purchase__title">{ getName( purchase ) }</h2>
+						<div className="manage-purchase__description">{ purchaseType( purchase ) }</div>
 						<div className="manage-purchase__price">
 							<PlanPrice rawPrice={ purchase.amount } currencyCode={ purchase.currencyCode } />
 						</div>
@@ -429,7 +425,9 @@ class ManagePurchase extends Component {
 
 		let editCardDetailsPath = false;
 		if (
-			! isDataLoading( this.props ) && selectedSite && canEditPaymentDetails( selectedPurchase )
+			! isDataLoading( this.props ) &&
+			selectedSite &&
+			canEditPaymentDetails( selectedPurchase )
 		) {
 			editCardDetailsPath = getEditCardDetailsPath( selectedSite, selectedPurchase );
 		}
@@ -437,12 +435,11 @@ class ManagePurchase extends Component {
 		return (
 			<span>
 				<QueryUserPurchases userId={ user.get().ID } />
-				{ isPurchaseTheme &&
-					<QueryCanonicalTheme siteId={ selectedSiteId } themeId={ selectedPurchase.meta } /> }
+				{ isPurchaseTheme && (
+					<QueryCanonicalTheme siteId={ selectedSiteId } themeId={ selectedPurchase.meta } />
+				) }
 				<Main className={ classes }>
-					<HeaderCake onClick={ goToList }>
-						{ titles.managePurchase }
-					</HeaderCake>
+					<HeaderCake onClick={ goToList }>{ titles.managePurchase }</HeaderCake>
 					<PurchaseNotice
 						isDataLoading={ isDataLoading( this.props ) }
 						handleRenew={ this.handleRenew }

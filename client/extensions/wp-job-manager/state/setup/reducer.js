@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -16,11 +17,20 @@ import {
  * @param  {Object} action Action object
  * @return {Object} Updated creating state
  */
-export const creating = createReducer( {}, {
-	[ WP_JOB_MANAGER_CREATE_PAGES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: true } ),
-	[ WP_JOB_MANAGER_CREATE_PAGES_ERROR ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
-	[ WP_JOB_MANAGER_WIZARD_NEXT_STEP ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
-} );
+export const creating = createReducer(
+	{},
+	{
+		[ WP_JOB_MANAGER_CREATE_PAGES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: true } ),
+		[ WP_JOB_MANAGER_CREATE_PAGES_ERROR ]: ( state, { siteId } ) => ( {
+			...state,
+			[ siteId ]: false,
+		} ),
+		[ WP_JOB_MANAGER_WIZARD_NEXT_STEP ]: ( state, { siteId } ) => ( {
+			...state,
+			[ siteId ]: false,
+		} ),
+	}
+);
 
 /**
  * Tracks whether or not to move to the next step in the wizard.
@@ -29,9 +39,15 @@ export const creating = createReducer( {}, {
  * @param  {Object} action Action object
  * @return {Object} Updated state
  */
-export const nextStep = createReducer( {}, {
-	[ WP_JOB_MANAGER_WIZARD_NEXT_STEP ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: true } ),
-} );
+export const nextStep = createReducer(
+	{},
+	{
+		[ WP_JOB_MANAGER_WIZARD_NEXT_STEP ]: ( state, { siteId } ) => ( {
+			...state,
+			[ siteId ]: true,
+		} ),
+	}
+);
 
 export default combineReducers( {
 	creating,

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -62,7 +63,7 @@ class SocialLogin extends Component {
 		this.props.disconnectSocialUser( 'google' ).then( () => this.refreshUser() );
 	};
 
-	handleGoogleLoginResponse = ( response ) => {
+	handleGoogleLoginResponse = response => {
 		if ( ! response.Zi || ! response.Zi.access_token || ! response.Zi.id_token ) {
 			return;
 		}
@@ -81,15 +82,16 @@ class SocialLogin extends Component {
 
 		return (
 			<div>
-				{
-					errorUpdatingSocialConnection &&
-						<Notice status={ 'is-error' } showDismiss={ false }>
-							{ errorUpdatingSocialConnection.message }
-						</Notice>
-				}
+				{ errorUpdatingSocialConnection && (
+					<Notice status={ 'is-error' } showDismiss={ false }>
+						{ errorUpdatingSocialConnection.message }
+					</Notice>
+				) }
 				<CompactCard>
-					{ translate( 'You’ll be able to log in faster by linking your WordPress.com account with your ' +
-						'social networks. We’ll never post without your permission.' ) }
+					{ translate(
+						'You’ll be able to log in faster by linking your WordPress.com account with your ' +
+							'social networks. We’ll never post without your permission.'
+					) }
 				</CompactCard>
 				{ this.renderGoogleConnection() }
 			</div>
@@ -98,7 +100,9 @@ class SocialLogin extends Component {
 
 	renderActionButton( onClickAction = null ) {
 		const { isUserConnectedToGoogle, isUpdatingSocialConnection, translate } = this.props;
-		const buttonLabel = isUserConnectedToGoogle ? translate( 'Disconnect' ) : translate( 'Connect' );
+		const buttonLabel = isUserConnectedToGoogle
+			? translate( 'Disconnect' )
+			: translate( 'Connect' );
 		const disableButton = isUpdatingSocialConnection || this.state.fetchingUser;
 
 		return (
@@ -107,7 +111,8 @@ class SocialLogin extends Component {
 				disabled={ disableButton }
 				compact={ true }
 				isPrimary={ ! isUserConnectedToGoogle }
-				onClick={ onClickAction }>
+				onClick={ onClickAction }
+			>
 				{ buttonLabel }
 			</FormButton>
 		);
@@ -127,15 +132,16 @@ class SocialLogin extends Component {
 					</div>
 
 					<div className="social-login__header-action">
-						{
-							isUserConnectedToGoogle
-								? this.renderActionButton( this.disconnectFromGoogle )
-								: <GoogleLoginButton
-									clientId={ config( 'google_oauth_client_id' ) }
-									responseHandler={ this.handleGoogleLoginResponse }>
-									{ this.renderActionButton() }
-								</GoogleLoginButton>
-						}
+						{ isUserConnectedToGoogle ? (
+							this.renderActionButton( this.disconnectFromGoogle )
+						) : (
+							<GoogleLoginButton
+								clientId={ config( 'google_oauth_client_id' ) }
+								responseHandler={ this.handleGoogleLoginResponse }
+							>
+								{ this.renderActionButton() }
+							</GoogleLoginButton>
+						) }
 					</div>
 				</div>
 			</CompactCard>
@@ -161,7 +167,7 @@ class SocialLogin extends Component {
 }
 
 export default connect(
-	( state ) => {
+	state => {
 		const currentUser = getCurrentUser( state );
 
 		return {

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -14,7 +15,11 @@ import {
  * @param  {Array}  titles Page titles
  * @return {Object} Action object
  */
-export const createPages = ( siteId, titles ) => ( { type: WP_JOB_MANAGER_CREATE_PAGES, siteId, titles } );
+export const createPages = ( siteId, titles ) => ( {
+	type: WP_JOB_MANAGER_CREATE_PAGES,
+	siteId,
+	titles,
+} );
 
 /**
  * Returns an action object to indicate that an error was received when creating the pages.

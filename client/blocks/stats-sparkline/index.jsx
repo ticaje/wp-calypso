@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -20,12 +21,10 @@ const StatsSparkline = ( { isJetpack, siteUrl, className, siteId, highestViews, 
 	}
 
 	const title = highestViews
-		? translate(
-			'Highest hourly views %(highestViews)s',
-			{
-				args: { highestViews }
-			}
-		) : null;
+		? translate( 'Highest hourly views %(highestViews)s', {
+				args: { highestViews },
+			} )
+		: null;
 
 	return (
 		<span>
@@ -33,7 +32,8 @@ const StatsSparkline = ( { isJetpack, siteUrl, className, siteId, highestViews, 
 			<img
 				className={ className }
 				title={ title }
-				src={ `${ siteUrl }/wp-includes/charts/admin-bar-hours-scale-2x.php?masterbar=1&s=${ siteId }` } />
+				src={ `${ siteUrl }/wp-includes/charts/admin-bar-hours-scale-2x.php?masterbar=1&s=${ siteId }` }
+			/>
 		</span>
 	);
 };
@@ -45,15 +45,17 @@ StatsSparkline.propTypes = {
 	siteUrl: PropTypes.string,
 };
 
-export default connect(
-	( state, ownProps ) => {
-		const { siteId } = ownProps;
-		const hourlyData = get( getSiteStatsNormalizedData( state, siteId, 'statsInsights' ), 'hourlyViews', [] );
-		const hourlyViews = sortBy( mapValues( hourlyData ) );
-		return {
-			isJetpack: isJetpackSite( state, siteId ),
-			siteUrl: getSiteOption( state, siteId, 'unmapped_url' ),
-			highestViews: hourlyViews.length ? hourlyViews[ hourlyViews.length - 1 ] : 0
-		};
-	}
-)( localize( StatsSparkline ) );
+export default connect( ( state, ownProps ) => {
+	const { siteId } = ownProps;
+	const hourlyData = get(
+		getSiteStatsNormalizedData( state, siteId, 'statsInsights' ),
+		'hourlyViews',
+		[]
+	);
+	const hourlyViews = sortBy( mapValues( hourlyData ) );
+	return {
+		isJetpack: isJetpackSite( state, siteId ),
+		siteUrl: getSiteOption( state, siteId, 'unmapped_url' ),
+		highestViews: hourlyViews.length ? hourlyViews[ hourlyViews.length - 1 ] : 0,
+	};
+} )( localize( StatsSparkline ) );

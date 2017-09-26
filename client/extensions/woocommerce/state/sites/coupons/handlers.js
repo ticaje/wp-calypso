@@ -1,20 +1,19 @@
+/** @format */
 /**
  * Internal dependencies
  */
 import debugFactory from 'debug';
 import { dispatchRequest } from 'state/data-layer/wpcom-http/utils';
 import request from 'woocommerce/state/sites/http-request';
-import {
-	WOOCOMMERCE_COUPONS_REQUEST_PAGE,
-} from 'woocommerce/state/action-types';
+import { WOOCOMMERCE_COUPONS_REQUEST_PAGE } from 'woocommerce/state/action-types';
 import { couponsPageUpdated } from './actions';
 
 const debug = debugFactory( 'woocommerce:coupons' );
 
 export default {
 	[ WOOCOMMERCE_COUPONS_REQUEST_PAGE ]: [
-		dispatchRequest( requestCouponsPage, requestCouponsPageSuccess, apiError )
-	]
+		dispatchRequest( requestCouponsPage, requestCouponsPageSuccess, apiError ),
+	],
 };
 
 export function requestCouponsPage( { dispatch }, action ) {
@@ -63,8 +62,9 @@ function isValidCouponsArray( coupons ) {
 function isValidCoupon( coupon ) {
 	return (
 		coupon &&
-		coupon.id && ( 'number' === typeof coupon.id ) &&
-		coupon.code && ( 'string' === typeof coupon.code )
+		coupon.id &&
+		'number' === typeof coupon.id &&
+		coupon.code &&
+		'string' === typeof coupon.code
 	);
 }
-

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -37,7 +38,7 @@ const handlers = mergeHandlers(
 	shippingZoneMethods,
 	shippingZones,
 	stripeConnectAccount,
-	ui,
+	ui
 );
 
 export default function installActionHandlers() {

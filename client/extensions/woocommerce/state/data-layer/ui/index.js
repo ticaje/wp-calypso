@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -8,4 +9,3 @@ import shippingZones from './shipping-zones';
 import woocommerceServices from './woocommerce-services';
 
 export default mergeHandlers( payments, products, shippingZones, woocommerceServices );
-

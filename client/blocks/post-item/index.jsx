@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ import { getEditorPath } from 'state/ui/editor/selectors';
 import { getSelectedSiteId } from 'state/ui/selectors';
 import { getNormalizedPost } from 'state/posts/selectors';
 import { isSingleUserSite } from 'state/sites/selectors';
-import { areAllSitesSingleUser } from 'state/selectors';
+import { areAllSitesSingleUser } from 'state/selectors';
 import { isSharePanelOpen } from 'state/ui/post-type-list/selectors';
 import { hideSharePanel } from 'state/ui/post-type-list/actions';
 import Card from 'components/card';
@@ -64,7 +65,7 @@ class PostItem extends React.Component {
 
 	setDomNode = node => {
 		this.node = node;
-	}
+	};
 
 	manageMutationObserver() {
 		if ( this.hasVariableHeightContent && ! this.observer ) {
@@ -106,19 +107,18 @@ class PostItem extends React.Component {
 		}
 
 		const style = window.getComputedStyle( this.node );
-		const nodeHeight = this.node.clientHeight +
-			parseInt( style.marginTop, 10 ) +
-			parseInt( style.marginBottom, 10 );
+		const nodeHeight =
+			this.node.clientHeight + parseInt( style.marginTop, 10 ) + parseInt( style.marginBottom, 10 );
 
 		if ( nodeHeight && nodeHeight !== this.nodeHeight ) {
 			this.nodeHeight = nodeHeight;
 			this.props.onHeightChange( { nodeHeight, globalId: this.props.globalId } );
 		}
-	}
+	};
 
 	hideCurrentSharePanel = () => {
 		this.props.hideSharePanel( this.props.globalId );
-	}
+	};
 
 	inAllSitesModeWithMultipleUsers() {
 		return (
@@ -137,17 +137,11 @@ class PostItem extends React.Component {
 	}
 
 	hasMultipleUsers() {
-		return (
-			this.inAllSitesModeWithMultipleUsers() ||
-			this.inSingleSiteModeWithMultipleUsers()
-		);
+		return this.inAllSitesModeWithMultipleUsers() || this.inSingleSiteModeWithMultipleUsers();
 	}
 
 	renderVariableHeightContent() {
-		const {
-			post,
-			isCurrentSharePanelOpen,
-		} = this.props;
+		const { post, isCurrentSharePanelOpen } = this.props;
 
 		if ( ! post || ! isCurrentSharePanelOpen ) {
 			return null;
@@ -186,17 +180,14 @@ class PostItem extends React.Component {
 			'has-wrapped-title': wrapTitle,
 		} );
 
-		const isSiteInfoVisible = (
-			isEnabled( 'posts/post-type-list' ) &&
-			isAllSitesModeSelected
-		);
+		const isSiteInfoVisible = isEnabled( 'posts/post-type-list' ) && isAllSitesModeSelected;
 
-		const isAuthorVisible = (
+		const isAuthorVisible =
 			isEnabled( 'posts/post-type-list' ) &&
 			this.hasMultipleUsers() &&
 			! compact &&
-			post && post.author
-		);
+			post &&
+			post.author;
 
 		const variableHeightContent = this.renderVariableHeightContent();
 		this.hasVariableHeightContent = !! variableHeightContent;
@@ -206,10 +197,7 @@ class PostItem extends React.Component {
 		} );
 
 		return (
-			<div
-				className={ rootClasses }
-				ref={ this.setDomNode }
-			>
+			<div className={ rootClasses } ref={ this.setDomNode }>
 				<Card compact className={ cardClasses }>
 					<div className="post-item__detail">
 						<div className="post-item__info">
@@ -254,22 +242,25 @@ PostItem.propTypes = {
 	windowWidth: PropTypes.number,
 };
 
-export default connect( ( state, { globalId } ) => {
-	const post = getNormalizedPost( state, globalId );
-	if ( ! post ) {
-		return {};
+export default connect(
+	( state, { globalId } ) => {
+		const post = getNormalizedPost( state, globalId );
+		if ( ! post ) {
+			return {};
+		}
+
+		const siteId = post.site_ID;
+
+		return {
+			post,
+			isAllSitesModeSelected: getSelectedSiteId( state ) === null,
+			allSitesSingleUser: areAllSitesSingleUser( state ),
+			singleUserSite: isSingleUserSite( state, siteId ),
+			editUrl: getEditorPath( state, siteId, post.ID ),
+			isCurrentSharePanelOpen: isSharePanelOpen( state, globalId ),
+		};
+	},
+	{
+		hideSharePanel,
 	}
-
-	const siteId = post.site_ID;
-
-	return {
-		post,
-		isAllSitesModeSelected: getSelectedSiteId( state ) === null,
-		allSitesSingleUser: areAllSitesSingleUser( state ),
-		singleUserSite: isSingleUserSite( state, siteId ),
-		editUrl: getEditorPath( state, siteId, post.ID ),
-		isCurrentSharePanelOpen: isSharePanelOpen( state, globalId ),
-	};
-}, {
-	hideSharePanel,
-} )( localize( PostItem ) );
+)( localize( PostItem ) );

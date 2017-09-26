@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,12 +16,11 @@ import { getLink } from 'woocommerce/lib/nav-utils';
 import Main from 'components/main';
 
 class OrderCreate extends Component {
-
 	render() {
 		const { className, site, translate } = this.props;
 		const breadcrumbs = [
-			( <a href={ getLink( '/store/orders/:site/', site ) }>{ translate( 'Orders' ) }</a> ),
-			( <span>{ translate( 'New Order' ) }</span> ),
+			<a href={ getLink( '/store/orders/:site/', site ) }>{ translate( 'Orders' ) }</a>,
+			<span>{ translate( 'New Order' ) }</span>,
 		];
 		return (
 			<Main className={ className }>
@@ -28,20 +28,18 @@ class OrderCreate extends Component {
 					<Button primary>{ translate( 'Save Order' ) }</Button>
 				</ActionHeader>
 
-				<div className="order-create__container"></div>
+				<div className="order-create__container" />
 			</Main>
 		);
 	}
 }
 
-export default connect(
-	state => {
-		const site = getSelectedSiteWithFallback( state );
-		const siteId = site ? site.ID : false;
+export default connect( state => {
+	const site = getSelectedSiteWithFallback( state );
+	const siteId = site ? site.ID : false;
 
-		return {
-			site,
-			siteId,
-		};
-	}
-)( localize( OrderCreate ) );
+	return {
+		site,
+		siteId,
+	};
+} )( localize( OrderCreate ) );

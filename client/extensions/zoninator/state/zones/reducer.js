@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -10,22 +11,29 @@ import {
 	ZONINATOR_UPDATE_ZONES,
 } from '../action-types';
 
-export const requesting = createReducer( {}, {
-	[ ZONINATOR_REQUEST_ZONES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: true } ),
-	[ ZONINATOR_UPDATE_ZONES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
-	[ ZONINATOR_REQUEST_ERROR ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
-} );
+export const requesting = createReducer(
+	{},
+	{
+		[ ZONINATOR_REQUEST_ZONES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: true } ),
+		[ ZONINATOR_UPDATE_ZONES ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
+		[ ZONINATOR_REQUEST_ERROR ]: ( state, { siteId } ) => ( { ...state, [ siteId ]: false } ),
+	}
+);
 
-export const items = createReducer( {}, {
-	[ ZONINATOR_UPDATE_ZONES ]: ( state, { siteId, data } ) => ( { ...state, [ siteId ]: data } ),
-	[ ZONINATOR_UPDATE_ZONE ]: ( state, { siteId, zoneId, data } ) => ( {
-		...state,
-		[ siteId ]: {
-			...state[ siteId ],
-			[ zoneId ]: data,
-		}
-	} ),
-}, itemsSchema );
+export const items = createReducer(
+	{},
+	{
+		[ ZONINATOR_UPDATE_ZONES ]: ( state, { siteId, data } ) => ( { ...state, [ siteId ]: data } ),
+		[ ZONINATOR_UPDATE_ZONE ]: ( state, { siteId, zoneId, data } ) => ( {
+			...state,
+			[ siteId ]: {
+				...state[ siteId ],
+				[ zoneId ]: data,
+			},
+		} ),
+	},
+	itemsSchema
+);
 
 export default combineReducers( {
 	requesting,

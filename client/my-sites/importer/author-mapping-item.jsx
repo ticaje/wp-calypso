@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -27,9 +28,9 @@ export default React.createClass( {
 			mappedTo: PropTypes.shape( {
 				ID: PropTypes.number.isRequired,
 				name: PropTypes.string.isRequired,
-				avatar_URL: PropTypes.string.isRequired
-			} )
-		} ).isRequired
+				avatar_URL: PropTypes.string.isRequired,
+			} ),
+		} ).isRequired,
 	},
 
 	componentWillMount() {
@@ -47,21 +48,28 @@ export default React.createClass( {
 	},
 
 	render: function() {
-		const { hasSingleAuthor, siteId, onSelect, sourceAuthor: { name, mappedTo: selectedAuthor = { name: /* Don't translate yet */ 'Choose an author…' } } } = this.props;
+		const {
+			hasSingleAuthor,
+			siteId,
+			onSelect,
+			sourceAuthor: {
+				name,
+				mappedTo: selectedAuthor = { name: /* Don't translate yet */ 'Choose an author…' },
+			},
+		} = this.props;
 
 		return (
 			<div className="importer__author-mapping">
-				<span className="importer__source-author">
-					{ name }
-				</span>
+				<span className="importer__source-author">{ name }</span>
 				<Gridicon className="importer__mapping-relation" icon="arrow-right" />
-				{ ! hasSingleAuthor
-					?	<AuthorSelector siteId={ siteId } onSelect={ onSelect }>
-							<UserItem user={ selectedAuthor } />
-						</AuthorSelector>
-					: 	<UserItem user={ this.getCurrentUser() } />
-				}
+				{ ! hasSingleAuthor ? (
+					<AuthorSelector siteId={ siteId } onSelect={ onSelect }>
+						<UserItem user={ selectedAuthor } />
+					</AuthorSelector>
+				) : (
+					<UserItem user={ this.getCurrentUser() } />
+				) }
 			</div>
 		);
-	}
+	},
 } );

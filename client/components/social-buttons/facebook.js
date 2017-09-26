@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -65,20 +66,22 @@ class FacebookLoginButton extends Component {
 			return this.initialized;
 		}
 
-		this.initialized = this.loadDependency().then( FB => {
-			FB.init( {
-				appId: this.props.appId,
-				version: this.props.version,
-				cookie: this.props.cookie,
-				xfbml: this.props.xfbml,
+		this.initialized = this.loadDependency()
+			.then( FB => {
+				FB.init( {
+					appId: this.props.appId,
+					version: this.props.version,
+					cookie: this.props.cookie,
+					xfbml: this.props.xfbml,
+				} );
+
+				return FB;
+			} )
+			.catch( error => {
+				this.initialized = null;
+
+				return Promise.reject( error );
 			} );
-
-			return FB;
-		} ).catch( error => {
-			this.initialized = null;
-
-			return Promise.reject( error );
-		} );
 
 		return this.initialized;
 	}
@@ -93,9 +96,12 @@ class FacebookLoginButton extends Component {
 		// Handle click async if the library is not loaded yet
 		// the popup might be blocked by the browser in that case
 		this.initialize().then( FB => {
-			FB.login( response => {
-				responseHandler( response );
-			}, { scope } );
+			FB.login(
+				response => {
+					responseHandler( response );
+				},
+				{ scope }
+			);
 		} );
 	}
 
@@ -113,7 +119,8 @@ class FacebookLoginButton extends Component {
 					<span className="social-buttons__service-name">
 						{ this.props.translate( 'Continue with %(service)s', {
 							args: { service: 'Facebook' },
-							comment: '%(service)s is the name of a Social Network, e.g. "Google", "Facebook", "Twitter" ...'
+							comment:
+								'%(service)s is the name of a Social Network, e.g. "Google", "Facebook", "Twitter" ...',
 						} ) }
 					</span>
 				</button>
@@ -122,8 +129,6 @@ class FacebookLoginButton extends Component {
 	}
 }
 
-export default connect(
-	( state ) => ( {
-		isFormDisabled: isFormDisabled( state ),
-	} ),
-)( localize( FacebookLoginButton ) );
+export default connect( state => ( {
+	isFormDisabled: isFormDisabled( state ),
+} ) )( localize( FacebookLoginButton ) );

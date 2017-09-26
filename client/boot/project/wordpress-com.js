@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -36,13 +37,10 @@ function renderLayout( reduxStore ) {
 	const Layout = require( 'controller' ).ReduxWrappedLayout;
 
 	const layoutElement = React.createElement( Layout, {
-		store: reduxStore
+		store: reduxStore,
 	} );
 
-	ReactDom.render(
-		layoutElement,
-		document.getElementById( 'wpcom' )
-	);
+	ReactDom.render( layoutElement, document.getElementById( 'wpcom' ) );
 
 	debug( 'Main layout rendered.' );
 }
@@ -96,22 +94,23 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 			//Save data to JS error logger
 			errorLogger.saveDiagnosticData( {
 				user_id: currentUser.get().ID,
-				calypso_env: config( 'env_id' )
+				calypso_env: config( 'env_id' ),
 			} );
 			errorLogger.saveDiagnosticReducer( function() {
 				const state = reduxStore.getState();
 				return {
 					blog_id: getSelectedSiteId( state ),
-					calypso_section: getSectionName( state )
+					calypso_section: getSectionName( state ),
 				};
 			} );
 			errorLogger.saveDiagnosticReducer( () => ( { tests: getSavedVariations() } ) );
-			analytics.on(
-				'record-event',
-				( eventName, eventProperties ) => errorLogger.saveExtraData( { lastTracksEvent: eventProperties } )
+			analytics.on( 'record-event', ( eventName, eventProperties ) =>
+				errorLogger.saveExtraData( { lastTracksEvent: eventProperties } )
 			);
 			page( '*', function( context, next ) {
-				errorLogger.saveNewPath( context.canonicalPath.replace( route.getSiteFragment( context.canonicalPath ), ':siteId' ) );
+				errorLogger.saveNewPath(
+					context.canonicalPath.replace( route.getSiteFragment( context.canonicalPath ), ':siteId' )
+				);
 				next();
 			} );
 		}
@@ -121,7 +120,7 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 	// This can be removed when the legacy version is retired.
 	page( '*', function( context, next ) {
 		if ( [ 'sb', 'sp' ].indexOf( context.querystring ) !== -1 ) {
-			const layoutSection = ( context.querystring === 'sb' ) ? 'sidebar' : 'sites';
+			const layoutSection = context.querystring === 'sb' ? 'sidebar' : 'sites';
 			reduxStore.dispatch( setNextLayoutFocus( layoutSection ) );
 			page.replace( context.pathname );
 		}
@@ -154,7 +153,11 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 		}
 
 		// If `?welcome` is present, and `?tour` isn't, show the welcome message
-		if ( ! context.query.tour && context.querystring === 'welcome' && context.pathname.indexOf( '/me/next' ) === -1 ) {
+		if (
+			! context.query.tour &&
+			context.querystring === 'welcome' &&
+			context.pathname.indexOf( '/me/next' ) === -1
+		) {
 			// show welcome message, persistent for full sized screens
 			nuxWelcome.setWelcome( viewport.isDesktop() );
 		} else {
@@ -189,7 +192,8 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 			if ( '/plans' === context.pathname ) {
 				const queryFor = context.query && context.query.for;
 				if ( queryFor && 'jetpack' === queryFor ) {
-					window.location = 'https://wordpress.com/wp-login.php?redirect_to=https%3A%2F%2Fwordpress.com%2Fplans';
+					window.location =
+						'https://wordpress.com/wp-login.php?redirect_to=https%3A%2F%2Fwordpress.com%2Fplans';
 				} else {
 					// pricing page is outside of Calypso, needs a full page load
 					window.location = 'https://wordpress.com/pricing';
@@ -218,13 +222,16 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 	}
 
 	if ( config.isEnabled( 'rubberband-scroll-disable' ) ) {
-		asyncRequire( 'lib/rubberband-scroll-disable', ( disableRubberbandScroll ) => {
+		asyncRequire( 'lib/rubberband-scroll-disable', disableRubberbandScroll => {
 			disableRubberbandScroll( document.body );
 		} );
 	}
 
-	if ( config.isEnabled( 'dev/test-helper' ) && document.querySelector( '.environment.is-tests' ) ) {
-		asyncRequire( 'lib/abtest/test-helper', ( testHelper ) => {
+	if (
+		config.isEnabled( 'dev/test-helper' ) &&
+		document.querySelector( '.environment.is-tests' )
+	) {
+		asyncRequire( 'lib/abtest/test-helper', testHelper => {
 			testHelper( document.querySelector( '.environment.is-tests' ) );
 		} );
 	}
@@ -237,12 +244,18 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 	 * make this unnecessary.
 	 */
 	page( '*', function( context, next ) {
-		const previousLayoutIsSingleTree = !! (
-			document.getElementsByClassName( 'wp-singletree-layout' ).length
-		);
+		const previousLayoutIsSingleTree = !! document.getElementsByClassName( 'wp-singletree-layout' )
+			.length;
 
-		const singleTreeSections = [ 'account-recovery', 'login', 'posts-custom', 'theme', 'themes', 'preview',
-			'domain-connect-authorize' ];
+		const singleTreeSections = [
+			'account-recovery',
+			'login',
+			'posts-custom',
+			'theme',
+			'themes',
+			'preview',
+			'domain-connect-authorize',
+		];
 		const sectionName = getSectionName( context.store.getState() );
 		const isMultiTreeLayout = ! includes( singleTreeSections, sectionName );
 

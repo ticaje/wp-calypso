@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -105,7 +106,7 @@ function initializeNewPost( siteId, options ) {
 		status: 'draft',
 		type: options.postType || 'post',
 		content: options.content || '',
-		title: options.title || ''
+		title: options.title || '',
 	};
 
 	startEditing( args );
@@ -177,7 +178,10 @@ function setRawContent( content ) {
 }
 
 function isContentEmpty( content ) {
-	return ! content || ( content.length < CONTENT_LENGTH_ASSUME_SET && REGEXP_EMPTY_CONTENT.test( content ) );
+	return (
+		! content ||
+		( content.length < CONTENT_LENGTH_ASSUME_SET && REGEXP_EMPTY_CONTENT.test( content ) )
+	);
 }
 
 function dispatcherCallback( payload ) {
@@ -185,7 +189,6 @@ function dispatcherCallback( payload ) {
 		changed;
 
 	switch ( action.type ) {
-
 		case 'EDIT_POST':
 			changed = set( action.post );
 			if ( changed ) {
@@ -280,7 +283,9 @@ function dispatcherCallback( payload ) {
 		case 'RECEIVE_POST_AUTOSAVE':
 			_isAutosaving = false;
 			if ( ! action.error ) {
-				_previewUrl = utils.getPreviewURL( assign( { preview_URL: action.autosave.preview_URL }, _savedPost ) );
+				_previewUrl = utils.getPreviewURL(
+					assign( { preview_URL: action.autosave.preview_URL }, _savedPost )
+				);
 			}
 			PostEditStore.emit( 'change' );
 			break;
@@ -296,7 +301,6 @@ function dispatcherCallback( payload ) {
 }
 
 PostEditStore = {
-
 	get: function() {
 		return _post;
 	},
@@ -310,8 +314,7 @@ PostEditStore = {
 	},
 
 	getChangedAttributes: function() {
-		var changedAttributes,
-			metadata;
+		var changedAttributes, metadata;
 
 		if ( this.isNew() ) {
 			return _post;
@@ -392,8 +395,7 @@ PostEditStore = {
 		}
 
 		return ! isContentEmpty( _post.content );
-	}
-
+	},
 };
 
 emitter( PostEditStore );

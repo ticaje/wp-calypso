@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -34,14 +35,14 @@ describe( 'ThemesList', function() {
 					id: '2',
 					name: 'picard',
 					screenshot: '/theme/picard/screenshot.png',
-				}
+				},
 			],
 			lastPage: true,
 			loading: false,
 			fetchNextPage: noop,
 			getButtonOptions: noop,
 			onScreenshotClick: noop,
-			translate: x => x // Mock translate()
+			translate: x => x, // Mock translate()
 		};
 
 		this.themesList = React.createElement( ThemesList, this.props );
@@ -63,7 +64,10 @@ describe( 'ThemesList', function() {
 
 		it( 'should render a div with a className of "themes-list"', function() {
 			assert( this.themesListElement, 'element does not exist' );
-			assert( this.themesListElement.props.className === 'themes-list', 'className does not equal "themes-list"' );
+			assert(
+				this.themesListElement.props.className === 'themes-list',
+				'className does not equal "themes-list"'
+			);
 		} );
 
 		context( 'when no themes are found', function() {

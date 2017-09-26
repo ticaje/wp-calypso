@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External Dependencies
  */
@@ -24,11 +25,12 @@ const BlogStickers = ( { blogId, teams, stickers } ) => {
 	return (
 		<div className="blog-stickers">
 			{ isTeamMember &&
-				stickers &&
-				stickers.length > 0 &&
+			stickers &&
+			stickers.length > 0 && (
 				<InfoPopover rootClassName="blog-stickers__popover">
 					<BlogStickersList stickers={ stickers } />
-				</InfoPopover> }
+				</InfoPopover>
+			) }
 			{ ! stickers && <QueryBlogStickers blogId={ blogId } /> }
 			{ ! teams && <QueryReaderTeams /> }
 		</div>

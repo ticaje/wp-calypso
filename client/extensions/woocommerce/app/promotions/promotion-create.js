@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,15 +19,12 @@ class PromotionCreate extends React.Component {
 			ID: PropTypes.number,
 		} ),
 		className: PropTypes.string,
-	}
+	};
 
 	render() {
 		const { className } = this.props;
 
-		return (
-			<Main className={ className }>
-			</Main>
-		);
+		return <Main className={ className } />;
 	}
 }
 

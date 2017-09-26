@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -56,7 +57,7 @@ const SiteSettingsTraffic = ( {
 			<SidebarNavigation />
 			<SiteSettingsNavigation site={ site } section="traffic" />
 
-			{ jetpackSettingsUiSupported &&
+			{ jetpackSettingsUiSupported && (
 				<JetpackSiteStats
 					handleAutosavingToggle={ handleAutosavingToggle }
 					setFieldValue={ setFieldValue }
@@ -64,15 +65,15 @@ const SiteSettingsTraffic = ( {
 					isRequestingSettings={ isRequestingSettings }
 					fields={ fields }
 				/>
-			}
-			{ jetpackSettingsUiSupported &&
+			) }
+			{ jetpackSettingsUiSupported && (
 				<JetpackAds
 					handleAutosavingToggle={ handleAutosavingToggle }
 					isSavingSettings={ isSavingSettings }
 					isRequestingSettings={ isRequestingSettings }
 					fields={ fields }
 				/>
-			}
+			) }
 			<RelatedPosts
 				onSubmitForm={ handleSubmitForm }
 				handleAutosavingToggle={ handleAutosavingToggle }
@@ -80,9 +81,10 @@ const SiteSettingsTraffic = ( {
 				isRequestingSettings={ isRequestingSettings }
 				fields={ fields }
 			/>
-			{ isJetpack
-				? <AmpJetpack />
-				: <AmpWpcom
+			{ isJetpack ? (
+				<AmpJetpack />
+			) : (
+				<AmpWpcom
 					submitForm={ submitForm }
 					trackEvent={ trackEvent }
 					updateFields={ updateFields }
@@ -90,7 +92,7 @@ const SiteSettingsTraffic = ( {
 					isRequestingSettings={ isRequestingSettings }
 					fields={ fields }
 				/>
-			}
+			) }
 			<SeoSettingsHelpCard />
 			<SeoSettingsMain />
 			<AnalyticsSettings />
@@ -109,20 +111,18 @@ const SiteSettingsTraffic = ( {
 	);
 };
 
-const connectComponent = connect(
-	( state ) => {
-		const site = getSelectedSite( state );
-		const siteId = getSelectedSiteId( state );
-		const isJetpack = isJetpackSite( state, siteId );
-		const jetpackSettingsUiSupported = isJetpack && siteSupportsJetpackSettingsUi( state, siteId );
+const connectComponent = connect( state => {
+	const site = getSelectedSite( state );
+	const siteId = getSelectedSiteId( state );
+	const isJetpack = isJetpackSite( state, siteId );
+	const jetpackSettingsUiSupported = isJetpack && siteSupportsJetpackSettingsUi( state, siteId );
 
-		return {
-			site,
-			isJetpack,
-			jetpackSettingsUiSupported,
-		};
-	}
-);
+	return {
+		site,
+		isJetpack,
+		jetpackSettingsUiSupported,
+	};
+} );
 
 const getFormSettings = partialRight( pick, [
 	'stats',
@@ -140,8 +140,6 @@ const getFormSettings = partialRight( pick, [
 	'blog_public',
 ] );
 
-export default flowRight(
-	connectComponent,
-	localize,
-	wrapSettingsForm( getFormSettings )
-)( SiteSettingsTraffic );
+export default flowRight( connectComponent, localize, wrapSettingsForm( getFormSettings ) )(
+	SiteSettingsTraffic
+);

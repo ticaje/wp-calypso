@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -13,11 +14,7 @@ const UpgradeNudgeExample = () => {
 	return (
 		<div>
 			<div>
-				<UpgradeNudge
-					feature="custom-domain"
-					href="#"
-					shouldDisplay={ stubTrue }
-				/>
+				<UpgradeNudge feature="custom-domain" href="#" shouldDisplay={ stubTrue } />
 			</div>
 			<div>
 				<UpgradeNudge

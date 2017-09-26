@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -12,8 +13,8 @@ import RecommendationOption from './recommendation-option';
 
 class RecommendationSelect extends PureComponent {
 	static propTypes = {
-		disabled: PropTypes.bool
-	}
+		disabled: PropTypes.bool,
+	};
 
 	renderOption( value ) {
 		return (
@@ -29,7 +30,7 @@ class RecommendationSelect extends PureComponent {
 
 	render() {
 		const values = range( 0, 11 );
-		const options = values.map( ( value ) => this.renderOption( value ) );
+		const options = values.map( value => this.renderOption( value ) );
 
 		return (
 			<div className="nps-survey__recommendation-select">
@@ -37,9 +38,7 @@ class RecommendationSelect extends PureComponent {
 					<span>Unlikely</span>
 					<span className="nps-survey__very-likely-label">Very Likely</span>
 				</div>
-				<div className="nps-survey__options">
-					{ options }
-				</div>
+				<div className="nps-survey__options">{ options }</div>
 			</div>
 		);
 	}

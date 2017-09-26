@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External Dependencies
  */
@@ -23,12 +24,9 @@ class NavItem extends PureComponent {
 		onClick: PropTypes.func,
 		isExternalLink: PropTypes.bool,
 		disabled: PropTypes.bool,
-		count: PropTypes.oneOfType( [
-			PropTypes.number,
-			PropTypes.bool,
-		] ),
+		count: PropTypes.oneOfType( [ PropTypes.number, PropTypes.bool ] ),
 		className: PropTypes.string,
-		preloadSectionName: PropTypes.string
+		preloadSectionName: PropTypes.string,
 	};
 
 	_preloaded = false;
@@ -44,7 +42,7 @@ class NavItem extends PureComponent {
 		const itemClassPrefix = this.props.itemType ? this.props.itemType : 'tab';
 		const itemClasses = {
 			'is-selected': this.props.selected,
-			'is-external': this.props.isExternalLink
+			'is-external': this.props.isExternalLink,
 		};
 		itemClasses[ 'section-nav-' + itemClassPrefix ] = true;
 		const itemClassName = classNames( this.props.className, itemClasses );
@@ -71,13 +69,11 @@ class NavItem extends PureComponent {
 					aria-selected={ this.props.selected }
 					disabled={ this.props.disabled }
 					role="menuitem"
-					rel={ this.props.isExternalLink ? 'external' : null }>
+					rel={ this.props.isExternalLink ? 'external' : null }
+				>
 					<span className={ 'section-nav-' + itemClassPrefix + '__text' }>
 						{ this.props.children }
-						{
-							'number' === typeof this.props.count &&
-							<Count count={ this.props.count } />
-						}
+						{ 'number' === typeof this.props.count && <Count count={ this.props.count } /> }
 					</span>
 				</a>
 			</li>

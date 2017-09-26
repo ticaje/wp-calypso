@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -18,11 +19,7 @@ import PageSetup from './page-setup';
 import Wizard from 'components/wizard';
 import { getSelectedSiteSlug } from 'state/ui/selectors';
 
-const SetupWizard = ( {
-	slug,
-	stepName = Steps.INTRO,
-	translate,
-} ) => {
+const SetupWizard = ( { slug, stepName = Steps.INTRO, translate } ) => {
 	const steps = [ Steps.INTRO, Steps.PAGE_SETUP, Steps.CONFIRMATION ];
 	const components = {
 		[ Steps.INTRO ]: <Intro />,
@@ -40,7 +37,8 @@ const SetupWizard = ( {
 				forwardText={ translate( 'Continue' ) }
 				hideNavigation={ true }
 				steps={ steps }
-				stepName={ stepName } />
+				stepName={ stepName }
+			/>
 		</Main>
 	);
 };

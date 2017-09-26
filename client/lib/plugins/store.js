@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -54,7 +55,7 @@ var _fetching = {},
 		},
 		isEqual: function( pluginSlug, plugin ) {
 			return plugin.slug === pluginSlug;
-		}
+		},
 	};
 
 function refreshNetworkSites( site ) {
@@ -83,7 +84,11 @@ function remove( site, slug ) {
 }
 
 function update( site, slug, plugin ) {
-	if ( plugin.network && ( site.options.is_multi_site || versionCompare( site.options.jetpack_version, '3.7.0-dev', '<' ) ) ) {
+	if (
+		plugin.network &&
+		( site.options.is_multi_site ||
+			versionCompare( site.options.jetpack_version, '3.7.0-dev', '<' ) )
+	) {
 		return;
 	}
 
@@ -126,24 +131,23 @@ function storePluginsBySite( siteId, pluginsList ) {
 		storedLists = localStore.get( _STORAGE_LIST_NAME ) || {};
 		storedLists[ siteId ] = {
 			list: pluginsList,
-			fetched: Date.now()
+			fetched: Date.now(),
 		};
 		localStore.set( _STORAGE_LIST_NAME, storedLists );
 	}
 }
 
 function isCachedListStillValid( storedList ) {
-	return ( storedList && ( Date.now() - storedList.fetched < _CACHE_TIME_TO_LIVE ) );
+	return storedList && Date.now() - storedList.fetched < _CACHE_TIME_TO_LIVE;
 }
 
 PluginsStore = {
-
 	getPlugin: function( sites, pluginSlug ) {
 		var pluginData = {},
 			fetched = false;
 		pluginData.sites = [];
 
-		sites = ( ! isArray( sites ) ? [ sites ] : sites );
+		sites = ! isArray( sites ) ? [ sites ] : sites;
 
 		sites.forEach( function( site ) {
 			var sitePlugins = PluginsStore.getSitePlugins( site );
@@ -283,8 +287,12 @@ PluginsStore = {
 				return false;
 			}
 			//TODO: compatibility with old site object (for now, remove when not needed)
-			if ( site.jetpack &&
-				( typeof site.isSecondaryNetworkSite === 'function' ? site.isSecondaryNetworkSite() : site.isSecondaryNetworkSite ) ) {
+			if (
+				site.jetpack &&
+				( typeof site.isSecondaryNetworkSite === 'function'
+					? site.isSecondaryNetworkSite()
+					: site.isSecondaryNetworkSite )
+			) {
 				return false;
 			}
 
@@ -296,7 +304,7 @@ PluginsStore = {
 
 	emitChange: function() {
 		this.emit( 'change' );
-	}
+	},
 };
 
 PluginsStore.dispatchToken = Dispatcher.register( function( { action } ) {
@@ -339,12 +347,16 @@ PluginsStore.dispatchToken = Dispatcher.register( function( { action } ) {
 				// still needs to be updated
 				update( action.site, action.plugin.slug, { update: action.plugin.update } );
 			} else {
-				update( action.site,
+				update(
+					action.site,
 					action.plugin.slug,
 					Object.assign( { update: { recentlyUpdated: true } }, action.data )
 				);
 				sitesList.onUpdatedPlugin( action.site );
-				setTimeout( PluginsActions.removePluginUpdateInfo.bind( PluginsActions, action.site, action.plugin ), _UPDATED_PLUGIN_INFO_TIME_TO_LIVE );
+				setTimeout(
+					PluginsActions.removePluginUpdateInfo.bind( PluginsActions, action.site, action.plugin ),
+					_UPDATED_PLUGIN_INFO_TIME_TO_LIVE
+				);
 			}
 			PluginsStore.emitChange();
 			break;
@@ -379,7 +391,10 @@ PluginsStore.dispatchToken = Dispatcher.register( function( { action } ) {
 			break;
 
 		case 'RECEIVE_ACTIVATED_PLUGIN':
-			if ( ( action.error && action.error.error !== 'activation_error' ) || ! ( action.data && action.data.active ) && ! action.error ) {
+			if (
+				( action.error && action.error.error !== 'activation_error' ) ||
+				( ! ( action.data && action.data.active ) && ! action.error )
+			) {
 				debug( 'plugin activation error', action.error );
 				update( action.site, action.plugin.slug, { active: false } );
 			} else {

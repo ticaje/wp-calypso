@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -76,8 +77,8 @@ export const fetchPostComments = ( { dispatch, getState }, action ) => {
 					before,
 				} ),
 			},
-			action,
-		),
+			action
+		)
 	);
 };
 
@@ -111,7 +112,7 @@ export const writePostComment = ( { dispatch }, action ) => {
 				placeholderId: placeholder.ID,
 			},
 			onFailure: action,
-		} ),
+		} )
 	);
 };
 
@@ -142,7 +143,7 @@ export const addComments = ( { dispatch }, action, { comments, found } ) => {
 export const writePostCommentSuccess = (
 	{ dispatch },
 	{ siteId, postId, parentCommentId, placeholderId },
-	comment,
+	comment
 ) => {
 	// remove placeholder from state
 	dispatch( { type: COMMENTS_DELETE, siteId, postId, commentId: placeholderId } );
@@ -160,7 +161,14 @@ export const writePostCommentSuccess = (
 
 export const announceFailure = ( { dispatch, getState }, { siteId, postId } ) => {
 	const post = getSitePost( getState(), siteId, postId );
-	const postTitle = post && post.title && post.title.trim().slice( 0, 20 ).trim().concat( '…' );
+	const postTitle =
+		post &&
+		post.title &&
+		post.title
+			.trim()
+			.slice( 0, 20 )
+			.trim()
+			.concat( '…' );
 	const error = postTitle
 		? translate( 'Could not retrieve comments for “%(postTitle)s”', { args: { postTitle } } )
 		: translate( 'Could not retrieve comments for requested post' );
@@ -200,13 +208,10 @@ export const announceDeleteSuccess = ( { dispatch }, { options } ) => {
 	}
 
 	dispatch(
-		successNotice(
-			translate( 'Comment deleted permanently.' ),
-			{
-				duration: 5000,
-				isPersistent: true,
-			}
-		)
+		successNotice( translate( 'Comment deleted permanently.' ), {
+			duration: 5000,
+			isPersistent: true,
+		} )
 	);
 };
 
@@ -214,13 +219,10 @@ export const announceDeleteFailure = ( { dispatch }, action ) => {
 	const { siteId, postId, comment } = action;
 
 	dispatch(
-		errorNotice(
-			translate( 'Could not delete the comment.' ),
-			{
-				duration: 5000,
-				isPersistent: true,
-			}
-		)
+		errorNotice( translate( 'Could not delete the comment.' ), {
+			duration: 5000,
+			isPersistent: true,
+		} )
 	);
 
 	if ( comment ) {
@@ -236,5 +238,7 @@ export const announceDeleteFailure = ( { dispatch }, action ) => {
 
 export default {
 	[ COMMENTS_REQUEST ]: [ dispatchRequest( fetchPostComments, addComments, announceFailure ) ],
-	[ COMMENTS_DELETE ]: [ dispatchRequest( deleteComment, announceDeleteSuccess, announceDeleteFailure ) ],
+	[ COMMENTS_DELETE ]: [
+		dispatchRequest( deleteComment, announceDeleteSuccess, announceDeleteFailure ),
+	],
 };

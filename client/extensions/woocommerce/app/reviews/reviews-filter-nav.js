@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -28,14 +29,14 @@ class ReviewsFilterNav extends Component {
 		search: PropTypes.string,
 	};
 
-	doSearch = ( search ) => {
+	doSearch = search => {
 		this.props.updateCurrentReviewsQuery( this.props.site.ID, { search, status: 'any' } );
-	}
+	};
 
 	clearSearch = () => {
 		const { status } = this.props;
 		this.props.updateCurrentReviewsQuery( this.props.site.ID, { search: '', status } );
-	}
+	};
 
 	render() {
 		const { translate, site, status } = this.props;
@@ -59,22 +60,26 @@ class ReviewsFilterNav extends Component {
 				<NavTabs label={ translate( 'Status' ) } selectedText={ currentSelection }>
 					<NavItem
 						path={ getLink( '/store/reviews/:site', site ) }
-						selected={ 'pending' === status }>
+						selected={ 'pending' === status }
+					>
 						{ pendingLabel }
 					</NavItem>
 					<NavItem
 						path={ getLink( '/store/reviews/approved/:site', site ) }
-						selected={ 'approved' === status }>
+						selected={ 'approved' === status }
+					>
 						{ approvedLabel }
 					</NavItem>
 					<NavItem
 						path={ getLink( '/store/reviews/spam/:site', site ) }
-						selected={ 'spam' === status }>
+						selected={ 'spam' === status }
+					>
 						{ spamLabel }
 					</NavItem>
 					<NavItem
 						path={ getLink( '/store/reviews/trash/:site', site ) }
-						selected={ 'trash' === status }>
+						selected={ 'trash' === status }
+					>
 						{ trashlabel }
 					</NavItem>
 				</NavTabs>

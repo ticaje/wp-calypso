@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -11,7 +12,7 @@ import { moment } from 'i18n-calypso';
  * Internal dependencies
  */
 import DatePicker from 'my-sites/stats/stats-date-picker';
-import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
+import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import { getUnitPeriod } from './utils';
 import HeaderCake from 'components/header-cake';
 import JetpackColophon from 'components/jetpack-colophon';
@@ -25,7 +26,7 @@ import {
 	topProducts,
 	topCategories,
 	topCoupons,
-	UNITS
+	UNITS,
 } from 'woocommerce/app/store-stats/constants';
 import { getJetpackSites } from 'state/selectors';
 import QueryJetpackPlugins from 'components/data/query-jetpack-plugins';
@@ -51,7 +52,9 @@ class StoreStatsListView extends Component {
 	goBack = () => {
 		const pathParts = this.props.path.split( '/' );
 		const queryString = this.props.querystring ? '?' + this.props.querystring : '';
-		const pathExtra = `${ pathParts[ pathParts.length - 2 ] }/${ pathParts[ pathParts.length - 1 ] }${ queryString }`;
+		const pathExtra = `${ pathParts[ pathParts.length - 2 ] }/${ pathParts[
+			pathParts.length - 1
+		] }${ queryString }`;
 		const defaultBack = `/store/stats/orders/${ pathExtra }`;
 
 		setTimeout( () => {
@@ -71,7 +74,9 @@ class StoreStatsListView extends Component {
 		return (
 			<Main className="store-stats__list-view woocommerce" wideLayout={ true }>
 				<QueryJetpackPlugins siteIds={ jetPackSites.map( site => site.ID ) } />
-				{ siteId && <QuerySiteStats statType={ statType } siteId={ siteId } query={ listviewQuery } /> }
+				{ siteId && (
+					<QuerySiteStats statType={ statType } siteId={ siteId } query={ listviewQuery } />
+				) }
 				<HeaderCake onClick={ this.goBack }>{ listType[ type ].title }</HeaderCake>
 				<StatsPeriodNavigation
 					date={ selectedDate }
@@ -81,16 +86,23 @@ class StoreStatsListView extends Component {
 					<DatePicker
 						period={ unit }
 						date={
-							( unit === 'week' )
-								? moment( selectedDate, 'YYYY-MM-DD' ).subtract( 1, 'days' ).format( 'YYYY-MM-DD' )
-								: selectedDate
+							unit === 'week' ? (
+								moment( selectedDate, 'YYYY-MM-DD' )
+									.subtract( 1, 'days' )
+									.format( 'YYYY-MM-DD' )
+							) : (
+								selectedDate
+							)
 						}
 						query={ listviewQuery }
 						statsType={ statType }
 						showQueryDate
 					/>
 				</StatsPeriodNavigation>
-				<SectionNav className="store-stats__list-view-navigation" selectedText={ UNITS[ unit ].title }>
+				<SectionNav
+					className="store-stats__list-view-navigation"
+					selectedText={ UNITS[ unit ].title }
+				>
 					<StoreStatsNavigationTabs
 						label={ 'Stats' }
 						slug={ slug }
@@ -118,10 +130,8 @@ class StoreStatsListView extends Component {
 	}
 }
 
-export default connect(
-	state => ( {
-		slug: getSelectedSiteSlug( state ),
-		siteId: getSelectedSiteId( state ),
-		jetPackSites: getJetpackSites( state ),
-	} )
-)( StoreStatsListView );
+export default connect( state => ( {
+	slug: getSelectedSiteSlug( state ),
+	siteId: getSelectedSiteId( state ),
+	jetPackSites: getJetpackSites( state ),
+} ) )( StoreStatsListView );

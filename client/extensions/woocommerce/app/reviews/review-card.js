@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External depedencies
  */
@@ -44,7 +45,7 @@ class ReviewCard extends Component {
 
 	toggleExpanded = () => {
 		this.setState( ( { isExpanded } ) => ( { isExpanded: ! isExpanded } ) );
-	}
+	};
 
 	renderToggle() {
 		const { isExpanded } = this.state;
@@ -61,10 +62,12 @@ class ReviewCard extends Component {
 
 	renderProductImage() {
 		const { review } = this.props;
-		const productImageClasses = classNames( 'reviews__product', { 'is-placeholder': ! review.product.image } );
+		const productImageClasses = classNames( 'reviews__product', {
+			'is-placeholder': ! review.product.image,
+		} );
 		return (
 			<div className={ productImageClasses }>
-				{ review.product.image && ( <img src={ review.product.image } /> ) }
+				{ review.product.image && <img src={ review.product.image } /> }
 			</div>
 		);
 	}
@@ -72,7 +75,7 @@ class ReviewCard extends Component {
 	renderActionsBar() {
 		const { review, currentStatus, siteId } = this.props;
 		return (
-			<div className={ classNames( 'reviews__header' ) } >
+			<div className={ classNames( 'reviews__header' ) }>
 				<ReviewActionsBar
 					siteId={ siteId }
 					review={ review }
@@ -92,10 +95,7 @@ class ReviewCard extends Component {
 				onClick={ this.toggleExpanded }
 			>
 				<div className="reviews__author-gravatar">
-					<Gravatar
-						object={ review }
-						forType="review"
-					/>
+					<Gravatar object={ review } forType="review" />
 				</div>
 				<div className="reviews__info">
 					<div className="reviews__author-name">
@@ -105,9 +105,7 @@ class ReviewCard extends Component {
 					<div className="reviews__date">{ humanDate( review.date_created_gmt + 'Z' ) }</div>
 				</div>
 				<AutoDirection>
-					<div className="reviews__content">
-						{ decodeEntities( stripHTML( review.review ) ) }
-					</div>
+					<div className="reviews__content">{ decodeEntities( stripHTML( review.review ) ) }</div>
 				</AutoDirection>
 				<div className="reviews__rating">
 					<Rating rating={ review.rating * 20 } />
@@ -124,10 +122,7 @@ class ReviewCard extends Component {
 			<div className="reviews__expanded-card">
 				<div className="reviews__expanded-card-details">
 					<div className="reviews__author-gravatar">
-						<Gravatar
-							object={ review }
-							forType="review"
-						/>
+						<Gravatar object={ review } forType="review" />
 					</div>
 
 					<div className="reviews__info">
@@ -150,16 +145,15 @@ class ReviewCard extends Component {
 
 				<AutoDirection>
 					<Emojify>
-						<div className="reviews__content"
+						<div
+							className="reviews__content"
 							dangerouslySetInnerHTML={ { __html: review.review } } //eslint-disable-line react/no-danger
 							// Also used in `comment-detail/comment-detail-comment.jsx` to set the rendered content correctly
 						/>
 					</Emojify>
 				</AutoDirection>
 
-				<ReviewReplies
-					review={ review }
-				/>
+				<ReviewReplies review={ review } />
 			</div>
 		);
 	}
@@ -177,7 +171,7 @@ class ReviewCard extends Component {
 
 		return (
 			<Card className={ classes }>
-				{ isExpanded && this.renderActionsBar() || this.renderPreview() }
+				{ ( isExpanded && this.renderActionsBar() ) || this.renderPreview() }
 				{ isExpanded && this.renderExpandedCard() }
 			</Card>
 		);

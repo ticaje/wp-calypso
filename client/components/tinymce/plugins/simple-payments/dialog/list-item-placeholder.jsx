@@ -1,3 +1,4 @@
+/** @format */
 /* eslint-disable wpcalypso/jsx-classname-namespace */
 
 /**
@@ -11,20 +12,17 @@ import { localize } from 'i18n-calypso';
  */
 import CompactCard from 'components/card/compact';
 
-const ProductListItemPlaceholder = ( { translate } ) =>
+const ProductListItemPlaceholder = ( { translate } ) => (
 	<CompactCard className="editor-simple-payments-modal__list-item is-placeholder">
 		<div className="editor-simple-payments-modal__list-label">
 			<div>
-				<span className="placeholder-text">
-					{ translate( 'Loading payment buttons…' ) }
-				</span>
+				<span className="placeholder-text">{ translate( 'Loading payment buttons…' ) }</span>
 			</div>
 			<div>
-				<span className="placeholder-text">
-					{ '$1000' }
-				</span>
+				<span className="placeholder-text">{ '$1000' }</span>
 			</div>
 		</div>
-	</CompactCard>;
+	</CompactCard>
+);
 
 export default localize( ProductListItemPlaceholder );

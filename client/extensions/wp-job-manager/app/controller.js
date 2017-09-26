@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External Dependencies
  */
@@ -14,7 +15,7 @@ import { renderWithReduxStore } from 'lib/react-helpers';
 import Settings from '../components/settings';
 import SetupWizard from '../components/setup';
 
-export const renderTab = ( component, tab = '' ) => ( context ) => {
+export const renderTab = ( component, tab = '' ) => context => {
 	const siteId = getSiteFragment( context.path );
 	const basePath = sectionify( context.path );
 	let baseAnalyticsPath;
@@ -36,9 +37,7 @@ export const renderTab = ( component, tab = '' ) => ( context ) => {
 	analytics.pageView.record( baseAnalyticsPath, analyticsPageTitle );
 
 	renderWithReduxStore(
-		<Settings tab={ tab }>
-			{ React.createElement( component ) }
-		</Settings>,
+		<Settings tab={ tab }>{ React.createElement( component ) }</Settings>,
 		document.getElementById( 'primary' ),
 		context.store
 	);

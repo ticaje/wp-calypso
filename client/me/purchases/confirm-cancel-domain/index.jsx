@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External Dependencies
  */
@@ -103,7 +104,8 @@ const ConfirmCancelDomain = React.createClass( {
 	onSubmit( event ) {
 		event.preventDefault();
 
-		const purchase = getPurchase( this.props ), purchaseName = getDomainName( purchase );
+		const purchase = getPurchase( this.props ),
+			purchaseName = getDomainName( purchase );
 
 		const data = {
 			domain_cancel_reason: this.state.selectedReason.value,
@@ -184,14 +186,13 @@ const ConfirmCancelDomain = React.createClass( {
 
 		return (
 			<div className="confirm-cancel-domain__help-message">
-				<p>
-					{ selectedReason.helpMessage }
-				</p>
-				{ selectedReason.showTextarea &&
+				<p>{ selectedReason.helpMessage }</p>
+				{ selectedReason.showTextarea && (
 					<FormTextarea
 						className="confirm-cancel-domain__reason-details"
 						onChange={ this.onMessageChange }
-					/> }
+					/>
+				) }
 			</div>
 		);
 	},
@@ -233,7 +234,8 @@ const ConfirmCancelDomain = React.createClass( {
 			);
 		}
 
-		const selectedReason = this.state.selectedReason, confirmed = this.state.confirmed;
+		const selectedReason = this.state.selectedReason,
+			confirmed = this.state.confirmed;
 
 		if ( selectedReason && 'misspelled' === selectedReason.value ) {
 			return (
@@ -270,9 +272,7 @@ const ConfirmCancelDomain = React.createClass( {
 
 		return (
 			<Main className="confirm-cancel-domain">
-				<HeaderCake onClick={ this.goToCancelPurchase }>
-					{ titles.confirmCancelDomain }
-				</HeaderCake>
+				<HeaderCake onClick={ this.goToCancelPurchase }>{ titles.confirmCancelDomain }</HeaderCake>
 				<Card>
 					<FormSectionHeading className="is-primary">
 						{ this.props.translate( 'Canceling %(domain)s', { args: { domain } } ) }
@@ -288,9 +288,11 @@ const ConfirmCancelDomain = React.createClass( {
 						className="confirm-cancel-domain__reasons-dropdown"
 						key="confirm-cancel-domain__reasons-dropdown"
 						selectedText={
-							selectedReason
-								? selectedReason.label
-								: this.props.translate( 'Please let us know why you wish to cancel.' )
+							selectedReason ? (
+								selectedReason.label
+							) : (
+								this.props.translate( 'Please let us know why you wish to cancel.' )
+							)
 						}
 						options={ cancellationReasons }
 						onSelect={ this.onReasonChange }

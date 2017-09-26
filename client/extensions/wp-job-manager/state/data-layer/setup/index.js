@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -27,23 +28,29 @@ export const createPages = ( { dispatch }, action ) => {
 	dispatch( removeNotice( createPagesNotice ) );
 
 	titles.forEach( title => {
-		dispatch( http( {
-			method: 'POST',
-			path: `/sites/${ siteId }/posts/new`,
-			body: {
-				title,
-				type: 'page',
-			}
-		}, action ) );
+		dispatch(
+			http(
+				{
+					method: 'POST',
+					path: `/sites/${ siteId }/posts/new`,
+					body: {
+						title,
+						type: 'page',
+					},
+				},
+				action
+			)
+		);
 	} );
 };
 
 export const announceFailure = ( dispatch, siteId ) => {
 	dispatch( createPagesError( siteId ) );
-	dispatch( errorNotice(
-		translate( 'There was a problem creating the page(s). Please try again.' ),
-		{ id: createPagesNotice }
-	) );
+	dispatch(
+		errorNotice( translate( 'There was a problem creating the page(s). Please try again.' ), {
+			id: createPagesNotice,
+		} )
+	);
 };
 
 export const areRequestsComplete = () => errorCount + successCount >= totalPages;

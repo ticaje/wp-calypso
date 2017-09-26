@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -48,10 +49,11 @@ const reverseMessageMap = {
 };
 
 function ruleNameFromMessage( message ) {
-	return reverseMessageMap[ message ] ||
-		( isString( message ) &&
-			message.match( /^must be (.*) format$/ ) && 'format' ) ||
-		message;
+	return (
+		reverseMessageMap[ message ] ||
+		( isString( message ) && message.match( /^must be (.*) format$/ ) && 'format' ) ||
+		message
+	);
 }
 
 /*
@@ -66,10 +68,11 @@ export default function validateContactDetails( contactDetails ) {
 		validate.errors,
 		( accumulatedErrors, { field, message } ) => {
 			// Drop 'data.' prefix
-			const path = String( field ).split( '.' ).slice( 1 );
+			const path = String( field )
+				.split( '.' )
+				.slice( 1 );
 
-			const appendThisMessage = ( before ) =>
-				[ ...( before || [] ), ruleNameFromMessage( message ) ];
+			const appendThisMessage = before => [ ...( before || [] ), ruleNameFromMessage( message ) ];
 
 			return update( accumulatedErrors, path, appendThisMessage );
 		},

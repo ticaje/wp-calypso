@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -6,13 +7,14 @@ import classNames from 'classnames';
 import { omit } from 'lodash';
 import { localize } from 'i18n-calypso';
 
-const ActionRemove = ( props ) =>
+const ActionRemove = props => (
 	<button
 		title={ props.translate( 'Remove', { textOnly: true } ) }
 		{ ...omit( props, 'moment', 'numberFormat', 'translate' ) }
 		className={ classNames( 'action-remove', props.className ) }
 	>
 		{ props.children }
-	</button>;
+	</button>
+);
 
 export default localize( ActionRemove );

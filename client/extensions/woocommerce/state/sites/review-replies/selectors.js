@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,7 +16,11 @@ import { getSelectedSiteId } from 'state/ui/selectors';
  * @return {array|false} Array of replies, or false if no list could be loaded.
  */
 export const getReviewReplies = ( state, reviewId, siteId = getSelectedSiteId( state ) ) => {
-	return get( state, [ 'extensions', 'woocommerce', 'sites', siteId, 'reviewReplies', reviewId ], false );
+	return get(
+		state,
+		[ 'extensions', 'woocommerce', 'sites', siteId, 'reviewReplies', reviewId ],
+		false
+	);
 };
 
 /**

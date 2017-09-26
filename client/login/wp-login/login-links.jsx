@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -43,7 +44,7 @@ export class LoginLinks extends React.Component {
 		this.props.recordTracksEvent( 'calypso_login_help_link_click' );
 	};
 
-	handleLostPhoneLinkClick = ( event ) => {
+	handleLostPhoneLinkClick = event => {
 		event.preventDefault();
 
 		this.props.recordTracksEvent( 'calypso_login_lost_phone_link_click' );
@@ -51,7 +52,7 @@ export class LoginLinks extends React.Component {
 		page( login( { isNative: true, twoFactorAuthType: 'backup' } ) );
 	};
 
-	handleMagicLoginLinkClick = ( event ) => {
+	handleMagicLoginLinkClick = event => {
 		event.preventDefault();
 
 		this.props.recordTracksEvent( 'calypso_login_magic_login_request_click' );
@@ -65,11 +66,7 @@ export class LoginLinks extends React.Component {
 	};
 
 	renderBackLink() {
-		const {
-			locale,
-			oauth2Client,
-			translate,
-		} = this.props;
+		const { locale, oauth2Client, translate } = this.props;
 
 		let url = addLocaleToWpcomUrl( 'https://wordpress.com', locale );
 		let message = translate( 'Back to WordPress.com' );
@@ -82,8 +79,8 @@ export class LoginLinks extends React.Component {
 
 			message = translate( 'Back to %(clientTitle)s', {
 				args: {
-					clientTitle: oauth2Client.title
-				}
+					clientTitle: oauth2Client.title,
+				},
 			} );
 		}
 		return (
@@ -175,7 +172,7 @@ export class LoginLinks extends React.Component {
 	}
 }
 
-const mapState = ( state ) => ( {
+const mapState = state => ( {
 	isLoggedIn: Boolean( getCurrentUserId( state ) ),
 	oauth2Client: getCurrentOAuth2Client( state ),
 } );

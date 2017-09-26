@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -100,5 +101,4 @@ describe( 'User Settings', () => {
 			done();
 		}
 	} );
-
 } );

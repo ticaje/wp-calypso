@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -19,8 +20,8 @@ const redirectNonJetpack = redirectRoute => WrappedComponent => {
 			// Connected props
 			siteIsAtomic: PropTypes.bool,
 			siteIsJetpack: PropTypes.bool,
-			siteSlug: PropTypes.string
-		}
+			siteSlug: PropTypes.string,
+		};
 
 		componentDidMount() {
 			this.redirectIfNoAccess();
@@ -49,26 +50,19 @@ const redirectNonJetpack = redirectRoute => WrappedComponent => {
 		};
 
 		render() {
-			return (
-				<WrappedComponent
-					redirect={ this.redirect }
-					{ ...this.props }
-				/>
-			);
+			return <WrappedComponent redirect={ this.redirect } { ...this.props } />;
 		}
 	}
 
-	return connect(
-		( state ) => {
-			const siteId = getSelectedSiteId( state );
+	return connect( state => {
+		const siteId = getSelectedSiteId( state );
 
-			return {
-				siteIsAtomic: isSiteAutomatedTransfer( state, siteId ),
-				siteIsJetpack: isJetpackSite( state, siteId ),
-				siteSlug: getSelectedSiteSlug( state ),
-			};
-		}
-	)( RedirectNonJetpack );
+		return {
+			siteIsAtomic: isSiteAutomatedTransfer( state, siteId ),
+			siteIsJetpack: isJetpackSite( state, siteId ),
+			siteSlug: getSelectedSiteSlug( state ),
+		};
+	} )( RedirectNonJetpack );
 };
 
 export default redirectNonJetpack;

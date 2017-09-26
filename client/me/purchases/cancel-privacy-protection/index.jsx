@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -72,7 +73,8 @@ const CancelPrivacyProtection = React.createClass( {
 			return true;
 		}
 
-		const { selectedSite } = props, purchase = getPurchase( props );
+		const { selectedSite } = props,
+			purchase = getPurchase( props );
 
 		return selectedSite && purchase && hasPrivacyProtection( purchase );
 	},
@@ -137,9 +139,11 @@ const CancelPrivacyProtection = React.createClass( {
 
 		return (
 			<strong>
-				{ isRefundable( purchase )
-					? this.props.translate( 'You will receive a refund when the upgrade is cancelled.' )
-					: this.props.translate( 'You will not receive a refund when the upgrade is cancelled.' ) }
+				{ isRefundable( purchase ) ? (
+					this.props.translate( 'You will receive a refund when the upgrade is cancelled.' )
+				) : (
+					this.props.translate( 'You will not receive a refund when the upgrade is cancelled.' )
+				) }
 			</strong>
 		);
 	},
@@ -151,9 +155,11 @@ const CancelPrivacyProtection = React.createClass( {
 				className="cancel-privacy-protection__cancel-button"
 				disabled={ this.state.disabled }
 			>
-				{ this.state.cancelling
-					? this.props.translate( 'Processing…' )
-					: this.props.translate( 'Cancel Privacy Protection' ) }
+				{ this.state.cancelling ? (
+					this.props.translate( 'Processing…' )
+				) : (
+					this.props.translate( 'Cancel Privacy Protection' )
+				) }
 			</Button>
 		);
 	},
@@ -164,8 +170,7 @@ const CancelPrivacyProtection = React.createClass( {
 		if ( error ) {
 			return (
 				<Notice status="is-error" showDismiss={ false }>
-					{ error }
-					{ ' ' }
+					{ error }{' '}
 					{ translate( 'Please try again later or {{a}}contact support.{{/a}}', {
 						components: { a: <a href={ CALYPSO_CONTACT } /> },
 					} ) }

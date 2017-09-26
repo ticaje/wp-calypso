@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -25,10 +26,8 @@ export const DateFormatOption = ( {
 	translate,
 } ) => (
 	<FormFieldset>
-		<FormLabel>
-			{ translate( 'Date Format' ) }
-		</FormLabel>
-		{ defaultDateFormats.map( format =>
+		<FormLabel>{ translate( 'Date Format' ) }</FormLabel>
+		{ defaultDateFormats.map( format => (
 			<FormLabel key={ format }>
 				<FormRadio
 					checked={ ! isCustom && format === dateFormat }
@@ -39,7 +38,7 @@ export const DateFormatOption = ( {
 				/>
 				<span>{ phpToMomentDatetimeFormat( localizedDate, format ) }</span>
 			</FormLabel>
-		) }
+		) ) }
 		<FormLabel className="date-time-format__custom-field">
 			<FormRadio
 				checked={ isCustom }
@@ -58,12 +57,12 @@ export const DateFormatOption = ( {
 					value={ dateFormat || '' }
 				/>
 				<FormSettingExplanation>
-					{ isCustom && dateFormat &&
+					{ isCustom &&
+						dateFormat &&
 						translate( 'Preview: %s', {
 							args: phpToMomentDatetimeFormat( localizedDate, dateFormat ),
 							comment: 'Date/time format preview',
-						} )
-					}
+						} ) }
 				</FormSettingExplanation>
 			</span>
 		</FormLabel>

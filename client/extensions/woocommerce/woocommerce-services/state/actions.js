@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -11,10 +12,7 @@ import { WOOCOMMERCE_SERVICES_SHIPPING_ACTION_LIST_CREATE } from 'woocommerce/st
  * @param {Function} [failureAction] Action to be dispatched upon failure of execution.
  * @return {Object} Action object.
  */
-export function createWcsShippingSaveActionList(
-	successAction,
-	failureAction,
-) {
+export function createWcsShippingSaveActionList( successAction, failureAction ) {
 	return {
 		type: WOOCOMMERCE_SERVICES_SHIPPING_ACTION_LIST_CREATE,
 		successAction,

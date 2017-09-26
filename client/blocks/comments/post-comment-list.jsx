@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -374,21 +375,22 @@ class PostCommentList extends React.Component {
 
 		return (
 			<div className="comments__comment-list">
-				{ ( this.props.showCommentCount || showViewMoreComments ) &&
+				{ ( this.props.showCommentCount || showViewMoreComments ) && (
 					<div className="comments__info-bar">
 						{ this.props.showCommentCount && <CommentCount count={ actualCommentsCount } /> }
-						{ showViewMoreComments
-							? <span className="comments__view-more" onClick={ this.viewEarlierCommentsHandler }>
-									{ translate( 'Load more comments (Showing %(shown)d of %(total)d)', {
-										args: {
-											shown: displayedCommentsCount,
-											total: actualCommentsCount,
-										},
-									} ) }
-								</span>
-							: null }
-					</div> }
-				{ showFilters &&
+						{ showViewMoreComments ? (
+							<span className="comments__view-more" onClick={ this.viewEarlierCommentsHandler }>
+								{ translate( 'Load more comments (Showing %(shown)d of %(total)d)', {
+									args: {
+										shown: displayedCommentsCount,
+										total: actualCommentsCount,
+									},
+								} ) }
+							</span>
+						) : null }
+					</div>
+				) }
+				{ showFilters && (
 					<SegmentedControl compact primary>
 						<SegmentedControlItem
 							selected={ commentsFilter === 'all' }
@@ -420,10 +422,11 @@ class PostCommentList extends React.Component {
 						>
 							{ translate( 'Trash', { context: 'comment status' } ) }
 						</SegmentedControlItem>
-					</SegmentedControl> }
+					</SegmentedControl>
+				) }
 				{ this.renderCommentsList( displayedComments ) }
 				{ showViewMoreComments &&
-					this.props.startingCommentId &&
+				this.props.startingCommentId && (
 					<span className="comments__view-more" onClick={ this.viewLaterCommentsHandler }>
 						{ translate( 'Load more comments (Showing %(shown)d of %(total)d)', {
 							args: {
@@ -431,7 +434,8 @@ class PostCommentList extends React.Component {
 								total: actualCommentsCount,
 							},
 						} ) }
-					</span> }
+					</span>
+				) }
 				{ this.renderCommentForm() }
 			</div>
 		);

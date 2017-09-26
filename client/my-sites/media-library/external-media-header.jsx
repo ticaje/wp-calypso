@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -134,11 +135,7 @@ class MediaLibraryExternalHeader extends React.Component {
 		}
 
 		if ( this.props.sticky ) {
-			return (
-				<StickyPanel minLimit={ 660 }>
-					{ this.renderCard() }
-				</StickyPanel>
-			);
+			return <StickyPanel minLimit={ 660 }>{ this.renderCard() }</StickyPanel>;
 		}
 
 		return this.renderCard();

@@ -1,3 +1,4 @@
+/** @format */
 /**
 * External dependencies
 */
@@ -26,7 +27,9 @@ module.exports = React.createClass( {
 	},
 
 	getInitialState() {
-		return { elements: [ { title: 'Apples', selected: true }, { title: 'Oranges', selected: false } ] };
+		return {
+			elements: [ { title: 'Apples', selected: true }, { title: 'Oranges', selected: false } ],
+		};
 	},
 
 	getSelectedElementsNumber: function() {
@@ -54,10 +57,14 @@ module.exports = React.createClass( {
 		return (
 			<Card>
 				<div>
-					<BulkSelect totalElements={ this.state.elements.length } selectedElements={ this.getSelectedElementsNumber() } onToggle={ this.handleToggleAll } />
+					<BulkSelect
+						totalElements={ this.state.elements.length }
+						selectedElements={ this.getSelectedElementsNumber() }
+						onToggle={ this.handleToggleAll }
+					/>
 				</div>
 				{ this.renderElements() }
 			</Card>
 		);
-	}
+	},
 } );

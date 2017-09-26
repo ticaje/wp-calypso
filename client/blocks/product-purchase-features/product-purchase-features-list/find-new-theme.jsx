@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ export default localize( ( { selectedSite, translate } ) => {
 				icon="customize"
 				title={ translate( 'Try a New Theme' ) }
 				description={ translate(
-					'You\'ve now got access to every premium theme, at no extra cost - that\'s hundreds of new options. Give one a try!'
+					"You've now got access to every premium theme, at no extra cost - that's hundreds of new options. Give one a try!"
 				) }
 				buttonText={ translate( 'Browse premium themes' ) }
 				href={ '/themes/' + selectedSite.slug }

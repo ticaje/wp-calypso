@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -20,14 +21,23 @@ import {
 export const requestStatus = ( { dispatch }, action ) => {
 	const { siteId } = action;
 
-	dispatch( http( {
-		method: 'GET',
-		path: `/sites/${ siteId }/automated-transfers/status`,
-		apiVersion: '1',
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'GET',
+				path: `/sites/${ siteId }/automated-transfers/status`,
+				apiVersion: '1',
+			},
+			action
+		)
+	);
 };
 
-export const receiveStatus = ( { dispatch, getState }, { siteId }, { status, uploaded_plugin_slug } ) => {
+export const receiveStatus = (
+	{ dispatch, getState },
+	{ siteId },
+	{ status, uploaded_plugin_slug }
+) => {
 	const pluginId = uploaded_plugin_slug;
 
 	dispatch( setAutomatedTransferStatus( siteId, status, pluginId ) );
@@ -38,19 +48,17 @@ export const receiveStatus = ( { dispatch, getState }, { siteId }, { status, upl
 	if ( status === 'complete' ) {
 		// Update the now-atomic site to ensure plugin page displays correctly.
 		dispatch( requestSite( siteId ) );
-		dispatch( successNotice(
-			translate( "You've successfully uploaded the %(pluginId)s plugin.", {
-				args: { pluginId }
-			} ),
-			{ duration: 8000 }
-		) );
+		dispatch(
+			successNotice(
+				translate( "You've successfully uploaded the %(pluginId)s plugin.", {
+					args: { pluginId },
+				} ),
+				{ duration: 8000 }
+			)
+		);
 	}
 };
 
 export default {
-	[ AUTOMATED_TRANSFER_STATUS_REQUEST ]: [ dispatchRequest(
-		requestStatus,
-		receiveStatus,
-		noop
-	) ]
+	[ AUTOMATED_TRANSFER_STATUS_REQUEST ]: [ dispatchRequest( requestStatus, receiveStatus, noop ) ],
 };

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,7 +16,7 @@ import SectionNav from 'components/section-nav';
 
 module.exports = React.createClass( {
 	propTypes: {
-		path: React.PropTypes.string.isRequired
+		path: React.PropTypes.string.isRequired,
 	},
 
 	getNavtabs: function() {
@@ -24,21 +25,21 @@ module.exports = React.createClass( {
 				title: i18n.translate( 'Password', { textOnly: true } ),
 				path: '/me/security',
 			},
-			config.isEnabled( 'signup/social-management' ) ? {
-				title: i18n.translate( 'Social Login', { textOnly: true } ),
-				path: '/me/security/social-login',
-			} : null,
+			config.isEnabled( 'signup/social-management' )
+				? {
+						title: i18n.translate( 'Social Login', { textOnly: true } ),
+						path: '/me/security/social-login',
+					}
+				: null,
 			{
 				title: i18n.translate( 'Two-Step Authentication', { textOnly: true } ),
 				path: '/me/security/two-step',
 			},
 			{
-				title: (
-					config.isEnabled( 'signup/social-management' )
-					// This was shortened from 'Connected Applications' due to space constraints.
-					? i18n.translate( 'Connected Apps', { textOnly: true } )
-					: i18n.translate( 'Connected Applications', { textOnly: true } )
-				),
+				title: config.isEnabled( 'signup/social-management' )
+					? // This was shortened from 'Connected Applications' due to space constraints.
+						i18n.translate( 'Connected Apps', { textOnly: true } )
+					: i18n.translate( 'Connected Applications', { textOnly: true } ),
 				path: '/me/security/connected-applications',
 			},
 			{
@@ -52,7 +53,7 @@ module.exports = React.createClass( {
 
 	getFilteredPath: function() {
 		var paramIndex = this.props.path.indexOf( '?' );
-		return ( paramIndex < 0 ) ? this.props.path : this.props.path.substring( 0, paramIndex );
+		return paramIndex < 0 ? this.props.path : this.props.path.substring( 0, paramIndex );
 	},
 
 	getSelectedText: function() {
@@ -90,5 +91,5 @@ module.exports = React.createClass( {
 				</NavTabs>
 			</SectionNav>
 		);
-	}
+	},
 } );

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External depedencies
  */
@@ -29,7 +30,7 @@ class Reviews extends Component {
 		return (
 			<Main className={ classes }>
 				<SidebarNavigation />
-				<ActionHeader breadcrumbs={ ( <span>{ translate( 'Reviews' ) }</span> ) } />
+				<ActionHeader breadcrumbs={ <span>{ translate( 'Reviews' ) }</span> } />
 				<ReviewsList currentStatus={ params && params.filter } />
 			</Main>
 		);

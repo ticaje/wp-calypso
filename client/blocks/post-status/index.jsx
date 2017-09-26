@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -54,15 +55,8 @@ export function PostStatus( { translate, post, showAll, showIcon = true } ) {
 
 	return (
 		<span className={ classes }>
-			{ showIcon &&
-				<Gridicon
-					icon={ icon }
-					size={ 18 }
-					className="post-status__icon" />
-			}
-			<span className="post-status__text">
-				{ text }
-			</span>
+			{ showIcon && <Gridicon icon={ icon } size={ 18 } className="post-status__icon" /> }
+			<span className="post-status__text">{ text }</span>
 		</span>
 	);
 }
@@ -74,11 +68,11 @@ PostStatus.propTypes = {
 	translate: PropTypes.func,
 	post: PropTypes.object,
 	showAll: PropTypes.bool,
-	showIcon: PropTypes.bool
+	showIcon: PropTypes.bool,
 };
 
 export default connect( ( state, { globalId } ) => {
 	return {
-		post: getNormalizedPost( state, globalId )
+		post: getNormalizedPost( state, globalId ),
 	};
 } )( localize( PostStatus ) );

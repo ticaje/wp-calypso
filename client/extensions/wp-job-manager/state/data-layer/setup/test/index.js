@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -37,23 +38,33 @@ describe( 'data layer', () => {
 		} );
 
 		it( 'should dispatch one HTTP request for each title', () => {
-			expect( dispatch ).to.have.been.calledWith( http( {
-				method: 'POST',
-				path: `/sites/${ siteId }/posts/new`,
-				body: {
-					title: titles[ 0 ],
-					type: 'page',
-				}
-			}, action ) );
+			expect( dispatch ).to.have.been.calledWith(
+				http(
+					{
+						method: 'POST',
+						path: `/sites/${ siteId }/posts/new`,
+						body: {
+							title: titles[ 0 ],
+							type: 'page',
+						},
+					},
+					action
+				)
+			);
 
-			expect( dispatch ).to.have.been.calledWith( http( {
-				method: 'POST',
-				path: `/sites/${ siteId }/posts/new`,
-				body: {
-					title: titles[ 1 ],
-					type: 'page',
-				}
-			}, action ) );
+			expect( dispatch ).to.have.been.calledWith(
+				http(
+					{
+						method: 'POST',
+						path: `/sites/${ siteId }/posts/new`,
+						body: {
+							title: titles[ 1 ],
+							type: 'page',
+						},
+					},
+					action
+				)
+			);
 		} );
 	} );
 
@@ -67,10 +78,11 @@ describe( 'data layer', () => {
 		it( 'should dispatch `errorNotice`', () => {
 			announceFailure( dispatch, siteId );
 
-			expect( dispatch ).to.have.been.calledWith( errorNotice(
-				translate( 'There was a problem creating the page(s). Please try again.' ),
-				{ id: createPagesNotice }
-			) );
+			expect( dispatch ).to.have.been.calledWith(
+				errorNotice( translate( 'There was a problem creating the page(s). Please try again.' ), {
+					id: createPagesNotice,
+				} )
+			);
 		} );
 	} );
 

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -42,5 +43,5 @@ export default {
 	'portfolio-themes': ThemeSelectionComponent,
 	'themes-site-selected': ThemeSelectionComponent,
 	user: UserSignupComponent,
-	'oauth2-user': UserSignupComponent
+	'oauth2-user': UserSignupComponent,
 };

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -31,7 +32,7 @@ class EditorDrawerFeaturedImage extends Component {
 	};
 
 	state = {
-		isSelecting: false
+		isSelecting: false,
 	};
 
 	startSelecting = () => this.setState( { isSelecting: true } );
@@ -39,7 +40,7 @@ class EditorDrawerFeaturedImage extends Component {
 
 	removeImage() {
 		PostActions.edit( {
-			featured_image: ''
+			featured_image: '',
 		} );
 
 		stats.recordStat( 'featured_image_removed' );
@@ -50,7 +51,11 @@ class EditorDrawerFeaturedImage extends Component {
 		const { translate, site, post, isDrawerHidden } = this.props;
 
 		return (
-			<Accordion title={ translate( 'Featured Image' ) } forceExpand={ isDrawerHidden } e2eTitle="featured-image" >
+			<Accordion
+				title={ translate( 'Featured Image' ) }
+				forceExpand={ isDrawerHidden }
+				e2eTitle="featured-image"
+			>
 				<EditorDrawerWell
 					label={ translate( 'Set Featured Image' ) }
 					empty={ ! site || ! post || ! getFeaturedImageId( post ) }
@@ -71,8 +76,6 @@ class EditorDrawerFeaturedImage extends Component {
 	}
 }
 
-export default connect(
-	( state ) => ( {
-		isDrawerHidden: isDropZoneVisible( state, 'featuredImage' )
-	} )
-)( localize( EditorDrawerFeaturedImage ) );
+export default connect( state => ( {
+	isDrawerHidden: isDropZoneVisible( state, 'featuredImage' ),
+} ) )( localize( EditorDrawerFeaturedImage ) );

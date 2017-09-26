@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -35,7 +36,7 @@ export const setFormMetaProperty = ( siteId, key, value ) => {
 	};
 };
 
-export const fetchSettings = ( siteId ) => ( dispatch, getState ) => {
+export const fetchSettings = siteId => ( dispatch, getState ) => {
 	const form = getLabelSettingsForm( getState(), siteId );
 
 	if ( form && ( form.data || form.meta.isFetching ) ) {
@@ -43,11 +44,12 @@ export const fetchSettings = ( siteId ) => ( dispatch, getState ) => {
 	}
 	dispatch( setFormMetaProperty( siteId, 'isFetching', true ) );
 
-	api.get( siteId, api.url.accountSettings )
+	api
+		.get( siteId, api.url.accountSettings )
 		.then( ( { storeOptions, formMeta, formData } ) => {
 			dispatch( initForm( siteId, storeOptions, formData, formMeta ) );
 		} )
-		.catch( ( error ) => {
+		.catch( error => {
 			console.error( error ); // eslint-disable-line no-console
 		} )
 		.then( () => dispatch( setFormMetaProperty( siteId, 'isFetching', false ) ) );
@@ -55,7 +57,8 @@ export const fetchSettings = ( siteId ) => ( dispatch, getState ) => {
 
 export const submit = ( siteId, onSaveSuccess, onSaveFailure ) => ( dispatch, getState ) => {
 	dispatch( setFormMetaProperty( 'isSaving', true ) );
-	api.post( siteId, api.url.accountSettings, getLabelSettingsFormData( getState() ) )
+	api
+		.post( siteId, api.url.accountSettings, getLabelSettingsFormData( getState() ) )
 		.then( onSaveSuccess )
 		.catch( onSaveFailure )
 		.then( () => {

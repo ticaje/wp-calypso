@@ -1,11 +1,8 @@
+/** @format */
 /**
  * External dependencies
  */
-import {
-	fromPairs,
-	map,
-	mapValues,
-} from 'lodash';
+import { fromPairs, map, mapValues } from 'lodash';
 
 /**
  * Internal dependencies
@@ -26,9 +23,8 @@ import { timezonesReceive } from 'state/timezones/actions';
  * @param {ValueLabelRecord[]} pairs - timezone values and display labels
  * @returns {ValueLabelMap} object whose keys are timezone values, values are timezone labels
  */
-const timezonePairsToMap = pairs => (
-	fromPairs( map( pairs, ( { label, value } ) => ( [ value, label ] ) ) )
-);
+const timezonePairsToMap = pairs =>
+	fromPairs( map( pairs, ( { label, value } ) => [ value, label ] ) );
 
 /**
  * Normalize data gotten from the REST API making them more Calypso friendly.
@@ -39,7 +35,7 @@ const timezonePairsToMap = pairs => (
 export const fromApi = ( { manual_utc_offsets, timezones, timezones_by_continent } ) => ( {
 	rawOffsets: timezonePairsToMap( manual_utc_offsets ),
 	labels: timezonePairsToMap( timezones ),
-	byContinents: mapValues( timezones_by_continent, zones => map( zones, ( { value } ) => ( value ) ) )
+	byContinents: mapValues( timezones_by_continent, zones => map( zones, ( { value } ) => value ) ),
 } );
 
 /*
@@ -53,8 +49,8 @@ export const fetchTimezones = ( { dispatch }, action ) =>
 				path: '/timezones',
 				apiNamespace: 'wpcom/v2',
 			},
-			action,
-		),
+			action
+		)
 	);
 
 export const addTimezones = ( { dispatch }, action, data ) =>

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,7 +17,7 @@ class QueryUsers extends Component {
 		requestUsers: PropTypes.func,
 		siteId: PropTypes.number,
 		userIds: PropTypes.arrayOf( PropTypes.number ),
-	}
+	};
 
 	componentWillMount() {
 		this.request();
@@ -42,7 +43,4 @@ class QueryUsers extends Component {
 	}
 }
 
-export default connect(
-	() => ( {} ),
-	{ requestUsers }
-)( QueryUsers );
+export default connect( () => ( {} ), { requestUsers } )( QueryUsers );

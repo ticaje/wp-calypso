@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -20,13 +21,13 @@ FakeWPCOM.prototype.cart = function() {
 			isResolved: false,
 			method: method,
 			cart: arrayArguments[ 2 ],
-			callback: arrayArguments[ 3 ]
+			callback: arrayArguments[ 3 ],
 		} );
 	} else {
 		this._requests.push( {
 			isResolved: false,
 			method: method,
-			callback: arrayArguments[ 2 ]
+			callback: arrayArguments[ 2 ],
 		} );
 	}
 };

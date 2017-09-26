@@ -1,9 +1,8 @@
+/** @format */
 /**
  * Internal dependencies
  */
-import {
-	WOOCOMMERCE_REVIEW_REPLIES_REQUEST,
-} from 'woocommerce/state/action-types';
+import { WOOCOMMERCE_REVIEW_REPLIES_REQUEST } from 'woocommerce/state/action-types';
 
 export function fetchReviewReplies( siteId, reviewId ) {
 	return {

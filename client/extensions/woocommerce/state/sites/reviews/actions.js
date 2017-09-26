@@ -1,3 +1,4 @@
+/** @format */
 /**
  * Internal dependencies
  */
@@ -5,7 +6,7 @@ import { getNormalizedReviewsQuery } from './utils';
 import {
 	WOOCOMMERCE_REVIEWS_REQUEST,
 	WOOCOMMERCE_REVIEW_DELETE,
-	WOOCOMMERCE_REVIEW_STATUS_CHANGE
+	WOOCOMMERCE_REVIEW_STATUS_CHANGE,
 } from 'woocommerce/state/action-types';
 
 export function fetchReviews( siteId, query = {} ) {

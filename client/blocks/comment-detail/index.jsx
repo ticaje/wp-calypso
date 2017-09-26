@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -99,14 +100,18 @@ export class CommentDetail extends Component {
 		}
 
 		const { commentId, deleteCommentPermanently, postId, translate } = this.props;
-		if ( isUndefined( window ) || window.confirm( translate( 'Delete this comment permanently?' ) ) ) {
+		if (
+			isUndefined( window ) ||
+			window.confirm( translate( 'Delete this comment permanently?' ) )
+		) {
 			deleteCommentPermanently( commentId, postId );
 		}
-	}
+	};
 
-	isAuthorBlacklisted = () => ( !! this.props.authorEmail && !! this.props.siteBlacklist )
-		? -1 !== this.props.siteBlacklist.split( '\n' ).indexOf( this.props.authorEmail )
-		: false;
+	isAuthorBlacklisted = () =>
+		!! this.props.authorEmail && !! this.props.siteBlacklist
+			? -1 !== this.props.siteBlacklist.split( '\n' ).indexOf( this.props.authorEmail )
+			: false;
 
 	toggleApprove = () => {
 		if ( this.state.isEditMode ) {
@@ -118,7 +123,7 @@ export class CommentDetail extends Component {
 
 		setCommentStatus(
 			getCommentStatusAction( this.props ),
-			( 'approved' === commentStatus ) ? 'unapproved' : 'approved',
+			'approved' === commentStatus ? 'unapproved' : 'approved',
 			{
 				doPersist: shouldPersist,
 				showNotice: true,
@@ -128,7 +133,7 @@ export class CommentDetail extends Component {
 		if ( shouldPersist ) {
 			this.setState( { isExpanded: false } );
 		}
-	}
+	};
 
 	toggleEditMode = () => this.setState( ( { isEditMode } ) => ( { isEditMode: ! isEditMode } ) );
 
@@ -136,7 +141,7 @@ export class CommentDetail extends Component {
 		if ( ! this.props.isLoading && ! this.state.isEditMode ) {
 			this.setState( ( { isExpanded } ) => ( { isExpanded: ! isExpanded } ) );
 		}
-	}
+	};
 
 	toggleLike = () => {
 		if ( this.state.isEditMode ) {
@@ -144,7 +149,7 @@ export class CommentDetail extends Component {
 		}
 
 		this.props.toggleCommentLike( getCommentStatusAction( this.props ) );
-	}
+	};
 
 	toggleSelected = () => this.props.toggleCommentSelected( getCommentStatusAction( this.props ) );
 
@@ -156,9 +161,9 @@ export class CommentDetail extends Component {
 		const { commentStatus, setCommentStatus } = this.props;
 		setCommentStatus(
 			getCommentStatusAction( this.props ),
-			( 'spam' === commentStatus ) ? 'approved' : 'spam'
+			'spam' === commentStatus ? 'approved' : 'spam'
 		);
-	}
+	};
 
 	toggleTrash = () => {
 		if ( this.state.isEditMode ) {
@@ -168,16 +173,19 @@ export class CommentDetail extends Component {
 		const { commentStatus, setCommentStatus } = this.props;
 		setCommentStatus(
 			getCommentStatusAction( this.props ),
-			( 'trash' === commentStatus ) ? 'approved' : 'trash'
+			'trash' === commentStatus ? 'approved' : 'trash'
 		);
-	}
+	};
 
 	setCardRef = card => {
 		this.commentCard = card;
-	}
+	};
 
 	keyHandler = event => {
-		const commentHasFocus = document && this.commentCard && document.activeElement === ReactDom.findDOMNode( this.commentCard );
+		const commentHasFocus =
+			document &&
+			this.commentCard &&
+			document.activeElement === ReactDom.findDOMNode( this.commentCard );
 		if ( this.state.isEditMode || ( this.state.isExpanded && ! commentHasFocus ) ) {
 			return;
 		}
@@ -188,7 +196,7 @@ export class CommentDetail extends Component {
 				this.toggleExpanded();
 				break;
 		}
-	}
+	};
 
 	render() {
 		const {
@@ -230,10 +238,7 @@ export class CommentDetail extends Component {
 		const authorDisplayName = authorName || translate( 'Anonymous' );
 		const authorIsBlocked = this.isAuthorBlacklisted();
 
-		const {
-			isEditMode,
-			isExpanded,
-		} = this.state;
+		const { isEditMode, isExpanded } = this.state;
 
 		const classes = classNames( 'comment-detail', {
 			'author-is-blocked': authorIsBlocked,
@@ -256,9 +261,7 @@ export class CommentDetail extends Component {
 				className={ classes }
 				tabIndex="0"
 			>
-				{ refreshCommentData &&
-					<QueryComment commentId={ commentId } siteId={ siteId } />
-				}
+				{ refreshCommentData && <QueryComment commentId={ commentId } siteId={ siteId } /> }
 
 				<CommentDetailHeader
 					authorAvatarUrl={ authorAvatarUrl }
@@ -283,7 +286,7 @@ export class CommentDetail extends Component {
 					toggleSpam={ this.toggleSpam }
 					toggleTrash={ this.toggleTrash }
 				/>
-				{ isExpanded &&
+				{ isExpanded && (
 					<div className="comment-detail__content">
 						<CommentDetailPost
 							commentId={ commentId }
@@ -296,7 +299,7 @@ export class CommentDetail extends Component {
 							siteId={ siteId }
 						/>
 
-						{ isEditMode &&
+						{ isEditMode && (
 							<CommentDetailEdit
 								authorDisplayName={ authorDisplayName }
 								authorUrl={ authorUrl }
@@ -309,9 +312,9 @@ export class CommentDetail extends Component {
 								postId={ postId }
 								siteId={ siteId }
 							/>
-						}
+						) }
 
-						{ ! isEditMode &&
+						{ ! isEditMode && (
 							<div>
 								<CommentDetailComment
 									authorAvatarUrl={ authorAvatarUrl }
@@ -340,9 +343,9 @@ export class CommentDetail extends Component {
 									replyComment={ replyComment }
 								/>
 							</div>
-						}
+						) }
 					</div>
-				}
+				) }
 			</Card>
 		);
 	}
@@ -368,7 +371,7 @@ const mapStateToProps = ( state, ownProps ) => {
 
 	const authorName = decodeEntities( get( comment, 'author.name' ) );
 
-	return ( {
+	return {
 		authorAvatarUrl: get( comment, 'author.avatar_URL' ),
 		authorEmail: get( comment, 'author.email' ),
 		authorId: get( comment, 'author.ID' ),
@@ -384,7 +387,8 @@ const mapStateToProps = ( state, ownProps ) => {
 		commentStatus: get( comment, 'status' ),
 		commentType: get( comment, 'type', 'comment' ),
 		commentUrl: get( comment, 'URL' ),
-		isEditCommentSupported: ! isJetpackSite( state, siteId ) || isJetpackMinimumVersion( state, siteId, '5.3' ),
+		isEditCommentSupported:
+			! isJetpackSite( state, siteId ) || isJetpackMinimumVersion( state, siteId, '5.3' ),
 		isLoading,
 		parentCommentAuthorAvatarUrl: get( parentComment, 'author.avatar_URL' ),
 		parentCommentAuthorDisplayName: get( parentComment, 'author.name' ),
@@ -394,7 +398,7 @@ const mapStateToProps = ( state, ownProps ) => {
 		postTitle,
 		repliedToComment: get( comment, 'replied' ), // TODO: not available in the current data structure
 		siteId: get( comment, 'siteId', siteId ),
-	} );
+	};
 };
 
 export default connect( mapStateToProps )( localize( CommentDetail ) );

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -22,12 +23,17 @@ import { getAutomatedTransferStatus } from 'state/automated-transfer/actions';
 export const initiateTransferWithPluginZip = ( { dispatch }, action ) => {
 	const { siteId, pluginZip } = action;
 
-	dispatch( http( {
-		method: 'POST',
-		path: `/sites/${ siteId }/automated-transfers/initiate`,
-		apiVersion: '1',
-		formData: [ [ 'plugin_zip', pluginZip ] ],
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				path: `/sites/${ siteId }/automated-transfers/initiate`,
+				apiVersion: '1',
+				formData: [ [ 'plugin_zip', pluginZip ] ],
+			},
+			action
+		)
+	);
 };
 
 export const receiveResponse = ( { dispatch }, { siteId } ) => {
@@ -36,9 +42,13 @@ export const receiveResponse = ( { dispatch }, { siteId } ) => {
 
 export const receiveError = ( { dispatch }, { siteId }, error ) => {
 	if ( error.error ) {
-		dispatch( errorNotice( translate( 'Upload problem: %(error)s.', {
-			args: { error: error.error }
-		} ) ) );
+		dispatch(
+			errorNotice(
+				translate( 'Upload problem: %(error)s.', {
+					args: { error: error.error },
+				} )
+			)
+		);
 	} else {
 		dispatch( errorNotice( translate( 'Problem uploading the plugin.' ) ) );
 	}
@@ -47,15 +57,14 @@ export const receiveError = ( { dispatch }, { siteId }, error ) => {
 };
 
 export const updateUploadProgress = ( { dispatch }, { siteId }, { loaded, total } ) => {
-	const progress = total ? ( loaded / total ) * 100 : 0;
+	const progress = total ? loaded / total * 100 : 0;
 	dispatch( updatePluginUploadProgress( siteId, progress ) );
 };
 
 export default {
-	[ AUTOMATED_TRANSFER_INITIATE_WITH_PLUGIN_ZIP ]: [ dispatchRequest(
-		initiateTransferWithPluginZip,
-		receiveResponse,
-		receiveError,
-		{ onProgress: updateUploadProgress }
-	) ]
+	[ AUTOMATED_TRANSFER_INITIATE_WITH_PLUGIN_ZIP ]: [
+		dispatchRequest( initiateTransferWithPluginZip, receiveResponse, receiveError, {
+			onProgress: updateUploadProgress,
+		} ),
+	],
 };

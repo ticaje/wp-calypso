@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -16,11 +17,7 @@ import TipInfo from './tip-info';
 export default class PurchaseDetail extends PureComponent {
 	static propTypes = {
 		buttonText: PropTypes.string,
-		description: PropTypes.oneOfType( [
-			PropTypes.array,
-			PropTypes.string,
-			PropTypes.object
-		] ),
+		description: PropTypes.oneOfType( [ PropTypes.array, PropTypes.string, PropTypes.object ] ),
 		href: PropTypes.string,
 		icon: PropTypes.string,
 		isPlaceholder: PropTypes.bool,
@@ -58,9 +55,7 @@ export default class PurchaseDetail extends PureComponent {
 
 	renderBody() {
 		if ( this.props.body ) {
-			return (
-				<div className="purchase-detail__body">{ this.props.body }</div>
-			);
+			return <div className="purchase-detail__body">{ this.props.body }</div>;
 		}
 
 		return (

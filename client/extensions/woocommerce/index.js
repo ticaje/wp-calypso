@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -153,7 +154,8 @@ const getStorePages = () => {
 function addStorePage( storePage, storeNavigation ) {
 	page( storePage.path, siteSelection, storeNavigation, function( context ) {
 		const component = React.createElement( storePage.container, { params: context.params } );
-		const appProps = storePage.documentTitle && { documentTitle: storePage.documentTitle } || {};
+		const appProps =
+			( storePage.documentTitle && { documentTitle: storePage.documentTitle } ) || {};
 		renderWithReduxStore(
 			React.createElement( App, appProps, component ),
 			document.getElementById( 'primary' ),
@@ -181,7 +183,7 @@ function notFoundError( context, next ) {
 			className: 'content-404',
 			illustration: '/calypso/images/illustrations/illustration-404.svg',
 			title: translate( 'Uh oh. Page not found.' ),
-			line: translate( 'Sorry, the page you were looking for doesn\'t exist or has been moved.' ),
+			line: translate( "Sorry, the page you were looking for doesn't exist or has been moved." ),
 		} ),
 		document.getElementById( 'content' ),
 		context.store
@@ -193,7 +195,9 @@ export default function() {
 	// Add pages that use the store navigation
 	getStorePages().forEach( function( storePage ) {
 		if ( config.isEnabled( storePage.configKey ) ) {
-			addStorePage( storePage, ( context, next ) => createStoreNavigation( context, next, storePage ) );
+			addStorePage( storePage, ( context, next ) =>
+				createStoreNavigation( context, next, storePage )
+			);
 		}
 	} );
 
@@ -201,10 +205,7 @@ export default function() {
 	page( '/store/stats/:type/:unit', controller.siteSelection, controller.sites );
 	page( '/store/stats/:type/:unit/:site', siteSelection, navigation, StatsController );
 
-	page(
-		'/store/*',
-		notFoundError
-	);
+	page( '/store/*', notFoundError );
 }
 
 // TODO: This could probably be done in a better way through the same mechanisms

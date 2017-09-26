@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -54,7 +55,7 @@ const flows = {
 		steps: [ 'user' ],
 		destination: '/',
 		description: 'Create an account without a blog.',
-		lastModified: '2015-07-07'
+		lastModified: '2015-07-07',
 	},
 
 	business: {
@@ -65,8 +66,8 @@ const flows = {
 		description: 'Create an account and a blog and then add the business plan to the users cart.',
 		lastModified: '2016-06-02',
 		meta: {
-			skipBundlingPlan: true
-		}
+			skipBundlingPlan: true,
+		},
 	},
 
 	premium: {
@@ -77,8 +78,8 @@ const flows = {
 		description: 'Create an account and a blog and then add the premium plan to the users cart.',
 		lastModified: '2016-06-02',
 		meta: {
-			skipBundlingPlan: true
-		}
+			skipBundlingPlan: true,
+		},
 	},
 
 	personal: {
@@ -87,42 +88,42 @@ const flows = {
 			return '/plans/select/personal/' + dependencies.siteSlug;
 		},
 		description: 'Create an account and a blog and then add the personal plan to the users cart.',
-		lastModified: '2016-01-21'
+		lastModified: '2016-01-21',
 	},
 
 	free: {
 		steps: [ 'design-type', 'themes', 'domains', 'user' ],
 		destination: getSiteDestination,
 		description: 'Create an account and a blog and default to the free plan.',
-		lastModified: '2016-06-02'
+		lastModified: '2016-06-02',
 	},
 
 	blog: {
 		steps: [ 'blog-themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow starting with blog themes',
-		lastModified: '2017-09-01'
+		lastModified: '2017-09-01',
 	},
 
 	website: {
 		steps: [ 'website-themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow starting with website themes',
-		lastModified: '2017-09-01'
+		lastModified: '2017-09-01',
 	},
 
 	portfolio: {
 		steps: [ 'portfolio-themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow starting with portfolio themes',
-		lastModified: '2017-09-01'
+		lastModified: '2017-09-01',
 	},
 
 	store: {
 		steps: [ 'design-type-with-store', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow for creating an online store',
-		lastModified: '2016-06-27'
+		lastModified: '2016-06-27',
 	},
 
 	'rebrand-cities': {
@@ -133,107 +134,110 @@ const flows = {
 		description: 'Create an account for REBRAND cities partnership',
 		lastModified: '2017-07-01',
 		meta: {
-			skipBundlingPlan: true
-		}
+			skipBundlingPlan: true,
+		},
 	},
 
 	'with-theme': {
 		steps: [ 'domains-theme-preselected', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Preselect a theme to activate/buy from an external source',
-		lastModified: '2016-01-27'
+		lastModified: '2016-01-27',
 	},
 
 	'creative-mornings': {
 		steps: [ 'portfolio-themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow for creative mornings partnership',
-		lastModified: '2017-08-01'
+		lastModified: '2017-08-01',
 	},
 
 	subdomain: {
 		steps: [ 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Provide a vertical for subdomains',
-		lastModified: '2016-10-31'
+		lastModified: '2016-10-31',
 	},
 
 	main: {
 		steps: [ 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'The current best performing flow in AB tests',
-		lastModified: '2016-05-23'
+		lastModified: '2016-05-23',
 	},
 
 	surveystep: {
 		steps: [ 'survey', 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'The current best performing flow in AB tests',
-		lastModified: '2016-05-23'
+		lastModified: '2016-05-23',
 	},
 
 	'test-site': {
 		steps: config( 'env' ) === 'development' ? [ 'site', 'user' ] : [ 'user' ],
 		destination: '/',
 		description: 'This flow is used to test the site step.',
-		lastModified: '2015-09-22'
+		lastModified: '2015-09-22',
 	},
 
 	'delta-discover': {
 		steps: [ 'user' ],
 		destination: '/',
-		description: 'A copy of the `account` flow for the Delta email campaigns. Half of users who ' +
+		description:
+			'A copy of the `account` flow for the Delta email campaigns. Half of users who ' +
 			'go through this flow receive a reader-specific drip email series.',
-		lastModified: '2016-05-03'
+		lastModified: '2016-05-03',
 	},
 
 	'delta-blog': {
 		steps: [ 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
-		description: 'A copy of the `blog` flow for the Delta email campaigns. Half of users who go ' +
+		description:
+			'A copy of the `blog` flow for the Delta email campaigns. Half of users who go ' +
 			'through this flow receive a blogging-specific drip email series.',
-		lastModified: '2016-03-09'
+		lastModified: '2016-03-09',
 	},
 
 	'delta-site': {
 		steps: [ 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
-		description: 'A copy of the `website` flow for the Delta email campaigns. Half of users who go ' +
+		description:
+			'A copy of the `website` flow for the Delta email campaigns. Half of users who go ' +
 			'through this flow receive a website-specific drip email series.',
-		lastModified: '2016-03-09'
+		lastModified: '2016-03-09',
 	},
 
 	desktop: {
 		steps: [ 'design-type', 'themes', 'domains', 'plans', 'user' ],
 		destination: getPostsDestination,
 		description: 'Signup flow for desktop app',
-		lastModified: '2016-05-30'
+		lastModified: '2016-05-30',
 	},
 
 	developer: {
 		steps: [ 'themes', 'site', 'user' ],
 		destination: '/devdocs/welcome',
 		description: 'Signup flow for developers in developer environment',
-		lastModified: '2015-11-23'
+		lastModified: '2015-11-23',
 	},
 
 	pressable: {
 		steps: [ 'design-type-with-store', 'themes', 'domains', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'Signup flow for testing the pressable-store step',
-		lastModified: '2016-06-27'
+		lastModified: '2016-06-27',
 	},
 
 	jetpack: {
 		steps: [ 'jetpack-user' ],
-		destination: '/'
+		destination: '/',
 	},
 
 	'get-dot-blog': {
 		steps: [ 'get-dot-blog-themes', 'get-dot-blog-plans' ],
 		destination: getSiteDestination,
 		description: 'Used by `get.blog` users that connect their site to WordPress.com',
-		lastModified: '2016-11-14'
+		lastModified: '2016-11-14',
 	},
 };
 
@@ -256,7 +260,7 @@ if ( config.isEnabled( 'signup/domain-first-flow' ) ) {
 		destination: getSiteDestination,
 		description: 'An experimental approach for WordPress.com/domains',
 		disallowResume: true,
-		lastModified: '2017-05-09'
+		lastModified: '2017-05-09',
 	};
 
 	flows[ 'site-selected' ] = {
@@ -264,7 +268,7 @@ if ( config.isEnabled( 'signup/domain-first-flow' ) ) {
 		destination: getSiteDestination,
 		providesDependenciesInQuery: [ 'siteSlug', 'siteId' ],
 		description: 'A flow to test updating an existing site with `Signup`',
-		lastModified: '2017-01-19'
+		lastModified: '2017-01-19',
 	};
 }
 
@@ -273,7 +277,7 @@ if ( config( 'env' ) === 'development' ) {
 		steps: [ 'site', 'plans', 'user' ],
 		destination: getSiteDestination,
 		description: 'This flow is used to test plans choice in signup',
-		lastModified: '2016-06-30'
+		lastModified: '2016-06-30',
 	};
 }
 
@@ -283,7 +287,7 @@ function removeUserStepFromFlow( flow ) {
 	}
 
 	return assign( {}, flow, {
-		steps: reject( flow.steps, stepName => stepConfig[ stepName ].providesToken )
+		steps: reject( flow.steps, stepName => stepConfig[ stepName ].providesToken ),
 	} );
 }
 
@@ -297,7 +301,9 @@ function filterDesignTypeInFlow( flow ) {
 	}
 
 	return assign( {}, flow, {
-		steps: flow.steps.map( stepName => stepName === 'design-type' ? 'design-type-with-store' : stepName )
+		steps: flow.steps.map(
+			stepName => ( stepName === 'design-type' ? 'design-type-with-store' : stepName )
+		),
 	} );
 }
 
@@ -475,11 +481,11 @@ const Flows = {
 	removeStepFromFlow( stepName, flow ) {
 		return {
 			...flow,
-			steps: flow.steps.filter( ( step ) => {
+			steps: flow.steps.filter( step => {
 				return step !== stepName;
-			} )
+			} ),
 		};
-	}
+	},
 };
 
 export default Flows;

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -8,10 +9,7 @@ import sinon from 'sinon';
  * Internal dependencies
  */
 import { useFakeTimers } from 'test/helpers/use-sinon';
-import {
-	requestStatus,
-	receiveStatus,
-} from '../';
+import { requestStatus, receiveStatus } from '../';
 import {
 	getAutomatedTransferStatus,
 	setAutomatedTransferStatus,
@@ -44,7 +42,7 @@ describe( 'requestStatus', () => {
 
 describe( 'receiveStatus', () => {
 	let clock;
-	useFakeTimers( fakeClock => clock = fakeClock );
+	useFakeTimers( fakeClock => ( clock = fakeClock ) );
 
 	it( 'should dispatch set status action', () => {
 		const dispatch = sinon.spy();
@@ -60,7 +58,7 @@ describe( 'receiveStatus', () => {
 		receiveStatus( { dispatch }, { siteId }, COMPLETE_RESPONSE );
 		expect( dispatch ).to.have.been.calledThrice;
 		expect( dispatch ).to.have.been.calledWithMatch( {
-			notice: { text: "You've successfully uploaded the hello-dolly plugin." }
+			notice: { text: "You've successfully uploaded the hello-dolly plugin." },
 		} );
 	} );
 
@@ -70,8 +68,6 @@ describe( 'receiveStatus', () => {
 		clock.tick( 4000 );
 
 		expect( dispatch ).to.have.been.calledTwice;
-		expect( dispatch ).to.have.been.calledWith(
-			getAutomatedTransferStatus( siteId )
-		);
+		expect( dispatch ).to.have.been.calledWith( getAutomatedTransferStatus( siteId ) );
 	} );
 } );

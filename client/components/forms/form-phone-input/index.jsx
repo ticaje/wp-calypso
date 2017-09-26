@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -80,9 +81,7 @@ export class FormPhoneInput extends React.Component {
 				</FormFieldset>
 
 				<FormFieldset className="form-fieldset__phone-number">
-					<FormLabel htmlFor="phone_number">
-						{ this.props.translate( 'Phone Number' ) }
-					</FormLabel>
+					<FormLabel htmlFor="phone_number">{ this.props.translate( 'Phone Number' ) }</FormLabel>
 					<FormTelInput
 						{ ...this.props.phoneInputProps }
 						disabled={ this.props.isDisabled }

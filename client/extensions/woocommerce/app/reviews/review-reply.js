@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External depedencies
  */
@@ -36,19 +37,16 @@ class ReviewReply extends Component {
 				</Button>
 			</div>
 		);
-	}
+	};
 
 	render() {
 		const { reply } = this.props;
-		const content = reply.content && reply.content.rendered || '';
+		const content = ( reply.content && reply.content.rendered ) || '';
 		return (
 			<div className="reviews__reply">
 				<div className="reviews__reply-bar">
 					<div className="reviews__author-gravatar">
-						<Gravatar
-							object={ reply }
-							forType="reply"
-						/>
+						<Gravatar object={ reply } forType="reply" />
 					</div>
 
 					<div className="reviews__info">
@@ -59,7 +57,8 @@ class ReviewReply extends Component {
 					{ this.renderReplyActions() }
 				</div>
 
-				<div className="reviews__reply-content"
+				<div
+					className="reviews__reply-content"
 					dangerouslySetInnerHTML={ { __html: content } } //eslint-disable-line react/no-danger
 					// Sets the rendered comment HTML correctly for display.
 					// Also used for comments in `comment-detail/comment-detail-comment.jsx`
@@ -67,14 +66,11 @@ class ReviewReply extends Component {
 			</div>
 		);
 	}
-
 }
 
-export default connect(
-	( state, props ) => {
-		const reply = getReviewReply( state, props.reviewId, props.replyId );
-		return {
-			reply,
-		};
-	}
-)( localize( ReviewReply ) );
+export default connect( ( state, props ) => {
+	const reply = getReviewReply( state, props.reviewId, props.replyId );
+	return {
+		reply,
+	};
+} )( localize( ReviewReply ) );

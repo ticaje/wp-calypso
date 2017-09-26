@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -17,12 +18,12 @@ import PriceInput from 'woocommerce/components/price-input';
 import { bindActionCreatorsWithSiteId } from 'woocommerce/lib/redux-utils';
 import {
 	setFreeShippingCondition,
-	setFreeShippingMinCost
+	setFreeShippingMinCost,
 } from 'woocommerce/state/ui/shipping/zones/methods/free-shipping/actions';
 
 const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, actions } ) => {
-	const onConditionChange = ( event ) => ( actions.setFreeShippingCondition( id, event.target.value ) );
-	const onMinAmountChange = ( event ) => ( actions.setFreeShippingMinCost( id, event.target.value ) );
+	const onConditionChange = event => actions.setFreeShippingCondition( id, event.target.value );
+	const onMinAmountChange = event => actions.setFreeShippingMinCost( id, event.target.value );
 
 	const isAdvancedSettings = 'coupon' === requires || 'either' === requires || 'both' === requires;
 
@@ -31,7 +32,8 @@ const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, ac
 			value={ min_amount }
 			currency={ currency }
 			disabled={ ! requires }
-			onChange={ onMinAmountChange } />
+			onChange={ onMinAmountChange }
+		/>
 	);
 
 	if ( isAdvancedSettings ) {
@@ -69,21 +71,15 @@ const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, ac
 		<FormFieldSet>
 			<FormLabel>{ translate( 'Who gets free shipping?' ) }</FormLabel>
 			<div className="shipping-methods__free-shipping-option">
-				<FormRadio
-					value=""
-					checked={ ! requires }
-					onChange={ onConditionChange } />
+				<FormRadio value="" checked={ ! requires } onChange={ onConditionChange } />
 				{ translate( 'Everyone!' ) }
 			</div>
 			<div className="shipping-methods__free-shipping-option">
-				<FormRadio
-					value="min_amount"
-					checked={ requires }
-					onChange={ onConditionChange } />
+				<FormRadio value="min_amount" checked={ requires } onChange={ onConditionChange } />
 				{ translate( 'Customers that spend {{priceInput/}} or more per order', {
 					components: {
-						priceInput: renderMinSpendInput()
-					}
+						priceInput: renderMinSpendInput(),
+					},
 				} ) }
 			</div>
 		</FormFieldSet>
@@ -98,12 +94,13 @@ FreeShippingMethod.propTypes = {
 	currency: PropTypes.string,
 };
 
-export default connect(
-	null,
-	( dispatch, ownProps ) => ( {
-		actions: bindActionCreatorsWithSiteId( {
+export default connect( null, ( dispatch, ownProps ) => ( {
+	actions: bindActionCreatorsWithSiteId(
+		{
 			setFreeShippingCondition,
-			setFreeShippingMinCost
-		}, dispatch, ownProps.siteId )
-	} )
-)( localize( FreeShippingMethod ) );
+			setFreeShippingMinCost,
+		},
+		dispatch,
+		ownProps.siteId
+	),
+} ) )( localize( FreeShippingMethod ) );

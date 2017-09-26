@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -20,7 +21,7 @@ function decodeUserSettingsEntities( data ) {
 	let decodedValues = {
 		display_name: data.display_name && decodeEntities( data.display_name ),
 		description: data.description && decodeEntities( data.description ),
-		user_URL: data.user_URL && decodeEntities( data.user_URL )
+		user_URL: data.user_URL && decodeEntities( data.user_URL ),
 	};
 
 	return assign( {}, data, decodedValues );
@@ -98,17 +99,22 @@ UserSettings.prototype.fetchSettings = function() {
 
 	debug( 'Fetching user settings' );
 
-	wpcom.me().settings().get( function( error, data ) {
-		if ( ! error ) {
-			this.settings = decodeUserSettingsEntities( data );
-			this.initialized = true;
-			this.emit( 'change' );
-		}
+	wpcom
+		.me()
+		.settings()
+		.get(
+			function( error, data ) {
+				if ( ! error ) {
+					this.settings = decodeUserSettingsEntities( data );
+					this.initialized = true;
+					this.emit( 'change' );
+				}
 
-		this.fetchingSettings = false;
+				this.fetchingSettings = false;
 
-		debug( 'Settings successfully retrieved' );
-	}.bind( this ) );
+				debug( 'Settings successfully retrieved' );
+			}.bind( this )
+		);
 };
 
 /**
@@ -129,40 +135,51 @@ UserSettings.prototype.saveSettings = function( callback, settingsOverride ) {
 
 	debug( 'Saving settings: ' + JSON.stringify( settings ) );
 
-	wpcom.me().settings().update( settings, function( error, data ) {
-		if ( ! error ) {
-			this.settings = decodeUserSettingsEntities( merge( this.settings, data ) );
+	wpcom
+		.me()
+		.settings()
+		.update(
+			settings,
+			function( error, data ) {
+				if ( ! error ) {
+					this.settings = decodeUserSettingsEntities( merge( this.settings, data ) );
 
-			// Do not reset unsaved settings if settingsOverride was passed
-			if ( ! settingsOverride ) {
-				this.unsavedSettings = {};
-			} else {
-				// Removed freshly saved data from unsavedSettings
-				keys( data )
-					.forEach( x => delete this.unsavedSettings[ x ] );
-			}
+					// Do not reset unsaved settings if settingsOverride was passed
+					if ( ! settingsOverride ) {
+						this.unsavedSettings = {};
+					} else {
+						// Removed freshly saved data from unsavedSettings
+						keys( data ).forEach( x => delete this.unsavedSettings[ x ] );
+					}
 
-			this.emit( 'change' );
+					this.emit( 'change' );
 
-			// Refetch the user data after saving user settings
-			user.fetch();
-		}
+					// Refetch the user data after saving user settings
+					user.fetch();
+				}
 
-		// Let the form know whether the save was successful or not
-		callback( error, data );
-	}.bind( this ) );
+				// Let the form know whether the save was successful or not
+				callback( error, data );
+			}.bind( this )
+		);
 };
 
 UserSettings.prototype.cancelPendingEmailChange = function( callback ) {
-	wpcom.me().settings().update( { user_email_change_pending: false }, function( error, data ) {
-		if ( ! error ) {
-			this.settings = merge( this.settings, data );
-			this.emit( 'change' );
-		}
+	wpcom
+		.me()
+		.settings()
+		.update(
+			{ user_email_change_pending: false },
+			function( error, data ) {
+				if ( ! error ) {
+					this.settings = merge( this.settings, data );
+					this.emit( 'change' );
+				}
 
-		// Let the form know whether the email change was successfully cancelled or not
-		callback( error, data );
-	}.bind( this ) );
+				// Let the form know whether the email change was successfully cancelled or not
+				callback( error, data );
+			}.bind( this )
+		);
 };
 
 /**
@@ -217,10 +234,9 @@ UserSettings.prototype.getSetting = function( settingName ) {
 
 	// If we haven't fetched settings, or if the setting doesn't exist return null
 	if ( has( this.settings, settingName ) ) {
-		setting =
-			this.isSettingUnsaved( settingName )
-				? get( this.unsavedSettings, settingName )
-				: get( this.settings, settingName );
+		setting = this.isSettingUnsaved( settingName )
+			? get( this.unsavedSettings, settingName )
+			: get( this.settings, settingName );
 	}
 
 	return setting;
@@ -264,7 +280,6 @@ UserSettings.prototype.isSettingUnsaved = function( settingName ) {
 };
 
 UserSettings.prototype.removeUnsavedSetting = function( settingName ) {
-
 	if ( this.isSettingUnsaved( settingName ) ) {
 		deleteUnsavedSetting( this.unsavedSettings, settingName );
 

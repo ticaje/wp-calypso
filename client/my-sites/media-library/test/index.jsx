@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -40,7 +41,7 @@ describe( 'MediaLibrary', () => {
 			isKeyringConnectionsFetching: emptyComponent,
 		} );
 		mockery.registerMock( 'state/sharing/keyring/actions', {
-			requestKeyringConnections: requestStub
+			requestKeyringConnections: requestStub,
 		} );
 	} );
 

@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -15,21 +16,20 @@ import { getSitePostsForQuery } from 'state/posts/selectors';
 import { getSelectedSiteId } from 'state/ui/selectors';
 
 class PostSuggestions extends PureComponent {
-
 	static propTypes = {
 		exclude: PropTypes.array,
 		posts: PropTypes.array.isRequired,
 		search: PropTypes.string,
 		siteId: PropTypes.number.isRequired,
 		suggest: PropTypes.func.isRequired,
-	}
+	};
 
 	static defaultProps = {
 		exclude: [],
 		search: '',
-	}
+	};
 
-	setSuggestions = ref => this.suggestionsRef = ref;
+	setSuggestions = ref => ( this.suggestionsRef = ref );
 
 	handleKeyEvent = event => this.suggestionsRef.handleKeyEvent( event );
 
@@ -47,7 +47,8 @@ class PostSuggestions extends PureComponent {
 					ref={ this.setSuggestions }
 					query={ search }
 					suggestions={ suggestions }
-					suggest={ this.suggest } />
+					suggest={ this.suggest }
+				/>
 			</div>
 		);
 	}

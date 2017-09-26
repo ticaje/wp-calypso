@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -17,12 +18,9 @@ import {
 	recordGooglePageView,
 	recordTracksEvent,
 	recordPageView,
-	setTracksAnonymousUserId
+	setTracksAnonymousUserId,
 } from '../actions';
-import {
-	adTrackingMock,
-	analyticsMock,
-} from './helpers/analytics-mock';
+import { adTrackingMock, analyticsMock } from './helpers/analytics-mock';
 
 describe( 'middleware', () => {
 	describe( 'analytics dispatching', () => {

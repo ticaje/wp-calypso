@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -32,8 +33,8 @@ class StatsOverview extends Component {
 
 	render() {
 		const { moment, path, period, sites } = this.props;
-		const statsPath = ( path === '/stats' ) ? '/stats/day' : path;
-		const sitesSorted = sites.map( ( site ) => {
+		const statsPath = path === '/stats' ? '/stats/day' : path;
+		const sitesSorted = sites.map( site => {
 			let momentSiteZone = moment();
 			const gmtOffset = get( site, 'options.gmt_offset' );
 			if ( Number.isFinite( gmtOffset ) ) {
@@ -69,7 +70,9 @@ class StatsOverview extends Component {
 			const overview = [];
 
 			const gmtOffset = get( site, 'options.gmt_offset' );
-			const date = moment().utcOffset( Number.isFinite( gmtOffset ) ? gmtOffset : 0 ).format( 'YYYY-MM-DD' );
+			const date = moment()
+				.utcOffset( Number.isFinite( gmtOffset ) ? gmtOffset : 0 )
+				.format( 'YYYY-MM-DD' );
 
 			if ( 0 === index || sitesSorted[ index - 1 ].periodEnd !== site.periodEnd ) {
 				overview.push( <DatePicker period={ period } date={ date } /> );
@@ -107,7 +110,11 @@ class StatsOverview extends Component {
 		const limit = Math.min( this.props.user.visible_site_count, 10 );
 
 		// TODO: a separate StatsSectionTitle component should be created
-		items.push( <h3 key="header-placeholder" className="stats-section-title">&nbsp;</h3> ); // eslint-disable-line wpcalypso/jsx-classname-namespace
+		items.push(
+			<h3 key="header-placeholder" className="stats-section-title">
+				&nbsp;
+			</h3>
+		); // eslint-disable-line wpcalypso/jsx-classname-namespace
 
 		for ( let i = 0; i < limit; i++ ) {
 			items.push( <SiteOverviewPlaceholder key={ 'placeholder-' + i } /> );
@@ -117,11 +124,9 @@ class StatsOverview extends Component {
 	}
 }
 
-export default connect(
-	state => {
-		return {
-			user: getCurrentUser( state ),
-			sites: getVisibleSites( state )
-		};
-	}
-)( localize( StatsOverview ) );
+export default connect( state => {
+	return {
+		user: getCurrentUser( state ),
+		sites: getVisibleSites( state ),
+	};
+} )( localize( StatsOverview ) );

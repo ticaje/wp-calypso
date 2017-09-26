@@ -1,3 +1,4 @@
+/** @format */
 /**
  * External dependencies
  */
@@ -38,7 +39,9 @@ class AuthCodeButton extends React.Component {
 		let noticeStatus = 'is-info';
 		let showDismiss = false;
 		let message = (
-			<a href="#" onClick={ this.requestSMSCode }>{ this.props.translate( 'Send code via text message.' ) }</a>
+			<a href="#" onClick={ this.requestSMSCode }>
+				{ this.props.translate( 'Send code via text message.' ) }
+			</a>
 		);
 
 		if ( status === requestState.REQUESTING ) {
@@ -57,7 +60,7 @@ class AuthCodeButton extends React.Component {
 		}
 
 		return (
-			<Notice showDismiss={ showDismiss } status={ noticeStatus } onDismissClick={ resetCode } >
+			<Notice showDismiss={ showDismiss } status={ noticeStatus } onDismissClick={ resetCode }>
 				{ message }
 			</Notice>
 		);
