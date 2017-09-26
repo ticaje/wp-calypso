@@ -41,7 +41,7 @@ PaygateLoader.prototype.ready = function( paygateUrl, callback ) {
 		}
 
 		debug( 'Paygate loaded for the first time' );
-		callback( null, window.Paygate );
+		callback( null, window.Paygate || window.EBANX );
 	}.bind( this ) );
 };
 

@@ -9,7 +9,7 @@ import { curry } from 'lodash';
  * Internal Dependencies
  */
 import analytics from 'lib/analytics';
-import { createPaygateToken } from 'lib/store-transactions';
+import { createPaygateToken, createEbanxToken } from 'lib/store-transactions';
 import { getPurchase, goToManagePurchase, isDataLoading } from 'me/purchases/utils';
 import paths from 'me/purchases/paths';
 
@@ -17,6 +17,7 @@ class PurchaseCardDetails extends Component {
 	constructor( props ) {
 		super( props );
 		this.createPaygateToken = curry( createPaygateToken )( 'card_update' );
+		this.createEbanxToken = curry( createEbanxToken )( 'card_update' );
 		this.goToManagePurchase = this.goToManagePurchase.bind( this );
 		this.recordFormSubmitEvent = this.recordFormSubmitEvent.bind( this );
 		this.successCallback = this.successCallback.bind( this );

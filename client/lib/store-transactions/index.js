@@ -81,7 +81,7 @@ TransactionFlow.prototype._pushStep = function( options ) {
 };
 
 TransactionFlow.prototype._paymentHandlers = {
-	'WPCOM_Billing_MoneyPress_Stored': function() {
+	WPCOM_Billing_MoneyPress_Stored: function() {
 		const {
 			mp_ref: payment_key,
 			stored_details_id,
@@ -98,7 +98,7 @@ TransactionFlow.prototype._paymentHandlers = {
 		} );
 	},
 
-	'WPCOM_Billing_MoneyPress_Paygate': function() {
+	WPCOM_Billing_MoneyPress_Paygate: function() {
 		const { newCardDetails } = this._initialData.payment,
 			validation = validateCardDetails( newCardDetails );
 
@@ -128,7 +128,36 @@ TransactionFlow.prototype._paymentHandlers = {
 		}.bind( this ) );
 	},
 
-	'WPCOM_Billing_WPCOM': function() {
+	WPCOM_Billing_Ebanx: function() {
+		const { newCardDetails } = this._initialData.payment,
+			validation = validateCardDetails( newCardDetails );
+
+		if ( ! isEmpty( validation.errors ) ) {
+			this._pushStep( {
+				name: transactionStepTypes.INPUT_VALIDATION,
+				error: new ValidationError( 'invalid-card-details', validation.errors ),
+				first: true,
+				last: true
+			} );
+			return;
+		}
+
+		this._pushStep( { name: transactionStepTypes.INPUT_VALIDATION, first: true } );
+		debug( 'submitting transaction with new card' );
+
+		this._createEbanxToken( function( ebanxToken ) {
+			const { name, country } = newCardDetails;
+
+			this._submitWithPayment( {
+				payment_method: 'WPCOM_Billing_Ebanx',
+				payment_key: ebanxToken,
+				name,
+				country
+			} );
+		}.bind( this ) );
+	},
+
+	WPCOM_Billing_WPCOM: function() {
 		this._pushStep( { name: transactionStepTypes.INPUT_VALIDATION, first: true } );
 		this._submitWithPayment( { payment_method: 'WPCOM_Billing_WPCOM' } );
 	}
@@ -148,6 +177,23 @@ TransactionFlow.prototype._createPaygateToken = function( callback ) {
 
 		this._pushStep( { name: transactionStepTypes.RECEIVED_PAYMENT_KEY_RESPONSE } );
 		callback( paygateToken );
+	}.bind( this ) );
+};
+
+TransactionFlow.prototype._createEbanxToken = function( callback ) {
+	this._pushStep( { name: transactionStepTypes.SUBMITTING_PAYMENT_KEY_REQUEST } );
+
+	createEbanxToken( 'new_purchase', this._initialData.payment.newCardDetails, function( error, ebanxToken ) {
+		if ( error ) {
+			return this._pushStep( {
+				name: transactionStepTypes.RECEIVED_PAYMENT_KEY_RESPONSE,
+				error: error,
+				last: true
+			} );
+		}
+
+		this._pushStep( { name: transactionStepTypes.RECEIVED_PAYMENT_KEY_RESPONSE } );
+		callback( ebanxToken );
 	}.bind( this ) );
 };
 
@@ -219,6 +265,40 @@ function createPaygateToken( requestType, cardDetails, callback ) {
 	}
 }
 
+function createEbanxToken( requestType, cardDetails, callback ) {
+	wpcom.ebanxConfiguration( {
+		request_type: requestType,
+	}, function( configError, configuration ) {
+		if ( configError ) {
+			callback( configError );
+			return;
+		}
+
+		paygateLoader.ready( configuration.js_url, function( error, EBANX ) {
+			if ( error ) {
+				callback( error );
+				return;
+			}
+
+			EBANX.config.setMode( configuration.environment );
+			EBANX.config.setPublishableKey( configuration.public_key );
+			EBANX.config.setCountry( 'br' ); // TODO: more countries, pass from config?
+
+			const parameters = getEbanxParameters( cardDetails );
+			EBANX.card.createToken( parameters, createTokenCallback );
+		} );
+	} );
+
+	function createTokenCallback( ebanxResponse ) {
+		if ( ebanxResponse.data.hasOwnProperty( 'status' ) ) {
+			callback( null, ebanxResponse.data.token );
+		} else {
+			const errorMessage = ebanxResponse.error.err.status_message || ebanxResponse.error.err.message;
+			callback( new Error( 'Ebanx Request Error: ' + errorMessage ) );
+		}
+	}
+}
+
 function getPaygateParameters( cardDetails ) {
 	return {
 		name: cardDetails.name,
@@ -231,13 +311,22 @@ function getPaygateParameters( cardDetails ) {
 	};
 }
 
+function getEbanxParameters( cardDetails ) {
+	return {
+		card_name: cardDetails.name,
+		card_number: cardDetails.number,
+		card_cvv: cardDetails.cvv,
+		card_due_date: cardDetails[ 'expiration-date' ].substring( 0, 2 ) + '/20' + cardDetails[ 'expiration-date' ].substring( 3, 5 )
+	};
+}
+
 function hasDomainDetails( transaction ) {
 	return ! isEmpty( transaction.domainDetails );
 }
 
 function newCardPayment( newCardDetails ) {
 	return {
-		paymentMethod: 'WPCOM_Billing_MoneyPress_Paygate',
+		paymentMethod: 'WPCOM_Billing_Ebanx',
 		newCardDetails: newCardDetails || {}
 	};
 }
@@ -255,6 +344,7 @@ function fullCreditsPayment() {
 
 export default {
 	createPaygateToken,
+	createEbanxToken,
 	fullCreditsPayment,
 	hasDomainDetails,
 	newCardPayment,

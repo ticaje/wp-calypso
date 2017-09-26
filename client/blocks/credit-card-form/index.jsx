@@ -27,6 +27,7 @@ const CreditCardForm = React.createClass( {
 	propTypes: {
 		apiParams: PropTypes.object,
 		createPaygateToken: PropTypes.func.isRequired,
+		createEbanxToken: PropTypes.func.isRequired,
 		initialValues: PropTypes.object,
 		recordFormSubmitEvent: PropTypes.func.isRequired,
 		saveStoredCard: PropTypes.func,
@@ -146,7 +147,7 @@ const CreditCardForm = React.createClass( {
 	saveCreditCard() {
 		const cardDetails = this.getCardDetails();
 
-		this.props.createPaygateToken( cardDetails, ( paygateError, paygateToken ) => {
+		this.props.createEbanxToken( cardDetails, ( paygateError, paygateToken ) => {
 			if ( ! this._mounted ) {
 				return;
 			}
