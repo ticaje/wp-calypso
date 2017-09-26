@@ -147,7 +147,6 @@ Layout = React.createClass( {
 				<QuerySites allSites />
 				<QueryPreferences />
 				{ <GuidedTours /> }
-				{ config.isEnabled( 'jitms' ) && <JITM /> }
 				{ config.isEnabled( 'nps-survey/notice' ) && <NpsSurveyNotice /> }
 				{ config.isEnabled( 'keyboard-shortcuts' ) ? <KeyboardShortcutsMenu /> : null }
 				{ this.renderMasterbar() }
@@ -155,6 +154,7 @@ Layout = React.createClass( {
 				<div className={ loadingClass } ><PulsingDot active={ this.props.isLoading } chunkName={ this.props.section.name } /></div>
 				{ this.props.isOffline && <OfflineStatus /> }
 				<div id="content" className="layout__content">
+					{ config.isEnabled( 'jitms' ) && <JITM /> }
 					{ this.renderWelcome() }
 					<GlobalNotices id="notices" notices={ notices.list } forcePinned={ 'post' === this.props.section.name } />
 					<div id="primary" className="layout__primary">
