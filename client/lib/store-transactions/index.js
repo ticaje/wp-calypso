@@ -145,14 +145,18 @@ TransactionFlow.prototype._paymentHandlers = {
 		this._pushStep( { name: transactionStepTypes.INPUT_VALIDATION, first: true } );
 		debug( 'submitting transaction with new card' );
 
-		this._createEbanxToken( function( ebanxToken ) {
+		this._createEbanxToken( function( ebanxTokenResult ) {
 			const { name, country } = newCardDetails;
 
 			this._submitWithPayment( {
 				payment_method: 'WPCOM_Billing_Ebanx',
-				payment_key: ebanxToken,
+				payment_key: ebanxTokenResult.token,
+				masked_card_number: ebanxTokenResult.masked_card_number,
+				card_type: ebanxTokenResult.payment_type_code,
+				expiration: newCardDetails[ 'expiration-date' ],
+				postal_code: newCardDetails[ 'postal-code' ],
 				name,
-				country
+				country,
 			} );
 		}.bind( this ) );
 	},
@@ -183,7 +187,7 @@ TransactionFlow.prototype._createPaygateToken = function( callback ) {
 TransactionFlow.prototype._createEbanxToken = function( callback ) {
 	this._pushStep( { name: transactionStepTypes.SUBMITTING_PAYMENT_KEY_REQUEST } );
 
-	createEbanxToken( 'new_purchase', this._initialData.payment.newCardDetails, function( error, ebanxToken ) {
+	createEbanxToken( 'new_purchase', this._initialData.payment.newCardDetails, function( error, ebanxTokenResult ) {
 		if ( error ) {
 			return this._pushStep( {
 				name: transactionStepTypes.RECEIVED_PAYMENT_KEY_RESPONSE,
@@ -193,7 +197,7 @@ TransactionFlow.prototype._createEbanxToken = function( callback ) {
 		}
 
 		this._pushStep( { name: transactionStepTypes.RECEIVED_PAYMENT_KEY_RESPONSE } );
-		callback( ebanxToken );
+		callback( ebanxTokenResult );
 	}.bind( this ) );
 };
 
@@ -291,7 +295,7 @@ function createEbanxToken( requestType, cardDetails, callback ) {
 
 	function createTokenCallback( ebanxResponse ) {
 		if ( ebanxResponse.data.hasOwnProperty( 'status' ) ) {
-			callback( null, ebanxResponse.data.token );
+			callback( null, ebanxResponse.data );
 		} else {
 			const errorMessage = ebanxResponse.error.err.status_message || ebanxResponse.error.err.message;
 			callback( new Error( 'Ebanx Request Error: ' + errorMessage ) );
