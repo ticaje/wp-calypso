@@ -10,11 +10,11 @@ const TRACKING_URL_MAP = {
 	fedex: ( tracking ) => `https://www.fedex.com/apps/fedextrack/?action=track&tracknumbers=${ tracking }`,
 };
 
-const TrackingLink = ( { tracking, carrier_id } ) => {
+const TrackingLink = ( { tracking, carrierId } ) => {
 	if ( ! tracking ) {
 		return <span>{ __( 'N/A' ) }</span>;
 	}
-	const url = TRACKING_URL_MAP[ carrier_id ]( tracking );
+	const url = TRACKING_URL_MAP[ carrierId ]( tracking );
 	if ( ! url ) {
 		return <span>{ tracking }</span>;
 	}
@@ -23,7 +23,7 @@ const TrackingLink = ( { tracking, carrier_id } ) => {
 
 TrackingLink.propTypes = {
 	tracking: PropTypes.string,
-	carrier_id: PropTypes.string,
+	carrierId: PropTypes.string,
 };
 
 export default TrackingLink;

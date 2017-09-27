@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { translate as __ } from 'i18n-calypso';
-import { filter } from 'lodash';
 
 /**
  * Internal dependencies
@@ -15,7 +14,6 @@ import Button from 'components/button';
 import Spinner from 'components/spinner';
 import PurchaseDialog from './label-purchase-modal';
 import QueryLabels from 'woocommerce/woocommerce-services/components/query-labels';
-import LabelItem from './label-item';
 import { fetchLabelsStatus, openPrintingFlow } from 'woocommerce/woocommerce-services/state/shipping-label/actions';
 import notices from 'notices';
 import GlobalNotices from 'components/global-notices';
@@ -89,24 +87,6 @@ class ShippingLabelRootView extends Component {
 		);
 	};
 
-	renderLabels = () => {
-		//filter by blacklist (rather than just checking for PURCHASED) to handle legacy labels without the status field
-		const labelsToRender = filter( this.props.labels,
-			( label ) => 'PURCHASE_IN_PROGRESS' !== label.status && 'PURCHASE_ERROR' !== label.status );
-
-		return labelsToRender.map( ( label, index ) => {
-			return (
-				<LabelItem
-					key={ label.label_id }
-					siteId={ this.props.siteId }
-					orderId={ this.props.orderId }
-					label={ label }
-					labelNum={ labelsToRender.length - index }
-				/>
-			);
-		} );
-	};
-
 	renderLoading() {
 		return (
 			<div>
@@ -128,7 +108,6 @@ class ShippingLabelRootView extends Component {
 				<QueryLabels orderId={ this.props.orderId } />
 				<GlobalNotices id="notices" notices={ notices.list } />
 				{ this.renderPurchaseLabelFlow() }
-				{ this.props.labels.length ? this.renderLabels() : null }
 			</div>
 		);
 	}
@@ -148,7 +127,6 @@ const mapStateToProps = ( state, { orderId } ) => {
 		needToFetchLabelStatus: loaded && ! shippingLabel.refreshedLabelStatus,
 		numPaymentMethods: loaded && shippingLabel.numPaymentMethods,
 		paymentMethod: loaded && shippingLabel.paymentMethod,
-		labels: loaded && shippingLabel.labels,
 	};
 };
 
