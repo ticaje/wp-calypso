@@ -76,7 +76,7 @@ var CreditCardSelector = React.createClass({
 
 		if ( 'new-card' === section ) {
 			analytics.ga.recordEvent( 'Upgrades', 'Clicked Use a New Credit/Debit Card Link' );
-			newPayment = storeTransactions.newCardPayment( this.props.transaction.newCardFormFields );
+			newPayment = this.props.transaction.payment; // TODO: can this ever be not set?
 		} else {
 			newPayment = storeTransactions.storedCardPayment( this.getStoredCardDetails( section ) );
 		}

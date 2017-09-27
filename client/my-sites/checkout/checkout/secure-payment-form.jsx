@@ -55,7 +55,6 @@ const SecurePaymentForm = React.createClass( {
 
 	getVisiblePaymentBox( cart, paymentMethods ) {
 		const primary = 0, secondary = 1;
-
 		if ( isPaidForFullyInCredits( cart ) ) {
 			return 'credits';
 		} else if ( isFree( cart ) ) {
@@ -125,6 +124,15 @@ const SecurePaymentForm = React.createClass( {
 				}
 				break;
 
+			case 'ebanx':
+				/*if ( this.getInitialCard() ) {
+					newPayment = storeTransactions.storedCardPayment( this.getInitialCard() );
+				} else {
+					newPayment = storeTransactions.newCardPayment();
+				}*/
+				newPayment = storeTransactions.newEbanxCardPayment();
+				break;
+
 			case 'paypal':
 				// We do nothing here because PayPal transactions don't go through the
 				// `store-transactions` module.
@@ -190,6 +198,21 @@ const SecurePaymentForm = React.createClass( {
 		);
 	},
 
+	renderEbanxCreditCardPaymentBox() {
+		return (
+			<CreditCardPaymentBox
+				cards={ this.props.cards }
+				transaction={ this.props.transaction }
+				cart={ this.props.cart }
+				countriesList={ countriesListForPayments }
+				initialCard={ this.getInitialCard() }
+				selectedSite={ this.props.selectedSite }
+				onToggle={ this.selectPaymentBox }
+				onSubmit={ this.handlePaymentBoxSubmit }
+				transactionStep={ this.props.transaction.step } />
+		);
+	},
+
 	renderPayPalPaymentBox() {
 		return (
 			<PayPalPaymentBox
@@ -233,6 +256,7 @@ const SecurePaymentForm = React.createClass( {
 			case 'free-cart':
 				return this.renderFreeCartPaymentBox();
 
+			case 'ebanx':
 			case 'credit-card':
 				return this.renderCreditCardPaymentBox();
 

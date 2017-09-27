@@ -137,6 +137,8 @@ function isPaymentMethodEnabled( cart, method ) {
 			return isCreditCardPaymentsEnabled( cart );
 		case 'paypal':
 			return isPayPalExpressEnabled( cart );
+		case 'ebanx':
+			return isEbanxPaymentsEnabled( cart );
 		default:
 			return false;
 	}
@@ -149,6 +151,11 @@ function isCreditCardPaymentsEnabled( cart ) {
 function isPayPalExpressEnabled( cart ) {
 	return config.isEnabled( 'upgrades/paypal' ) &&
 			0 <= cart.allowed_payment_methods.indexOf( 'WPCOM_Billing_PayPal_Express' );
+}
+
+function isEbanxPaymentsEnabled( cart ) {
+	return config.isEnabled( 'upgrades/ebanx' ) &&
+		0 <= cart.allowed_payment_methods.indexOf( 'WPCOM_Billing_Ebanx' );
 }
 
 module.exports = {
@@ -164,5 +171,6 @@ module.exports = {
 	isPaidForFullyInCredits,
 	isPaymentMethodEnabled,
 	isPayPalExpressEnabled,
+	isEbanxPaymentsEnabled,
 	isCreditCardPaymentsEnabled
 };

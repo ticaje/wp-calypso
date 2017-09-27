@@ -16,7 +16,7 @@ import { getGeoCountryShort } from 'state/geo/selectors';
  * digit GeoIP country code, or a WP.com "locale" code (more of a
  * two letter lang code really). Return value precedence is in that order.
  */
-const DEFAULT_PAYMENT_METHODS = [ 'credit-card', 'paypal' ];
+const DEFAULT_PAYMENT_METHODS = [ 'ebanx', 'credit-card', 'paypal' ];
 
 const paymentMethods = {
 	byLocale: {
@@ -25,7 +25,8 @@ const paymentMethods = {
 	},
 
 	byCountry: {
-		US: DEFAULT_PAYMENT_METHODS
+		US: DEFAULT_PAYMENT_METHODS,
+		BR: [ 'ebanx', 'paypal' ]
 	},
 
 	byWpcomLang: {}

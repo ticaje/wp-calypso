@@ -326,6 +326,13 @@ function hasDomainDetails( transaction ) {
 
 function newCardPayment( newCardDetails ) {
 	return {
+		paymentMethod: 'WPCOM_Billing_MoneyPress_Paygate',
+		newCardDetails: newCardDetails || {}
+	};
+}
+
+function newEbanxCardPayment( newCardDetails ) {
+	return {
 		paymentMethod: 'WPCOM_Billing_Ebanx',
 		newCardDetails: newCardDetails || {}
 	};
@@ -348,6 +355,7 @@ export default {
 	fullCreditsPayment,
 	hasDomainDetails,
 	newCardPayment,
+	newEbanxCardPayment,
 	storedCardPayment,
 	submit
 };
