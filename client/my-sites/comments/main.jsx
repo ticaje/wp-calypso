@@ -1,7 +1,9 @@
+/** @format */
 /**
  * External dependencies
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
 
@@ -22,20 +24,24 @@ export class CommentsManagement extends Component {
 	static propTypes = {
 		basePath: PropTypes.string,
 		comments: PropTypes.array,
+		page: PropTypes.number,
 		showPermissionError: PropTypes.bool,
 		siteId: PropTypes.number,
-		siteFragment: PropTypes.oneOfType( [
-			PropTypes.string,
-			PropTypes.number,
-		] ),
+		siteFragment: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ),
 		status: PropTypes.string,
 		translate: PropTypes.func,
+	};
+
+	static defaultProps = {
+		page: 1,
+		status: 'all',
 	};
 
 	render() {
 		const {
 			showPermissionError,
 			basePath,
+			page,
 			siteId,
 			siteFragment,
 			status,
@@ -47,17 +53,26 @@ export class CommentsManagement extends Component {
 				<PageViewTracker path={ basePath } title="Comments" />
 				<DocumentHead title={ translate( 'Comments' ) } />
 				<SidebarNavigation />
-				{ showPermissionError && <EmptyContent
-					title={ preventWidows( translate( 'Oops! You don\'t have permission to manage comments.' ) ) }
-					line={ preventWidows( translate( 'If you think you should, contact this site\'s administrator.' ) ) }
-					illustration="/calypso/images/illustrations/illustration-500.svg" />
-				}
-				{ ! showPermissionError && <CommentList
-					siteId={ siteId }
-					siteFragment={ siteFragment }
-					status={ status }
-					order={ 'desc' }
-				/> }
+				{ showPermissionError && (
+					<EmptyContent
+						title={ preventWidows(
+							translate( "Oops! You don't have permission to manage comments." )
+						) }
+						line={ preventWidows(
+							translate( "If you think you should, contact this site's administrator." )
+						) }
+						illustration="/calypso/images/illustrations/illustration-500.svg"
+					/>
+				) }
+				{ ! showPermissionError && (
+					<CommentList
+						page={ page }
+						siteId={ siteId }
+						siteFragment={ siteFragment }
+						status={ status }
+						order={ 'desc' }
+					/>
+				) }
 			</Main>
 		);
 	}
