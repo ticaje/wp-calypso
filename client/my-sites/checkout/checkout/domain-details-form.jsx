@@ -10,6 +10,7 @@ import {
 	camelCase,
 	deburr,
 	first,
+    get,
 	head,
 	includes,
 	indexOf,
@@ -381,8 +382,24 @@ export class DomainDetailsForm extends PureComponent {
 		);
 	}
 
+	renderAddressFieldset( needsOnlyGoogleAppsDetails ) {
+		return (
+			<fieldset className="checkout__domain-details-fieldset">
+                { ! needsOnlyGoogleAppsDetails && this.renderAddressFields() }
+                { ! needsOnlyGoogleAppsDetails && this.renderCityField() }
+                { ! needsOnlyGoogleAppsDetails && this.renderStateField() }
+                { this.renderPostalCodeField() }
+			</fieldset>
+		);
+	}
+
 	renderDetailsForm() {
-		const needsOnlyGoogleAppsDetails = this.needsOnlyGoogleAppsDetails();
+		const needsOnlyGoogleAppsDetails = this.needsOnlyGoogleAppsDetails(),
+			countryCodeFieldState = get( this.state, 'form.countryCode' ),
+			// To avoid a lag effect when displaying the AddressFieldset
+			// we show it when there are no errors AND the value is not empty
+			shouldShowAddressFieldset = countryCodeFieldState && countryCodeFieldState.errors
+				? !! countryCodeFieldState.value && countryCodeFieldState.errors.length === 0 : false;
 
 		return (
 			<form>
@@ -392,11 +409,7 @@ export class DomainDetailsForm extends PureComponent {
 				{ ! needsOnlyGoogleAppsDetails && this.renderPhoneField() }
 				{ this.renderCountryField() }
 				{ ! needsOnlyGoogleAppsDetails && this.needsFax() && this.renderFaxField() }
-				{ ! needsOnlyGoogleAppsDetails && this.renderAddressFields() }
-				{ ! needsOnlyGoogleAppsDetails && this.renderCityField() }
-				{ ! needsOnlyGoogleAppsDetails && this.renderStateField() }
-				{ this.renderPostalCodeField() }
-
+				{ shouldShowAddressFieldset && this.renderAddressFieldset( needsOnlyGoogleAppsDetails ) }
 				{ this.renderSubmitButton() }
 			</form>
 		);
