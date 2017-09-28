@@ -5,7 +5,7 @@ import React from 'react';
 
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import debugFactory from 'debug';
-const debug = debugFactory('calypso:me:security:2fa-code-prompt');
+const debug = debugFactory( 'calypso:me:security:2fa-code-prompt' );
 
 /**
  * Internal dependencies

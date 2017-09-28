@@ -5,7 +5,7 @@ import React from 'react';
 
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import debugFactory from 'debug';
-const debug = debugFactory('calypso:me:security:2fa-enable');
+const debug = debugFactory( 'calypso:me:security:2fa-enable' );
 import QRCode from 'qrcode.react';
 import classNames from 'classnames';
 

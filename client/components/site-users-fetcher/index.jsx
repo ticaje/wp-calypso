@@ -4,7 +4,7 @@
 import { includes, isEqual, omit, partition } from 'lodash';
 import React from 'react';
 import debugFactory from 'debug';
-const debug = debugFactory('calypso:site-users-fetcher');
+const debug = debugFactory( 'calypso:site-users-fetcher' );
 
 /**
  * Internal dependencies

@@ -4,7 +4,7 @@
 import async from 'async';
 
 import debugFactory from 'debug';
-const debug = debugFactory('calypso:post-normalizer');
+const debug = debugFactory( 'calypso:post-normalizer' );
 /**
  * Internal dependencies
  */
