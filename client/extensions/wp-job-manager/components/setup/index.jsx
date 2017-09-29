@@ -12,13 +12,15 @@ import { localize } from 'i18n-calypso';
 import { SetupPath, Steps } from './constants';
 import Confirmation from './confirmation';
 import DocumentHead from 'components/data/document-head';
+import ExtensionRedirect from 'blocks/extension-redirect';
 import Intro from './intro';
 import Main from 'components/main';
 import PageSetup from './page-setup';
 import Wizard from 'components/wizard';
-import { getSelectedSiteSlug } from 'state/ui/selectors';
+import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 
 const SetupWizard = ( {
+	siteId,
 	slug,
 	stepName = Steps.INTRO,
 	translate,
@@ -33,6 +35,10 @@ const SetupWizard = ( {
 
 	return (
 		<Main className={ mainClassName }>
+			<ExtensionRedirect
+				minimumVersion="1.28.0"
+				pluginId="wp-job-manager"
+				siteId={ siteId } />
 			<DocumentHead title={ translate( 'Setup' ) } />
 			<Wizard
 				basePath={ `${ SetupPath }/${ slug }` }
@@ -45,9 +51,13 @@ const SetupWizard = ( {
 	);
 };
 
-const mapStateToProps = state => ( { slug: getSelectedSiteSlug( state ) } );
+const mapStateToProps = state => ( {
+	siteId: getSelectedSiteId( state ),
+	slug: getSelectedSiteSlug( state ),
+} );
 
 SetupWizard.propTypes = {
+	siteId: PropTypes.number,
 	slug: PropTypes.string,
 	stepName: PropTypes.string,
 	translate: PropTypes.func.isRequired,
