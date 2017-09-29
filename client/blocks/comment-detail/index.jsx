@@ -202,10 +202,6 @@ export class CommentDetail extends Component {
 			editComment,
 			isBulkEdit,
 			isLoading,
-			parentCommentAuthorAvatarUrl,
-			parentCommentAuthorDisplayName,
-			parentCommentContent,
-			postAuthorDisplayName,
 			postId,
 			postTitle,
 			refreshCommentData,
@@ -214,7 +210,6 @@ export class CommentDetail extends Component {
 			translate,
 		} = this.props;
 
-		const postUrl = `/read/blogs/${ siteId }/posts/${ postId }`;
 		const authorDisplayName = authorName || translate( 'Anonymous' );
 
 		const {
@@ -274,12 +269,6 @@ export class CommentDetail extends Component {
 					<div className="comment-detail__content">
 						<CommentDetailPost
 							commentId={ commentId }
-							parentCommentAuthorAvatarUrl={ parentCommentAuthorAvatarUrl }
-							parentCommentAuthorDisplayName={ parentCommentAuthorDisplayName }
-							parentCommentContent={ parentCommentContent }
-							postAuthorDisplayName={ postAuthorDisplayName }
-							postTitle={ postTitle }
-							postUrl={ postUrl }
 							siteId={ siteId }
 						/>
 
