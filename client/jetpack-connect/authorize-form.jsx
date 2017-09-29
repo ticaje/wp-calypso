@@ -38,6 +38,7 @@ import { requestSites } from 'state/sites/actions';
 import { isRequestingSites, isRequestingSite } from 'state/sites/selectors';
 import MainWrapper from './main-wrapper';
 import HelpButton from './help-button';
+import JetpackConnectHappychatButton from './happychat-button';
 import { urlToSlug } from 'lib/url';
 import LoggedInForm from './auth-logged-in-form';
 import LoggedOutForm from './auth-logged-out-form';
@@ -108,7 +109,9 @@ class JetpackConnectAuthorizeForm extends Component {
 					actionURL="/jetpack/connect"
 				/>
 				<LoggedOutFormLinks>
-					<HelpButton onClick={ this.handleClickHelp } />
+					<JetpackConnectHappychatButton>
+						<HelpButton onClick={ this.handleClickHelp } />
+					</JetpackConnectHappychatButton>
 				</LoggedOutFormLinks>
 			</Main>
 		);
