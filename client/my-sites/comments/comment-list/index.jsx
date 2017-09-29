@@ -40,7 +40,6 @@ import QuerySiteCommentsTree from 'components/data/query-site-comments-tree';
 import QuerySiteSettings from 'components/data/query-site-settings';
 import {
 	getSiteCommentsTree,
-	getSiteSetting,
 	isCommentsTreeInitialized,
 } from 'state/selectors';
 import {
@@ -64,7 +63,6 @@ export class CommentList extends Component {
 		recordChangePage: PropTypes.func,
 		replyComment: PropTypes.func,
 		setBulkStatus: PropTypes.func,
-		siteBlacklist: PropTypes.string,
 		siteId: PropTypes.number,
 		status: PropTypes.string,
 		translate: PropTypes.func,
@@ -408,7 +406,6 @@ export class CommentList extends Component {
 		const {
 			isJetpack,
 			isLoading,
-			siteBlacklist,
 			siteId,
 			siteFragment,
 			status,
@@ -475,7 +472,6 @@ export class CommentList extends Component {
 							refreshCommentData={ ! isJetpack && ! this.hasCommentJustMovedBackToCurrentStatus( commentId ) }
 							replyComment={ this.replyComment }
 							setCommentStatus={ this.setCommentStatus }
-							siteBlacklist={ siteBlacklist }
 							siteId={ siteId }
 							toggleCommentLike={ this.toggleCommentLike }
 							toggleCommentSelected={ this.toggleCommentSelected }
@@ -514,7 +510,6 @@ const mapStateToProps = ( state, { siteId, status } ) => {
 		comments,
 		isJetpack: isJetpackSite( state, siteId ),
 		isLoading,
-		siteBlacklist: getSiteSetting( state, siteId, 'blacklist_keys' ),
 		siteId,
 	};
 };
