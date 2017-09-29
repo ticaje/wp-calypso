@@ -5,9 +5,6 @@ import config from 'config';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { find, flowRight, partialRight, pick, overSome } from 'lodash';
-import debugFactory from 'debug';
-
-const debug = debugFactory( 'calypso:google-analytics' );
 
 /**
  * Internal dependencies
@@ -122,12 +119,6 @@ class GoogleAnalyticsForm extends Component {
 			config.isEnabled( 'jetpack/google-analytics-anonymize-ip' ) &&
 			siteIsJetpack &&
 			siteSupportsIPAnonymization;
-
-		debug( 'siteIsJetpack', siteIsJetpack );
-		debug( 'siteSupportsGoogleAnalyticsBasicEcommerceTracking', siteSupportsBasicEcommerceTracking );
-		debug( 'siteSupportsGoogleAnalyticsIPAnonymization', siteSupportsIPAnonymization );
-		debug( 'showAnalyticsForStores', showAnalyticsForStores );
-		debug( 'showAnonymizeIP', showAnonymizeIP );
 
 		return (
 			<form id="site-settings" onSubmit={ handleSubmitForm }>
