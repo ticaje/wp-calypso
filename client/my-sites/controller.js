@@ -333,7 +333,7 @@ module.exports = {
 					href: `${ currentUser.primary_blog_url }/wp-admin`,
 				} ) );
 
-				analytics.tracks.recordEvent( 'calypso_my-sites_single-site-jetpack-connection-error', omit( currentUser, 'meta' ) );
+				analytics.tracks.recordEvent( 'calypso_my-sites_single_site_jetpack_connection_error', omit( currentUser, 'meta' ) );
 			}
 		}
 
