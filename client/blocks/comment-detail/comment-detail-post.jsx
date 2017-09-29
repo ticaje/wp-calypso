@@ -78,7 +78,7 @@ export const CommentDetailPost = ( {
 				}
 				<a href={ postUrl } onClick={ recordReaderArticleOpened }>
 					<Emojify>
-						{ postTitle || translate( 'Untitled' ) }
+						{ postTitle }
 					</Emojify>
 				</a>
 			</div>

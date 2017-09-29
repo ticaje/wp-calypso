@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
 import classNames from 'classnames';
-import { get } from 'lodash';
 
 /**
  * Internal dependencies
@@ -178,7 +177,6 @@ const mapStateToProps = ( state, { commentId, siteId } ) => {
 
 	return {
 		authorDisplayName: getAuthorDisplayName( comment ),
-		authorAvatarUrl: get( comment, 'author.avatar_URL' ),
 		comment: getMinimalComment( comment ),
 		currentUser: getCurrentUser( state ),
 	};

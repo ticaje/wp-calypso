@@ -20,7 +20,7 @@ import FormCheckbox from 'components/forms/form-checkbox';
 import { stripHTML, decodeEntities } from 'lib/formatting';
 import { urlToDomainAndPath } from 'lib/url';
 import { getSiteComment } from 'state/selectors';
-import { getAuthorDisplayName, getPostTitle } from './utils';
+import { getAuthorDisplayName, getGravatarUser, getPostTitle } from './utils';
 
 export const CommentDetailHeader = ( {
 	authorAvatarUrl,
@@ -45,10 +45,10 @@ export const CommentDetailHeader = ( {
 	toggleTrash,
 	translate,
 } ) => {
-	const author = {
-		avatar_URL: authorAvatarUrl,
-		display_name: authorDisplayName,
-	};
+	const gravatarUser = getGravatarUser( {
+		avatarUrl: authorAvatarUrl,
+		displayName: authorDisplayName,
+	} );
 
 	const classes = classNames( 'comment-detail__header', {
 		'is-preview': ! isExpanded,
@@ -101,7 +101,7 @@ export const CommentDetailHeader = ( {
 						}
 						<div className="comment-detail__author-avatar">
 							{ 'comment' === commentType &&
-								<Gravatar user={ author } />
+								<Gravatar user={ gravatarUser } />
 							}
 							{ 'comment' !== commentType &&
 								<Gridicon icon="link" size={ 24 } />
@@ -162,7 +162,6 @@ const mapStateToProps = ( state, { commentId, siteId } ) => {
 		authorUrl: get( comment, 'author.URL', '' ),
 		commentContent: get( comment, 'content' ),
 		commentType: get( comment, 'type', 'comment' ),
-		postId: get( comment, 'post.ID' ),
 		postTitle: getPostTitle( comment ),
 	};
 };
