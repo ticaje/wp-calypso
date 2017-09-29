@@ -233,7 +233,6 @@ class GoogleVoucherDetails extends Component {
 							strong: <strong />
 						}
 					} ) }
-					className="custom-icon"
 					body={ body } />
 			</div>
 		);
