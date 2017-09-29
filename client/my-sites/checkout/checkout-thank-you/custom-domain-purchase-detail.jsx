@@ -13,7 +13,7 @@ import { hasCustomDomain } from 'lib/site/utils';
 const CustomDomainPurchaseDetail = ( { selectedSite, hasDomainCredit, translate } ) => {
 	if ( hasDomainCredit && selectedSite.plan.user_is_owner ) {
 		return ( <PurchaseDetail
-				icon="globe"
+				icon={ <img src="/calypso/images/upgrades/custom-domain.svg" /> }
 				title={ translate( 'Select your custom domain' ) }
 				description={
 					translate(
@@ -34,7 +34,7 @@ const CustomDomainPurchaseDetail = ( { selectedSite, hasDomainCredit, translate 
 		actionButton.buttonText = translate( 'Manage my domains' );
 		actionButton.href = `/domains/manage/${ selectedSite.slug }`;
 		return ( <PurchaseDetail
-			icon="globe"
+			icon={ <img src="/calypso/images/upgrades/custom-domain.svg" /> }
 			title={ translate( 'Custom Domain' ) }
 			description={ translate(
 				'Your plan includes the custom domain {{em}}%(siteDomain)s{{/em}}, your own personal corner of the web.', {

@@ -23,7 +23,7 @@ const DomainRegistrationDetails = ( { selectedSite, domain, purchases } ) => {
 			<div className="checkout-thank-you__domain-registration-details-compact">
 				{ ! domainContactEmailVerified && (
 					<PurchaseDetail
-						icon="mail"
+						icon={ <img src="/calypso/images/upgrades/check-emails-desktop.svg" /> }
 						title={ i18n.translate( 'Verify your email address' ) }
 						description={ i18n.translate( 'We sent you an email with a request to verify your new domain. Unverified domains may be suspended.' ) }
 						buttonText={ i18n.translate( 'Learn more about verifying your domain' ) }
@@ -38,7 +38,7 @@ const DomainRegistrationDetails = ( { selectedSite, domain, purchases } ) => {
 			</div>
 
 			<PurchaseDetail
-				icon="time"
+				icon={ <img src="/calypso/images/upgrades/wait-time.svg" /> }
 				title={ i18n.translate( 'When will it be ready?', { comment: '"it" refers to a domain' } ) }
 				description={ i18n.translate( 'Your domain should start working immediately, but may be unreliable during the first 72 hours.' ) }
 				buttonText={ i18n.translate( 'Learn more about your domain' ) }
@@ -48,7 +48,7 @@ const DomainRegistrationDetails = ( { selectedSite, domain, purchases } ) => {
 
 			{ hasOtherPrimaryDomain && (
 				<PurchaseDetail
-					icon="globe"
+					icon={ <img src="/calypso/images/upgrades/custom-domain.svg" /> }
 					title={ i18n.translate( 'Your primary domain' ) }
 					description={
 						i18n.translate(

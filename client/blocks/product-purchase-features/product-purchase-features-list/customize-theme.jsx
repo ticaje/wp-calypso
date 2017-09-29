@@ -25,7 +25,7 @@ export default localize( ( { selectedSite, translate } ) => {
 	return (
 		<div className="product-purchase-features-list__item">
 			<PurchaseDetail
-				icon="customize"
+				icon={ <img src="/calypso/images/upgrades/customize-theme.svg" /> }
 				title={ translate( 'Customize your theme' ) }
 				description={
 					translate(

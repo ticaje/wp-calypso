@@ -13,7 +13,7 @@ export default localize( ( { isBusinessPlan, translate } ) => {
 	return (
 		<div className="product-purchase-features-list__item">
 			<PurchaseDetail
-				icon="speaker"
+				icon={ <img src="/calypso/images/upgrades/advertising-removed.svg" /> }
 				title={ translate( 'Advertising removed' ) }
 				description={ isBusinessPlan
 					? translate( 'With your plan, all WordPress.com advertising has been removed from your site.' )
