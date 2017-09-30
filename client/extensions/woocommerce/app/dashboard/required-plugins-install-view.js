@@ -33,7 +33,7 @@ class RequiredPluginsInstallView extends Component {
 	constructor( props ) {
 		super( props );
 		this.state = {
-			engineState: 'CONFIRMING',
+			engineState: props.skipConfirmation ? 'INITIALIZING' : 'CONFIRMING',
 			toActivate: [],
 			toInstall: [],
 			workingOn: '',
@@ -76,6 +76,7 @@ class RequiredPluginsInstallView extends Component {
 			'woocommerce-gateway-stripe': translate( 'WooCommerce Stripe Gateway' ),
 			'woocommerce-services': translate( 'WooCommerce Services' ),
 			'taxjar-simplified-taxes-for-woocommerce': translate( 'TaxJar - Sales Tax Automation for WooCommerce' ),
+			'mailchimp-for-woocommerce': translate( 'MailChimp is the world’s largest marketing automation platform' ),
 		};
 	}
 
