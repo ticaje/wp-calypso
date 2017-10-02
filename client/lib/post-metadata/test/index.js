@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-var expect = require( 'chai' ).expect;
+import { expect } from 'chai';
 
 /**
  * Internal dependencies
  */
-var PostMetadata = require( '../' );
+import PostMetadata from '../';
 
 describe( 'index', function() {
 	describe( '#publicizeMessage()', function() {

@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-var assert = require( 'assert' );
+import assert from 'assert';
 
 /**
  * Internal dependencies
  */
-var Searchable = require( '../' );
+import Searchable from '../';
 
 var makeCollection = function() {
 	var Collection = function() {

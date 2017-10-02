@@ -1,16 +1,18 @@
 /**
  * External dependencies
  */
-const React = require( 'react' ),
-	qs = require( 'querystring' );
+import React from 'react';
+
+import qs from 'querystring';
 
 /**
  * Internal dependencies
  */
-const PostActions = require( 'lib/posts/actions' ),
-	EditorDrawerWell = require( 'post-editor/editor-drawer-well' ),
-	stats = require( 'lib/posts/stats' ),
-	EditorLocationSearch = require( './search' );
+import PostActions from 'lib/posts/actions';
+
+import EditorDrawerWell from 'post-editor/editor-drawer-well';
+import stats from 'lib/posts/stats';
+import EditorLocationSearch from './search';
 
 import Notice from 'components/notice';
 

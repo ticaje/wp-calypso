@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-var assert = require( 'chai' ).assert;
+import { assert } from 'chai';
 
 /**
  * Internal dependencies

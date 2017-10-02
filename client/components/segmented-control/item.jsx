@@ -1,8 +1,9 @@
 /**
  * External Dependencies
  */
-var React = require( 'react' ),
-	classNames = require( 'classnames' );
+import React from 'react';
+
+import classNames from 'classnames';
 
 /**
  * SegmentedControlItem

@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-var React = require( 'react' );
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-var NoResults = require( 'my-sites/no-results' );
+import NoResults from 'my-sites/no-results';
 
 module.exports = React.createClass( {
 	displayName: 'MediaLibraryListNoResults',

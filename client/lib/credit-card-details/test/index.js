@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-var assert = require( 'assert' );
+import assert from 'assert';
 
 /**
  * Internal dependencies
  */
-var creditCardDetails = require( '../' );
+import creditCardDetails from '../';
 
 function getRandomInt( min, max ) {
 	return Math.floor( Math.random() * ( max - min + 1 ) ) + min;

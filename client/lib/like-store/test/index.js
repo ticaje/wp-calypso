@@ -3,7 +3,7 @@ jest.mock( 'lib/wp', () => require( './mocks/lib/wp' ) );
 /**
  * External Dependencies
  */
-const expect = require( 'chai' ).expect;
+import { expect } from 'chai';
 
 describe( 'index', function() {
 	var Dispatcher, LikeStore, FeedPostStoreActionType;

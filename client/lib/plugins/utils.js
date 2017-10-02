@@ -2,14 +2,19 @@
  * External dependencies
  */
 import { assign, filter, map, pick, sortBy, transform } from 'lodash';
-const sanitizeHtml = require( 'sanitize-html' );
+import sanitizeHtml from 'sanitize-html';
 
 /**
  * Internal dependencies
  */
-var decodeEntities = require( 'lib/formatting' ).decodeEntities,
-	parseHtml = require( 'lib/formatting' ).parseHtml,
-	PluginUtils;
+import { decodeEntities } from 'lib/formatting';
+
+import { parseHtml } from 'lib/formatting';
+
+/**
+ * Internal dependencies
+ */
+var PluginUtils;
 
 /**
  * @param  {Object} site       Site Object

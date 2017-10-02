@@ -3,8 +3,14 @@
 /**
  * External dependencies
  */
-var chai = require( 'chai' ),
-	expect = chai.expect;
+import chai from 'chai';
+
+/** @jest-environment jsdom */
+
+/**
+ * External dependencies
+ */
+var expect = chai.expect;
 
 /**
  * Internal dependencies

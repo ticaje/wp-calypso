@@ -1,12 +1,12 @@
 /**
  * External dependencies
  */
-var expect = require( 'chai' ).expect;
+import { expect } from 'chai';
 
 /**
  * Internal dependencies
  */
-var paths = require( '../' );
+import paths from '../';
 
 /**
  * Module variables

@@ -2,15 +2,17 @@
  * External dependencies
  */
 import { includes, isEqual, omit, partition } from 'lodash';
-var React = require( 'react' ),
-	debug = require( 'debug' )( 'calypso:site-users-fetcher' );
+import React from 'react';
+import debugFactory from 'debug';
+const debug = debugFactory('calypso:site-users-fetcher');
 
 /**
  * Internal dependencies
  */
-var UsersStore = require( 'lib/users/store' ),
-	UsersActions = require( 'lib/users/actions' ),
-	pollers = require( 'lib/data-poller' );
+import UsersStore from 'lib/users/store';
+
+import UsersActions from 'lib/users/actions';
+import pollers from 'lib/data-poller';
 
 /**
  * Module variables

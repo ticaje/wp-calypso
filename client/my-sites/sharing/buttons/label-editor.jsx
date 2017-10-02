@@ -1,13 +1,14 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
-	classNames = require( 'classnames' );
+import React from 'react';
+
+import classNames from 'classnames';
 
 /**
  * Internal dependencies
  */
-var decodeEntities = require( 'lib/formatting' ).decodeEntities;
+import { decodeEntities } from 'lib/formatting';
 
 var SharingButtonsLabelEditor = module.exports = React.createClass( {
 	displayName: 'SharingButtonsLabelEditor',

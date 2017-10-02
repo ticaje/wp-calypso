@@ -1,8 +1,8 @@
 /** @jest-environment jsdom */
 jest.mock( 'lib/wp', () => require( './mocks/lib/wp' ) );
 
-var assert = require( 'chai' ).assert,
-	sinon = require( 'sinon' );
+import { assert } from 'chai';
+import sinon from 'sinon';
 
 describe( 'index', function() {
 	var FollowList, FollowListSite, followList, site;

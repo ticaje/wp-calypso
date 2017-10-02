@@ -1,14 +1,15 @@
 /**
  * External dependencies
  */
-var React = require( 'react' );
+import React from 'react';
 
 /**
  * Internal dependencies
  */
-var PayButton = require( './pay-button' ),
-	PaymentBox = require( './payment-box' ),
-	TermsOfService = require( './terms-of-service' );
+import PayButton from './pay-button';
+
+import PaymentBox from './payment-box';
+import TermsOfService from './terms-of-service';
 
 import CartToggle from './cart-toggle';
 

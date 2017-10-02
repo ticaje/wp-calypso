@@ -2,14 +2,14 @@
  * External dependencies
  */
 import { throttle } from 'lodash';
-var ReactDom = require( 'react-dom' ),
-	React = require( 'react' ),
-	classNames = require( 'classnames' );
+import ReactDom from 'react-dom';
+import React from 'react';
+import classNames from 'classnames';
 
 /**
  * Internal dependencies
  */
-var viewport = require( 'lib/viewport' );
+import viewport from 'lib/viewport';
 
 module.exports = React.createClass( {
 	displayName: 'StickyPanel',

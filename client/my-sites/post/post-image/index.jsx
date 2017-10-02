@@ -1,9 +1,10 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
-	PureRenderMixin = require( 'react-pure-render/mixin' ),
-	classnames = require( 'classnames' );
+import React from 'react';
+
+import PureRenderMixin from 'react-pure-render/mixin';
+import classnames from 'classnames';
 
 /**
  * Main

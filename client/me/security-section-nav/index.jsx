@@ -2,8 +2,8 @@
  * External dependencies
  */
 import { find } from 'lodash';
-var React = require( 'react' ),
-	i18n = require( 'i18n-calypso' );
+import React from 'react';
+import i18n from 'i18n-calypso';
 
 /**
  * Internal dependencies
