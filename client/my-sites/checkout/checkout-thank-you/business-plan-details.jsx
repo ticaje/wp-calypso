@@ -29,7 +29,7 @@ const BusinessPlanDetails = ( { selectedSite, sitePlans, selectedFeature } ) => 
 			/>
 
 			<PurchaseDetail
-				icon="help"
+				icon={ <img src="/calypso/images/illustrations/support.svg" /> }
 				title={ i18n.translate( 'Get personalized help' ) }
 				description={ i18n.translate( 'Schedule a one-on-one orientation with a Happiness Engineer to set up ' +
 					'your site and learn more about WordPress.com.'
@@ -52,7 +52,7 @@ const BusinessPlanDetails = ( { selectedSite, sitePlans, selectedFeature } ) => 
 
 			{ ! selectedFeature && isEnabled( 'manage/plugins/upload' ) &&
 				<PurchaseDetail
-					icon="plugins"
+					icon={ <img src="/calypso/images/upgrades/plugins.svg" /> }
 					title={ i18n.translate( 'Add a Plugin' ) }
 					description={ i18n.translate(
 						'Search and add plugins right from your dashboard, or upload a plugin ' +
